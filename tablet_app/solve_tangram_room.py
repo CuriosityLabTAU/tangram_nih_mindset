@@ -44,10 +44,10 @@ Builder.load_string('''
             on_press: app.press_treasure(2)
         Button:
             text: 'move'
-            on_press: app.action('tangram_move')
+            on_press: app.tangram_move()
         Button:
             text: 'rotate'
-            on_press: app.action('press_turn_button')
+            on_press: app.turn_button()
 
 <Background>:
     Image:
@@ -199,6 +199,12 @@ class RootWidgetApp(App):
 
     def action(self, action):
         self.interaction.components['child'].on_action([action])
+
+    def tangram_move(self):
+        self.interaction.components['child'].on_action(['tangram_move', None])
+
+    def turn_button(self):
+        self.interaction.components['child'].on_action(['press_turn_button', None])
 
     def press_treasure(self, treasure):
         self.interaction.components['child'].on_action(['press_treasure', treasure])

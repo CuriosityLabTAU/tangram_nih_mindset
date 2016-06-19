@@ -72,6 +72,12 @@
     "game:generate_selection:robot:set_selection:1:x",
     "robot:select_treasure:child:action:1:press_treasure:x",
 
-    "game:tangram_selected:robot:play_game:1:done"
+    "game:tangram_selected:robot:play_game:1:done",
+
+
+
+    "child:press_treasure:robot:comment_selection:1:x",
+    "child:tangram_move:robot:comment_move:1:x",
+    "child:press_turn_button:robot:comment_turn:1:x"
   ]
 }

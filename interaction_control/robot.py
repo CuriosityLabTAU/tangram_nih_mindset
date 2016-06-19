@@ -52,3 +52,15 @@ class RobotComponent(Component):
 
     def play_game(self, action):
         print(self.whos_playing, 'playing the game')
+
+    def comment_selection(self, action):
+        if self.whos_playing == "child":
+            print(self.name, 'commenting on selection ', action)
+
+    def comment_move(self, action):
+        if self.whos_playing == "child":
+            print(self.name, 'commenting on move ', action)
+
+    def comment_turn(self, action):
+        if self.whos_playing == "child":
+            print(self.name, 'commenting on turn ', action)
