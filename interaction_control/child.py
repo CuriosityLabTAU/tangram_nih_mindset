@@ -10,6 +10,7 @@ class ChildComponent(Component):
             self.current_state = action[0]
             self.current_param = action[1:]
 
-    def on_action(self, the_action):
-        print(self.name, 'action ', the_action)
-        self.current_state = the_action
+    def on_action(self, action):
+        print(self.name, 'action ', action)
+        self.current_state = action[0]
+        self.current_param = action[1:]

@@ -8,9 +8,10 @@
 
     "child:press_start_button:tablet:first_screen:1",
 
-    "tablet:first_screen:robot:introduction:1:done",
+    "tablet:first_screen:robot:introduction:1",
 
     "robot:introduction:tablet:yes:1",
+    "robot:introduction:robot:set_playing:1:demo:done",
 
     "tablet:yes:child:yes:1",
     "tablet:yes:internal_clock:yes:1:5",
@@ -23,28 +24,27 @@
     "child:press_yes_button:internal_clock:stop:1",
     "child:press_yes_button:game:generate_selection:1",
 
-
     "child:press_yes_button:robot:lets_play:1",
 
     "robot:lets_play:robot:selection_explanation:1",
 
-    "robot:selection_explanation:child:action:1:press_treasure",
+    "robot:selection_explanation:child:action:1:press_treasure:x",
 
     "robot:selection_explanation:robot:tangram_explanation:1",
 
-    "robot:tangram_explanation:child:action:1:tangram_move",
+    "robot:tangram_explanation:child:action:1:tangram_move:x",
 
     "robot:tangram_explanation:robot:turn_explanation:1",
 
-    "robot:turn_explanation:child:action:1:press_turn_button:done",
+    "robot:turn_explanation:child:action:1:press_turn_button:x",
 
-    "robot:win_happy:robot:your_turn:1:done",
-
-    "robot:your_turn:game:generate_selection:1:done",
+    "robot:turn_explanation:robot:idle:1",
 
 
 
     "game:generate_selection:tablet:selection_screen:1:x",
+    "tablet:selection_screen:child:treasure:1",
+
     "child:press_treasure:game:tangram_selected:1:x",
     "game:tangram_selected:tablet:tangram_screen:1:x",
 
@@ -56,10 +56,22 @@
     "child:tangram_move:game:tangram_moved:1:x",
     "child:press_turn_button:game:tangram_turned:1",
 
-    "game:robot_win:hourglass:stop:1",
-    "game:child_win:hourglass:stop:1",
 
-    "game:robot_win:robot:win_happy:1"
 
+    "game:win:hourglass:stop:1",
+    "game:win:robot:win:1",
+    "robot:robot_win_happy:robot:your_turn:1",
+    "robot:your_turn:game:generate_selection:1",
+    "robot:your_turn:robot:set_playing:1:child:done",
+
+    "game:child_win:game:generate_selection:1",
+    "robot:child_win_happy:robot:my_turn:1",
+    "robot:my_turn:game:generate_selection:1",
+    "robot:my_turn:robot:set_playing:1:robot:done",
+
+    "game:generate_selection:robot:set_selection:1:x",
+    "robot:select_treasure:child:action:1:press_treasure:x",
+
+    "game:tangram_selected:robot:play_game:1:done"
   ]
 }

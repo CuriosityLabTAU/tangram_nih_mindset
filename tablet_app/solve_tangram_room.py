@@ -21,14 +21,39 @@ Builder.load_string('''
         pos: root.pos
     HourGlassWidget:
         id: hourglass
-    Button:
-        on_press: app.press_button()
+    GridLayout:
+        columns: 3
+        rows: 4
+        Button:
+            text: 'run'
+            on_press: app.press_run_button()
+        Button:
+            text: 'start'
+            on_press: app.action('press_start_button')
+        Button:
+            text: 'yes'
+            on_press: app.action('press_yes_button')
+        Button:
+            text: 'treasure1'
+            on_press: app.press_treasure(0)
+        Button:
+            text: 'treasure2'
+            on_press: app.press_treasure(1)
+        Button:
+            text: 'treasure3'
+            on_press: app.press_treasure(2)
+        Button:
+            text: 'move'
+            on_press: app.action('tangram_move')
+        Button:
+            text: 'rotate'
+            on_press: app.action('press_turn_button')
 
 <Background>:
     Image:
         size: root.size
         pos: root.pos
-        source: 'images\Tangram_background.jpg'
+        source: 'images/Tangram_background.jpg'
         allow_stretch: True
         keep_ratio: False
 
@@ -37,7 +62,7 @@ Builder.load_string('''
         id: box
         size: root.width * 0.6, root.height * 0.6
         pos: root.width * 0.2, root.height * 0.2
-        source: 'images\TreasureBoxLayers.gif'
+        source: 'images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
 
@@ -45,7 +70,7 @@ Builder.load_string('''
         id: rotate
         size: root.width * 0.08, root.height * 0.1
         pos: root.width * 0.65, root.height * 0.48
-        source: 'images\Tangram_rotate_btn.gif'
+        source: 'images/Tangram_rotate_btn.gif'
         allow_stretch: True
         keep_ratio: False
         on_touch_down: root.rotate_shape()
@@ -53,22 +78,22 @@ Builder.load_string('''
 <HourGlassWidget>:
     Image:
         id:topSand
-        source: 'images\sand.jpg'
+        source: 'images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id:middleSand
-        source: 'images\sand.jpg'
+        source: 'images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id:bottomSand
-        source: 'images\sand.jpg'
+        source: 'images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id: hourglass
-        source: 'images\hour_glass.gif'
+        source: 'images/hour_glass.gif'
         allow_stretch: True
         keep_ratio: False
         pos: self.pos
@@ -162,13 +187,21 @@ class RootWidgetApp(App):
              ('hourglass', 'HourglassComponent'),
              ('game', 'GameComponent')]
         )
+        self.interaction.components['hourglass'].max_counter = 120
         rw = RootWidget()
         self.interaction.components['hourglass'].widget = rw.ids['hourglass']
-        print(rw.ids['hourglass'])
         return rw
 
-    def press_button(self):
-        self.interaction.components['hourglass'].start()
+    def press_run_button(self):
+        self.interaction.load()
+        self.interaction.show()
+        self.interaction.run()
+
+    def action(self, action):
+        self.interaction.components['child'].on_action([action])
+
+    def press_treasure(self, treasure):
+        self.interaction.components['child'].on_action(['press_treasure', treasure])
 
 if __name__ == "__main__":
     RootWidgetApp().run()
