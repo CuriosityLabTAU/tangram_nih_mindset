@@ -1,4 +1,4 @@
-from component import *
+from interaction_control.component import *
 
 
 class TabletComponent(Component):

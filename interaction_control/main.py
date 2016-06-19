@@ -1,22 +1,27 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from hourglass import *
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+
 from interaction import *
-from tablet import *
-from robot import *
-from child import *
-from internal_clock import *
-from hourglass import *
-from the_game import *
 
 
 class InteractionApp(App):
     def __init__(self, **kwargs):
         super(InteractionApp, self).__init__(**kwargs)
-        self.interaction = Interaction()
+        # self.interaction = Interaction()
+
+        self.interaction = Interaction(
+            [('tablet_app', 'TabletComponent'),
+            ('robot', 'RobotComponent'),
+            ('child', 'ChildComponent'),
+            ('internal_clock', 'ClockComponent'),
+            ('hourglass', 'HourglassComponent'),
+            ('game', 'GameComponent')]
+        )
 
     def build(self):
         layout = BoxLayout()
@@ -32,12 +37,6 @@ class InteractionApp(App):
 
     def on_run(self, *args):
         print('run')
-        self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
-        self.interaction.components['robot'] = RobotComponent(self.interaction, 'robot')
-        self.interaction.components['child'] = ChildComponent(self.interaction, 'child')
-        self.interaction.components['internal_clock'] = ClockComponent(self.interaction, 'internal_clock')
-        self.interaction.components['hourglass'] = HourglassComponent(self.interaction, 'hourglass')
-        self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.load()
         self.interaction.show()
         self.interaction.run()

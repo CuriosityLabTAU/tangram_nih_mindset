@@ -8,6 +8,22 @@ class Interaction:
         self.components = {}
         self.start = None
 
+    def __init__(self, component_list=None):
+        # list of tuples (name, class_name)
+        self.start = None
+        self.components = {}
+        if component_list:
+            for c in component_list:
+                name = c[0]
+                class_name = c[1]
+                try:
+                    module = __import__(name)
+                except:
+                    module = __import__('interaction_control.' + name)
+                print(module)
+                class_ = getattr(module, class_name)
+                self.components[name] = class_(self, name)
+
     def run(self):
         for c in self.components.values():
             c.run()

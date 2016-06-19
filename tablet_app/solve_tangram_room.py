@@ -1,3 +1,4 @@
+from interaction_control import *
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
@@ -20,6 +21,8 @@ Builder.load_string('''
         pos: root.pos
     HourGlassWidget:
         id: hourglass
+    Button:
+        on_press: app.press_button()
 
 <Background>:
     Image:
@@ -100,7 +103,7 @@ class HourGlassWidget (Widget):
         self.bottomSand = self.ids['bottomSand']
         self.init = False
         self.do_layout()
-        self.start_hourglass(120)
+        # self.start_hourglass(120)
         return False
 
 
@@ -122,24 +125,17 @@ class HourGlassWidget (Widget):
             self.bottomSand.pos = self.x, self.y+0 + self.height * 0.039
             self.init = True
 
+    def start_hourglass(self):
+        pass
 
-    def start_hourglass (self, seconds):
-        self.counter = seconds * 4 #for 4 ticks per second
-        Clock.schedule_interval(self.update_hourglass, 0.25)
-
-    def finish_hourglass(self, *args):
+    def stop_hourglass(self, *args):
         self.middleSand.height = 0
         print("time is up")
 
-    def update_hourglass (self, *args):
-        print("update ", self.counter)
+    def update_hourglass (self, percent):
+        # Rinat: change to percentage
         self.topSand.height = self.topSand.height - self.delta
         self.bottomSand.height = self.bottomSand.height + self.delta
-        self.counter -= 1
-        if self.counter <= 0:
-            self.finish_hourglass()
-            return False
-        return True
 
     def animate_sand (self,*args):
         animTop = Animation(height=0,
@@ -155,10 +151,24 @@ class HourGlassWidget (Widget):
 # runTouchApp(RootWidget())
 
 class RootWidgetApp(App):
+    interaction = None
+
     def build(self):
+        self.interaction = Interaction(
+            [('tablet', 'TabletComponent'),
+             ('robot', 'RobotComponent'),
+             ('child', 'ChildComponent'),
+             ('internal_clock', 'ClockComponent'),
+             ('hourglass', 'HourglassComponent'),
+             ('game', 'GameComponent')]
+        )
         rw = RootWidget()
+        self.interaction.components['hourglass'].widget = rw.ids['hourglass']
         print(rw.ids['hourglass'])
         return rw
+
+    def press_button(self):
+        self.interaction.components['hourglass'].start()
 
 if __name__ == "__main__":
     RootWidgetApp().run()
