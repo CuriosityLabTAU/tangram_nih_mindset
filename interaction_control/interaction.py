@@ -20,7 +20,6 @@ class Interaction:
                     module = __import__(name)
                 except:
                     module = __import__('interaction_control.' + name)
-                print(module)
                 class_ = getattr(module, class_name)
                 self.components[name] = class_(self, name)
 

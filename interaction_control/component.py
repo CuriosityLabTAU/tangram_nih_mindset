@@ -1,4 +1,10 @@
 from kivy.clock import Clock
+is_logged = True
+try:
+    from kivy_communication import *
+except:
+    print('no logging')
+    is_logged = False
 
 
 class Component:
@@ -48,13 +54,14 @@ class Component:
                             else:
                                 if action[1] == 'x':
                                     action[1] = self.current_param
-
+                        self.log_data(target=target, action=action)
                         self.interaction.components[target].run_function(action)
                         called = True
                 if self.name in self.current_action.keys():
                     action = self.current_action[self.name]
                     if action[1] and action[1] == 'x':
                         action[1] = self.current_param
+                    self.log_data(action=action)
                     self.run_function(action)
                     called = True
 
@@ -81,4 +88,6 @@ class Component:
         # winner takes all
         return Q.index(max(Q))
 
-
+    def log_data(self, target=None, action=None):
+        if is_logged:
+            KL.log.insert(action=LogAction.data, obj=self.name, comment=[self.current_state, self.current_param, target, action])

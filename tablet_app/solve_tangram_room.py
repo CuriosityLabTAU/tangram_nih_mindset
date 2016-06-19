@@ -10,6 +10,7 @@ from kivy.clock import Clock
 from kivy.app import App
 from kivy.animation import Animation
 from kivy.core.window import Window
+from kivy_communication import *
 
 Builder.load_string('''
 <RootWidget>:
@@ -188,9 +189,16 @@ class RootWidgetApp(App):
              ('game', 'GameComponent')]
         )
         self.interaction.components['hourglass'].max_counter = 120
+
+        self.init_communication()
+
         rw = RootWidget()
         self.interaction.components['hourglass'].widget = rw.ids['hourglass']
         return rw
+
+    def init_communication(self):
+        KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
+        KC.start(the_parents=[self], the_ip='127.0.0.1')
 
     def press_run_button(self):
         self.interaction.load()

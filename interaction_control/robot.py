@@ -1,5 +1,12 @@
 from component import *
 import time
+import json
+is_logged = True
+try:
+    from kivy_communication import *
+except:
+    print('no logging')
+    is_logged = False
 
 
 class RobotComponent(Component):
@@ -21,6 +28,11 @@ class RobotComponent(Component):
         self.current_state = action[0]
         if action[1]:
             self.current_param = action[1:]
+
+        if KC.client.connection:
+            data = [self.current_state, self.current_param]
+            data = {'robot': data}
+            KC.client.send_message(str(json.dumps(data)))
         time.sleep(1)
 
     def after_called(self):
