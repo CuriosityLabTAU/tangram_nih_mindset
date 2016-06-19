@@ -1,0 +1,6 @@
+{
+  "transitions": [
+    "tablet:first_screen:robot:introduction:1",
+    "robot:introduction:tablet:show_yes_no:1"
+  ]
+}

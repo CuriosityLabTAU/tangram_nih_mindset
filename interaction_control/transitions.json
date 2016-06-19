@@ -1,0 +1,64 @@
+{
+  "start": "tablet:zero_screen",
+
+  "internal_clock_wait": 5,
+
+  "transitions": [
+    "tablet:zero_screen:child:zero_screen:1",
+
+    "child:press_start_button:tablet:first_screen:1",
+
+    "tablet:first_screen:robot:introduction:1:done",
+
+    "robot:introduction:tablet:yes:1",
+
+    "tablet:yes:child:yes:1",
+    "tablet:yes:internal_clock:yes:1:5",
+
+    "internal_clock:prompt_yes:robot:ask_again:1:done",
+
+    "robot:ask_again:child:yes:1",
+    "robot:ask_again:internal_clock:yes:1:5",
+
+    "child:press_yes_button:internal_clock:stop:1",
+    "child:press_yes_button:game:generate_selection:1",
+
+
+    "child:press_yes_button:robot:lets_play:1",
+
+    "robot:lets_play:robot:selection_explanation:1",
+
+    "robot:selection_explanation:child:action:1:press_treasure",
+
+    "robot:selection_explanation:robot:tangram_explanation:1",
+
+    "robot:tangram_explanation:child:action:1:tangram_move",
+
+    "robot:tangram_explanation:robot:turn_explanation:1",
+
+    "robot:turn_explanation:child:action:1:press_turn_button:done",
+
+    "robot:win_happy:robot:your_turn:1:done",
+
+    "robot:your_turn:game:generate_selection:1:done",
+
+
+
+    "game:generate_selection:tablet:selection_screen:1:x",
+    "child:press_treasure:game:tangram_selected:1:x",
+    "game:tangram_selected:tablet:tangram_screen:1:x",
+
+    "tablet:tangram_screen:hourglass:start:1",
+    "hourglass:update:tablet:hourglass_update:1:x",
+    "hourglass:finish:game:finish:1",
+
+    "child:tangram_move:game:tangram_moved:1:x",
+    "child:press_turn_button:game:tangram_turned:1",
+
+    "game:robot_win:hourglass:stop:1",
+    "game:child_win:hourglass:stop:1",
+
+    "game:robot_win:robot:win_happy:1"
+
+  ]
+}
