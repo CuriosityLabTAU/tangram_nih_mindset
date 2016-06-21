@@ -1,5 +1,10 @@
 from kivy.clock import Clock
-import numpy as np
+is_logged = True
+try:
+    from kivy_communication import *
+except:
+    print('no logging')
+    is_logged = False
 
 
 class Component:
@@ -27,10 +32,11 @@ class Component:
 
     def resolve(self, *args):
         # print('resolve', self.name, self.current_state)
+        self.current_action = {}
         if self.current_state != 'idle':
             called = False
             if self.current_state in self.actors:
-                for target,funs in self.actors[self.current_state].items():
+                for target, funs in self.actors[self.current_state].items():
                     Q = []
                     for value in funs.values():
                         Q.append(float(value[0]))
@@ -39,10 +45,26 @@ class Component:
                     selected_param = funs.values()[selected_action][1]
                     self.current_action[target] = [selected_function, selected_param]
                 for target,action in self.current_action.items():
+                    if target != self.name:     # run own functions last
+                        if action[1]:
+                            if isinstance(action[1], list):
+                                for k in range(0, len(action[1])):
+                                    if action[1][k] == 'x':
+                                        action[1][k] = self.current_param
+                            else:
+                                if action[1] == 'x':
+                                    action[1] = self.current_param
+                        self.log_data(target=target, action=action)
+                        self.interaction.components[target].run_function(action)
+                        called = True
+                if self.name in self.current_action.keys():
+                    action = self.current_action[self.name]
                     if action[1] and action[1] == 'x':
                         action[1] = self.current_param
-                    self.interaction.components[target].run_function(action)
+                    self.log_data(action=action)
+                    self.run_function(action)
                     called = True
+
                 self.current_action = {}
             if called:
                 self.after_called()
@@ -66,4 +88,6 @@ class Component:
         # winner takes all
         return Q.index(max(Q))
 
-
+    def log_data(self, target=None, action=None):
+        if is_logged:
+            KL.log.insert(action=LogAction.data, obj=self.name, comment=[self.current_state, self.current_param, target, action])

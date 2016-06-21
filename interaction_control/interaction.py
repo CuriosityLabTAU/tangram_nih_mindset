@@ -20,7 +20,6 @@ class Interaction:
                     module = __import__(name)
                 except:
                     module = __import__('interaction_control.' + name)
-                print(module)
                 class_ = getattr(module, class_name)
                 self.components[name] = class_(self, name)
 
@@ -34,15 +33,17 @@ class Interaction:
         for c in self.components.values():
             c.show()
 
-    def load(self):
-        with open('transitions.json') as data_file:
+    def load(self, filename='transitions.json'):
+        with open(filename) as data_file:
             data = json.load(data_file)
         for t in data['transitions']:
             info = str(t).split(':')
             source, state, target, fun, value = info[0:5]
             param = None
-            if len(info) > 5:
+            if len(info) == 6:
                 param = info[5]
+            elif len(info) > 6:
+                param = info[5:]
             if source not in self.components.keys():
                 self.components[source] = Component(self, source)
             if target not in self.components.keys():

@@ -2,6 +2,8 @@ from interaction_control.component import *
 
 
 class TabletComponent(Component):
+    hourglass_widget = None
+
     def first_screen(self):
         print(self.name, 'first_screen')
         self.current_state = 'first_screen'
@@ -24,3 +26,5 @@ class TabletComponent(Component):
 
     def hourglass_update(self, x):
         print(self.name, 'hourglass update', x)
+        if self.hourglass_widget:
+            self.hourglass_widget.update_hourglass(x)

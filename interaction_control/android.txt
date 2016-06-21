@@ -1,3 +1,0 @@
-title=Interaction
-author=Goren Gordon
-orientation=landscape
