@@ -4,10 +4,7 @@ import json
 class GameFacilitator(self):
 
     def __init__(self):
-        test_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
-        json_str = json.dumps(test_dict)
-        self.current_task = Task()
-        self.current_task.create_from_json(json_str)
+        self.current_task = None
 
     def check_solution(self, json_str_board):
         board_task = Task()
