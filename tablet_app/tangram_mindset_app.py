@@ -184,6 +184,11 @@ MyScreenManager:
 # functions connecting to button pressed
 
 class TangramMindsetApp(App):
+    interaction = None
+    sounds = None
+    current_sound = None
+    screen_manager = None
+
     def build(self):
         self.interaction = Interaction(
             [('tablet', 'TabletComponent'),
@@ -196,7 +201,6 @@ class TangramMindsetApp(App):
         self.interaction.components['hourglass'].max_counter = 120
         self.interaction.load()
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.init_communication()
 
         s = SolveTangramRoom()
         self.interaction.components['hourglass'].widget = s.ids['hourglass']
@@ -204,8 +208,8 @@ class TangramMindsetApp(App):
         self.interaction.components['robot'].app = self
         self.interaction.run()
 
-        self.sounds = {}
         self.load_sounds()
+        self.init_communication()
 
         self.screen_manager = MyScreenManager()
         self.screen_manager.add_widget(ZeroScreenRoom())
@@ -216,12 +220,15 @@ class TangramMindsetApp(App):
 
     def init_communication(self):
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
-        KC.start(the_parents=[self], the_ip='127.0.0.1')
+        KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='127.0.0.1')
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
-        self.sounds['introduction'] = SoundLoader.load("sounds/introduction.m4a")
-        self.sounds['click_balloon'] = SoundLoader.load("sounds/click_balloon.m4a")
+        sound_list = ['introduction', 'click_balloon']
+        self.sounds = {}
+        for s in sound_list:
+            self.sounds[s] = SoundLoader.load("sounds/" + s + ".m4a")
+        self.current_sound = None
 
     def action(self, action):
         self.interaction.components['child'].on_action([action])
@@ -243,18 +250,19 @@ class TangramMindsetApp(App):
 
     def robot_express(self, action):
         print ('robot_express ',action)
+        self.current_sound = action[0]
         try:
-            sound = self.sounds[action[0]]
+            sound = self.sounds[self.current_sound]
             print(sound)
             sound.bind(on_stop=self.finish_robot_express)
-            #self.sounds[action[0]].bind(on_stop=self.finish_robot_express(action))
             sound.play()
         except:
             print('no sound file: ', action[0])
-
+            self.finish_robot_express(0)
 
     def finish_robot_express (self, dt):
-        print ('finish_robot_express', self, dt)
+        print ('finish_robot_express', self, self.current_sound)
+        self.interaction.components['robot'].finished_expression(self.current_sound)
 
     def yes(self):
         print ('yes in app')

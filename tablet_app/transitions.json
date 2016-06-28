@@ -18,8 +18,8 @@
 
     "internal_clock:prompt_yes:robot:ask_again:1:done",
 
-    "robot:ask_again:child:yes:1",
-    "robot:ask_again:internal_clock:yes:1:5",
+    "robot:finish_ask_again:child:yes:1",
+    "robot:finish_ask_again:internal_clock:yes:1:5",
 
     "child:press_yes_button:internal_clock:stop:1",
     "child:press_yes_button:game:generate_selection:1",

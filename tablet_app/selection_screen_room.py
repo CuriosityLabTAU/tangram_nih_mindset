@@ -29,8 +29,8 @@ class SelectionScreenRoom(Screen):
 
     def load_sounds(self):
         self.sounds = {}
-        self.sounds[0] = SoundLoader.load("sounds\TangramOpen_myFriend.m4a")
-        self.sounds[1] = SoundLoader.load("sounds\TangramOpen_click.m4a")
+        self.sounds[0] = SoundLoader.load("sounds/TangramOpen_myFriend.m4a")
+        self.sounds[1] = SoundLoader.load("sounds/TangramOpen_click.m4a")
 
     def callback(self):
         print('rinat')

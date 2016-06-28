@@ -26,7 +26,7 @@ class RobotComponent(Component):
         return False
 
     def express(self, action):
-        self.current_state = action[0]
+        self.current_state = 'express'
         if action[1]:
             self.current_param = action[1:]
 
@@ -37,7 +37,7 @@ class RobotComponent(Component):
 
         if self.app:
             self.app.robot_express(action)
-        time.sleep(1)
+        time.sleep(3)
 
     def after_called(self):
         if self.current_param:
@@ -80,3 +80,13 @@ class RobotComponent(Component):
     def comment_turn(self, action):
         if self.whos_playing == "child":
             print(self.name, 'commenting on turn ', action)
+
+    def finished_expression(self, action):
+        self.current_param = None
+        self.current_state = action
+        print(self.name, action, self.current_state)
+
+    def data_received(self, data):
+        # if data signals end of speech
+        # call: self.finished_expression(action)
+        print(self.name, data)
