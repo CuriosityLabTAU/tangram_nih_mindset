@@ -1,10 +1,16 @@
-from component import *
+from interaction_control.component import *
+from game_facilitator import *
 
 
 class GameComponent(Component):
+    game_facilitator = None
+
     def generate_selection(self):
         print(self.name, 'generate selection')
-        self.current_param = ['T1', 'T2', 'T3']
+        T = []
+        if self.game_facilitator:
+            T = self.game_facilitator.generate_tangram_options()
+        self.current_param = T
         self.current_state = 'generate_selection'
 
     def tangram_selected(self, action):

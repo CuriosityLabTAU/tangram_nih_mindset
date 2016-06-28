@@ -1,5 +1,6 @@
 from tangrams import Piece
 from tangrams import Setup
+
 import copy
 import numpy as np
 import random

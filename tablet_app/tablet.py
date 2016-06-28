@@ -23,10 +23,11 @@ class TabletComponent(Component):
     def selection_screen(self, x):
         print(self.name, 'selection_screen', x)
         self.current_state = 'selection_screen'
-        self.app.selection_screen()
+        self.app.selection_screen(x)
 
     def tangram_screen(self, x):
         print(self.name, 'tangram_screen', x)
+        self.app.tangram_screen(x)
         self.current_state = 'tangram_screen'
 
     def hourglass_update(self, x):

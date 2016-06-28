@@ -2,6 +2,7 @@ from zero_screen_room import *
 from first_screen_room import *
 from selection_screen_room import *
 from solve_tangram_room import *
+from game_facilitator import *
 
 from interaction_control import *
 from kivy.uix.label import Label
@@ -194,6 +195,7 @@ class TangramMindsetApp(App):
         )
         self.interaction.components['hourglass'].max_counter = 120
         self.interaction.load()
+        self.interaction.components['game'].game_facilitator = GameFacilitator()
         self.init_communication()
 
         s = SolveTangramRoom()
@@ -218,8 +220,8 @@ class TangramMindsetApp(App):
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
-        self.sounds['introduction'] = SoundLoader.load("sounds\introduction.m4a")
-        self.sounds['click_balloon'] = SoundLoader.load("sounds\click_balloon.m4a")
+        self.sounds['introduction'] = SoundLoader.load("sounds/introduction.m4a")
+        self.sounds['click_balloon'] = SoundLoader.load("sounds/click_balloon.m4a")
 
     def action(self, action):
         self.interaction.components['child'].on_action([action])
@@ -227,16 +229,29 @@ class TangramMindsetApp(App):
     def first_screen(self):
         self.screen_manager.current = 'first_screen_room'
 
-    def selection_screen(self):
+    def selection_screen(self, x):
+        # Rinat: x is a list of tangrams from maor
+        # you need to present all options with the tangram pieces
+        print(x)
         self.screen_manager.current = 'selection_screen_room'
+
+    def tangram_screen(self, x):
+        # Rinat: x is a single tangram from maor
+        # you need to present it and allow game
+        print(x)
+        self.screen_manager.current = 'solve_tangram_room'
 
     def robot_express(self, action):
         print ('robot_express ',action)
-        sound = self.sounds[action[0]]
-        print(sound)
-        sound.bind(on_stop=self.finish_robot_express)
-        #self.sounds[action[0]].bind(on_stop=self.finish_robot_express(action))
-        sound.play()
+        try:
+            sound = self.sounds[action[0]]
+            print(sound)
+            sound.bind(on_stop=self.finish_robot_express)
+            #self.sounds[action[0]].bind(on_stop=self.finish_robot_express(action))
+            sound.play()
+        except:
+            print('no sound file: ', action[0])
+
 
     def finish_robot_express (self, dt):
         print ('finish_robot_express', self, dt)
