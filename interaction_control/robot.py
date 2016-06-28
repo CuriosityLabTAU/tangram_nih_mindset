@@ -11,6 +11,7 @@ except:
 
 class RobotComponent(Component):
     whos_playing = None
+    app = None
 
     def run_function(self, action):
         print(self.name, action[0], action[1:])
@@ -33,6 +34,9 @@ class RobotComponent(Component):
             data = [self.current_state, self.current_param]
             data = {'robot': data}
             KC.client.send_message(str(json.dumps(data)))
+
+        if self.app:
+            self.app.robot_express(action)
         time.sleep(1)
 
     def after_called(self):
