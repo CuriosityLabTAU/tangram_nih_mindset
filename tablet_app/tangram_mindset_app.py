@@ -134,7 +134,7 @@ MyScreenManager:
     Image:
         size: root.size
         pos: root.pos
-        source: 'images/Tangram_background.jpg'
+        source: 'images/tangram_background.jpg'
         allow_stretch: True
         keep_ratio: False
 
@@ -266,6 +266,8 @@ class TangramMindsetApp(App):
 
     def yes(self):
         print ('yes in app')
+        self.screen_manager.current_screen.ids['yes_button'].opacity = 1
+
 
 if __name__ == "__main__":
     TangramMindsetApp().run()
