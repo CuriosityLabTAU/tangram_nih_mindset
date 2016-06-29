@@ -20,6 +20,13 @@ class SolveTangramRoom(Screen):
         print("solveTangramRoom")
         super(Screen, self).__init__(**kwargs)
 
+    def on_enter(self, *args):
+        print("on_enter first_screen_room")
+        App.
+        # self.load_sounds()
+        # self.play_sound("TangramOpen_myFriend")
+
+
 class Background(Widget):
     pass
 

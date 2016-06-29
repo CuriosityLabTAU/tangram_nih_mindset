@@ -20,6 +20,7 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
+import json
 
 class MyScreenManager (ScreenManager):
 
@@ -188,6 +189,7 @@ class TangramMindsetApp(App):
     sounds = None
     current_sound = None
     screen_manager = None
+    selection_options = None
 
     def build(self):
         self.interaction = Interaction(
@@ -239,7 +241,18 @@ class TangramMindsetApp(App):
     def selection_screen(self, x):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
-        print(x)
+        print('x=',x)
+
+        T = []
+        test1_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
+        T.append(json.dumps(test1_dict))
+        test2_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 2')]}
+        T.append(json.dumps(test2_dict))
+        test3_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 3')]}
+        T.append(json.dumps(test3_dict))
+
+        self.selection_options = json.loads(T)
+
         self.screen_manager.current = 'selection_screen_room'
 
     def tangram_screen(self, x):
