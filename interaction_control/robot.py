@@ -27,8 +27,7 @@ class RobotComponent(Component):
 
     def express(self, action):
         self.current_state = 'express'
-        if action[1]:
-            self.current_param = action[1:]
+        self.current_param = action
 
         if KC.client.connection:
             data = [self.current_state, self.current_param]
@@ -89,3 +88,5 @@ class RobotComponent(Component):
         # if data signals end of speech
         # call: self.finished_expression(action)
         print(self.name, data)
+        self.finished_expression(data)
+
