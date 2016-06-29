@@ -5,6 +5,9 @@ from solve_tangram_room import *
 from game_facilitator import *
 
 from interaction_control import *
+from game import *
+from tablet import *
+
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
@@ -66,8 +69,8 @@ MyScreenManager:
         Button:
             id: yes_button
             borders: 2, 'solid', (1,1,0,1)
-            background_normal: 'images/BalloonBtn.gif'
-            background_down: 'images/BalloonBtn_on.gif'
+            background_normal: './tablet_app/images/BalloonBtn.gif'
+            background_down: './tablet_app/images/BalloonBtn_on.gif'
             size: root.width * 0.2, root.height * 0.5
             pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
             on_press: app.action('press_yes_button')
@@ -77,7 +80,7 @@ MyScreenManager:
     Image:
         size: root.size
         pos: root.pos
-        source: 'images/TangramGame_Open.jpg'
+        source: './tablet_app/images/TangramGame_Open.jpg'
         allow_stretch: True
         keep_ratio: False
 
@@ -88,7 +91,7 @@ MyScreenManager:
         Image:
             size: root.size
             pos: root.pos
-            source: 'images/TangramGame_Selection.jpg'
+            source: './tablet_app/images/TangramGame_Selection.jpg'
             allow_stretch: True
             keep_ratio: False
 
@@ -135,7 +138,7 @@ MyScreenManager:
     Image:
         size: root.size
         pos: root.pos
-        source: 'images/tangram_background.jpg'
+        source: './tablet_app/images/tangram_background.jpg'
         allow_stretch: True
         keep_ratio: False
 
@@ -144,7 +147,7 @@ MyScreenManager:
         id: box
         size: root.width * 0.6, root.height * 0.6
         pos: root.width * 0.2, root.height * 0.2
-        source: 'images/TreasureBoxLayers.gif'
+        source: './tablet_app/images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
 
@@ -152,7 +155,7 @@ MyScreenManager:
         id: rotate
         size: root.width * 0.08, root.height * 0.1
         pos: root.width * 0.65, root.height * 0.48
-        source: 'images/Tangram_rotate_btn.gif'
+        source: './tablet_app/images/Tangram_rotate_btn.gif'
         allow_stretch: True
         keep_ratio: False
         on_touch_down: root.rotate_shape()
@@ -160,22 +163,22 @@ MyScreenManager:
 <HourGlassWidget>:
     Image:
         id:topSand
-        source: 'images/sand.jpg'
+        source: './tablet_app/images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id:middleSand
-        source: 'images/sand.jpg'
+        source: './tablet_app/images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id:bottomSand
-        source: 'images/sand.jpg'
+        source: './tablet_app/images/sand.jpg'
         allow_stretch: True
         keep_ratio: False
     Image:
         id: hourglass
-        source: 'images/hour_glass.gif'
+        source: './tablet_app/images/hour_glass.gif'
         allow_stretch: True
         keep_ratio: False
         pos: self.pos
@@ -193,15 +196,17 @@ class TangramMindsetApp(App):
 
     def build(self):
         self.interaction = Interaction(
-            [('tablet', 'TabletComponent'),
-             ('robot', 'RobotComponent'),
+            [('robot', 'RobotComponent'),
              ('child', 'ChildComponent'),
              ('internal_clock', 'ClockComponent'),
-             ('hourglass', 'HourglassComponent'),
-             ('game', 'GameComponent')]
+             ('hourglass', 'HourglassComponent')
+             ]
         )
+        self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
+        self.interaction.components['game'] = GameComponent(self.interaction, 'game')
+        
         self.interaction.components['hourglass'].max_counter = 120
-        self.interaction.load()
+        self.interaction.load(filename='./tablet_app/transitions.json')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
 
         s = SolveTangramRoom()
@@ -229,7 +234,7 @@ class TangramMindsetApp(App):
         sound_list = ['introduction', 'click_balloon']
         self.sounds = {}
         for s in sound_list:
-            self.sounds[s] = SoundLoader.load("sounds/" + s + ".m4a")
+            self.sounds[s] = SoundLoader.load("./tablet_app/sounds/" + s + ".m4a")
         self.current_sound = None
 
     def action(self, action):

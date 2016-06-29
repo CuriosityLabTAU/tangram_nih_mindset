@@ -37,7 +37,6 @@ class RobotComponent(Component):
 
         if self.app:
             self.app.robot_express(action)
-        time.sleep(3)
 
     def after_called(self):
         if self.current_param:

@@ -1,6 +1,7 @@
 from tangrams import *
 import json
 
+
 class Agent(self):
     def __init__(self):
         self.solver = Solver()
