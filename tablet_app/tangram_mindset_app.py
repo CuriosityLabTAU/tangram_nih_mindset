@@ -242,17 +242,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
         print('x=',x)
-
-        T = []
-        test1_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
-        T.append(json.dumps(test1_dict))
-        test2_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 2')]}
-        T.append(json.dumps(test2_dict))
-        test3_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 3')]}
-        T.append(json.dumps(test3_dict))
-
-        self.selection_options = json.loads(T)
-
+        #self.selection_options = json.loads(x)
         self.screen_manager.current = 'selection_screen_room'
 
     def tangram_screen(self, x):

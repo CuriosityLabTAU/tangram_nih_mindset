@@ -21,8 +21,7 @@ class SolveTangramRoom(Screen):
         super(Screen, self).__init__(**kwargs)
 
     def on_enter(self, *args):
-        print("on_enter first_screen_room")
-        App.
+        print("on_enter solve_tangram_room")
         # self.load_sounds()
         # self.play_sound("TangramOpen_myFriend")
 

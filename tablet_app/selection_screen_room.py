@@ -7,7 +7,6 @@ from kivy.uix.image import Image
 from kivy.lang import Builder
 from kivy.base import runTouchApp
 from kivy.clock import Clock
-from kivy.app import App
 from kivy.animation import Animation
 from kivy.core.window import Window
 
@@ -24,8 +23,6 @@ class SelectionScreenRoom(Screen):
 
     def on_enter(self, *args):
         print("on_enter selection_screen_room")
-        #self.load_sounds()
-        #self.play_sound("TangramOpen_myFriend")
 
     def load_sounds(self):
         self.sounds = {}
