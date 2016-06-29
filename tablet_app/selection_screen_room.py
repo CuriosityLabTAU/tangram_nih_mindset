@@ -15,45 +15,33 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
+import json
+
 class SelectionScreenRoom(Screen):
+    selection_json = None
+    selection_tasks = {}
 
     def __init__(self, **kwargs):
         print("init first")
         super(Screen, self).__init__(**kwargs)
 
+    def init_selection_options(self,x):
+        #this function is called from tangram_mindset_app
+        print ('init_selection_options', x)
+        self.selection_json = x
+
     def on_enter(self, *args):
         print("on_enter selection_screen_room")
+        self.convert_json2tasks()
 
-    def load_sounds(self):
-        self.sounds = {}
-        self.sounds[0] = SoundLoader.load("sounds/TangramOpen_myFriend.m4a")
-        self.sounds[1] = SoundLoader.load("sounds/TangramOpen_click.m4a")
+    def convert_json2tasks(self):
+        i=0
+        for task in self.selection_json[0]:
+            print(json.loads(task))
+            self.selection_tasks[i] = json.loads(task)
+            #print (self.selection_tasks[i])
+            i=i+1
+        print (self.selection_tasks[1]['pieces'])
 
-    def callback(self):
-        print('rinat')
-
-    def play_sound(self, soundName):
-        if soundName == "TangramOpen_myFriend":
-            sound = self.sounds.get(0)
-            sound.bind(on_stop=self.finish_tangram_intro)
-            # Clock.schedule_once(self.callback(), 0)
-        elif soundName == "TangramOpen_click":
-            sound = self.sounds.get(1)
-        if sound is not None:
-            sound.volume = 0.5
-            sound.play()
-
-    def finish_tangram_intro(self, dt):
-        #now present the yes button
-        self.ids['yes_button'].opacity = 1
-        print("finish_tangram_intro")
-
-    #def press_yes_button(self):
-        #print("press_yes_button")
-        #app.sm.enter_solve_tangram_room()
-        #App.action('press_yes_button')
-
-class FirstScreenBackground(Widget):
-    pass
-
-
+    def display_task(self,task):
+        print('display_task')
