@@ -61,7 +61,7 @@ class TwistedClient:
         if the_ip:
             TwistedClient.ip = the_ip
         if TwistedClient.ip:
-            TwistedClient.send_status('connecting')
+            TwistedClient.send_status('connecting to ' + TwistedClient.ip)
             reactor.connectTCP(the_ip, 8000, EchoFactory(TwistedClient))
         else:
             TwistedClient.print_message('missing ip!')
@@ -92,12 +92,12 @@ class TwistedClient:
 
     @staticmethod
     def data_received(data):
-        if TwistedClient.parents is not None:
+        if TwistedClient.parents:
             for p in TwistedClient.parents:
                 try:
                     p.data_received(data)
                 except:
-                    pass
+                    print('twisted client: parent ', p, ' has no data_received')
         print('data: ', data)
 
 ''' Example usage:

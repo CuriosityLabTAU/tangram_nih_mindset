@@ -25,6 +25,8 @@ from kivy.core.audio import SoundLoader
 
 import json
 
+GAME_WITH_ROBOT = False
+
 class MyScreenManager (ScreenManager):
 
     def enter_first_screen_room(self):
@@ -212,7 +214,8 @@ class TangramMindsetApp(App):
         s = SolveTangramRoom()
         self.interaction.components['hourglass'].widget = s.ids['hourglass']
         self.interaction.components['tablet'].app = self
-        self.interaction.components['robot'].app = self
+        if not GAME_WITH_ROBOT:
+            self.interaction.components['robot'].app = self
         self.interaction.run()
 
         self.load_sounds()
@@ -227,7 +230,7 @@ class TangramMindsetApp(App):
 
     def init_communication(self):
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
-        KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='127.0.0.1')
+        KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.0.101') # 127.0.0.1
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
