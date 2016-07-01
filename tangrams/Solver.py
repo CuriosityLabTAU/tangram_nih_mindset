@@ -2,6 +2,7 @@ from tangrams import *
 import numpy as np
 import copy
 # import matplotlib.pyplot as plt
+import json
 
 
 class Solver:
@@ -80,7 +81,7 @@ class Solver:
         return None, None
 
     def get_seq_of_moves(self):
-        # return a list of pieces, which are the moves of the robot.
+        # return a json string such that the list of pieces, contains the moves of the robot.
         # should be called after run_task()
         seq = []
         if self.solved_network_index is not None:
@@ -98,7 +99,17 @@ class Solver:
                 for i in range(len(self.solutions[n][k])):
                     if self.solutions[n][k][i] > 0:
                         seq.append(self.networks[n].nodes[i])
-        return seq
+        # return seq
+        # convert seq to json_string
+        seq_dict = {}
+        (I, J) = self.networks[0].nodes[0].x.shape
+        seq_dict['size'] = [(I-1)/Piece.JUMP+1, (J-1)/Piece.JUMP+1]
+        pieces_vec = []
+        for p in seq:
+            pieces_vec.append((p.name[0], p.name[1], p.name[2]))
+        seq_dict['pieces'] = pieces_vec
+        return json.dumps(seq_dict)
+
 
     def print_current_solutions(self):
         for i in range(0, self.n_networks):
