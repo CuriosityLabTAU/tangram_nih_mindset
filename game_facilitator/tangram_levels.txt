@@ -1,0 +1,35 @@
+dif 0
+{"pieces": [["square", "90", "0 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "0 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "0 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "0 3"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 1
+{"pieces": [["square", "90", "1 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "1 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "1 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "1 3"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "1 4"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 2
+{"pieces": [["square", "90", "2 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "2 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "2 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 3
+{"pieces": [["square", "90", "3 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "3 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "3 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 4
+{"pieces": [["square", "90", "4 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "4 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "4 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 5
+{"pieces": [["square", "90", "5 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "5 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "5 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 6
+{"pieces": [["square", "90", "6 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "6 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "6 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+dif 7
+{"pieces": [["square", "90", "7 0"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "7 1"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
+{"pieces": [["square", "90", "7 2"], ["small triangle2", "180", "0 1"]], "size": "5 5"}
