@@ -180,6 +180,18 @@ class Task:
                 self.solution.append(p)
                 self.x += p.x
 
+    def export_to_json(self):
+        # convert Task to json_string
+        task_dict = {}
+        (I, J) = self.x.shape
+        task_dict['size'] = [(I - 1) / Piece.JUMP + 1, (J - 1) / Piece.JUMP + 1]
+        pieces_vec = []
+        for p in self.solution:
+            pieces_vec.append((p.name[0], p.name[1], p.name[2]))
+        task_dict['pieces'] = pieces_vec
+        return json.dumps(task_dict)
+
+
 
 
 
