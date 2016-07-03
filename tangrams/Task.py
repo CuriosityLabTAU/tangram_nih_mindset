@@ -184,7 +184,7 @@ class Task:
         # convert Task to json_string
         task_dict = {}
         (I, J) = self.x.shape
-        task_dict['size'] = [(I - 1) / Piece.JUMP + 1, (J - 1) / Piece.JUMP + 1]
+        task_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
         pieces_vec = []
         for p in self.solution:
             pieces_vec.append((p.name[0], p.name[1], p.name[2]))
