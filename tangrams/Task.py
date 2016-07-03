@@ -169,9 +169,21 @@ class Task:
             pos_i = pos.split()[0]
             pos_j = pos.split()[1]
             # check that pos is not fractional and that it is in board boundaries
-            if np.floor(float(pos_i))==float(pos_i) and np.ceil(float(pos_i))==float(pos_i) \
-                and np.floor(float(pos_j))==float(pos_j) and np.ceil(float(pos_j))==float(pos_j) \
-                and 0 <= int(float(pos_i)) <= size_i-2 and 0 <= int(float(pos_j)) <= size_j-2:
+            if np.floor(float(pos_i)) == float(pos_i) and np.ceil(float(pos_i)) == float(pos_i) \
+                    and np.floor(float(pos_j)) == float(pos_j) and np.ceil(float(pos_j)) == float(pos_j) \
+                    and 0 <= int(float(pos_i)) <= size_i - 2 and 0 <= int(float(pos_j)) <= size_j - 2 \
+                    and (('small triangle' in name) # assert that the shapes are within the board boundaries
+                         or ('square' in name)
+                         or ('large triangle' in name and int(float(pos_i)) <= size_i - 3 and int(
+                            float(pos_j)) <= size_j - 3)
+                         or (('medium triangle' in name) and (rot == '0' or rot == '180') and int(
+                            float(pos_j)) <= size_j - 3)
+                         or (('medium triangle' in name) and (rot == '90' or rot == '270') and int(
+                            float(pos_i)) <= size_i - 3)
+                         or (('parrallelogram' in name) and (rot == '0' or rot == '180') and int(
+                            float(pos_i)) <= size_i - 3)
+                         or (('parrallelogram' in name) and (rot == '90' or rot == '270') and int(
+                            float(pos_j)) <= size_j - 3)):
                 p = Piece()
                 p.create(name,rot,[int(float(pos_i)), int(float(pos_j))])
                 x_temp = np.zeros([self.I, self.J])
