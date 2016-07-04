@@ -103,7 +103,7 @@ class Solver:
         # convert seq to json_string
         seq_dict = {}
         (I, J) = self.networks[0].nodes[0].x.shape
-        seq_dict['size'] = [(I-1)/Piece.JUMP+1, (J-1)/Piece.JUMP+1]
+        seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
         pieces_vec = []
         for p in seq:
             pieces_vec.append((p.name[0], p.name[1], p.name[2]))
