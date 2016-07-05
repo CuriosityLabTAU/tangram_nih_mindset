@@ -36,16 +36,14 @@ class SolveTangramRoom(Screen):
         game_task_layout = GameTaskLayout()
         game_task_layout.reset(str(0))
         game_task_layout.import_json_task(self.task_json)
-        print ("after import json")
         game_task_layout.update_selection_task_shade()
-        print ("after update selection task shade")
         game_task_layout.update_task()
-        print ("after update task")
 
         # #game_task_layout.update_task_pieces()
         #self.game_tasks_layout.append(game_task_layout)
-
-        self.ids['tangram_game_widget'].add_widget(game_task_layout)
+        tangram_game_widget = self.ids['tangram_game_widget']
+        tangram_game_widget.reset() #clear the pieces from previous run
+        tangram_game_widget.add_widget(game_task_layout)
 
         #self.add_widget(game_task_layout)
 
@@ -54,25 +52,26 @@ class GameTaskLayout(Button, TaskLayout):
 
     def __init__(self):
         super(GameTaskLayout, self).__init__()
-        self.canvas.clear()
-        print("Window.width", Window.width)
-        self.size_hint = [0.28,0.28]
+        print("GameTaskLayout __init__")
+        self.size = [300,300]
         self.update_position()
         with self.canvas.before:
-             print ("self.canvas.before")
-             Color(1,0,0,1)
-             self.rect = Rectangle()
-             self.bind(size=self._update_rect, pos=self._update_rect)
-             self.bind(size=self.update_position, pos=self.update_position)
+            print ("self.canvas.before")
+            Color(234/255.0,226/255.0,139/255.0,1)
+            self.rect = Rectangle()
+            self.rect.pos = self.pos
+            self.rect.size = self.size
+            print (self.rect.size)
 
     def update_position(self, *args):
-        print('update_position')
-        self.pos = [Window.width * 0.3, Window.height * 0.3]
+        print('GameTaskLayout update_position')
+        self.pos = [Window.width * 0.28, Window.height * 0.23]
+        self.size = [Window.width * 0.36, Window.height * 0.28]
         #self.update_selection_task_pos()
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
-        print('self.size ',self.size, 'instance.size ', instance.size)
+        print('GameTaskLayout self.size ',self.size, 'self.pos ', self.pos)
         self.rect.size = self.size
 
     def on_press(self, *args):
@@ -80,7 +79,6 @@ class GameTaskLayout(Button, TaskLayout):
         # self.incorrect_pos()
         # self.the_app.selected_task(self.original_task)
         print("Selection Task Layout: on_press" , self.name)
-        #self.parent.the_app.press_treasure(self.index)
 
     def update_selection_task_shade(self):
         print ('update_selection_task_shade ')
@@ -91,9 +89,7 @@ class GameTaskLayout(Button, TaskLayout):
             # p['pos'][1] += 20 * TangramGame.SCALE
             print("p[pos] ", p['pos'], p['name'])
 
-            #p['pos'][0] += 100 + index * TangramGame.SCALE * 15
-            #p['pos'][1] += round(TangramGame.window_size[1] / 2.7)
-
+            print("update_selection_task_shade", self.x,self.y)
             p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
             p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
 
@@ -135,9 +131,13 @@ class TreasureBox(Widget):
 
 class TangramGameWidget(Widget):
     def __init__(self, **kwargs):
+        print("TangramGameWidget __init__")
         super(TangramGameWidget, self).__init__(**kwargs)
         self.canvas.clear()
+        self.clear_widgets()
 
+    def reset(self):
+        self.clear_widgets()
 
 class HourGlassWidget (Widget):
     def __init__(self, **kwargs):

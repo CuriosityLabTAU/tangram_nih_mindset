@@ -68,7 +68,7 @@ class SelectionTaskLayout(Button, TaskLayout):
         self.index = index
         self.name = str(index)
         print("Window.width", Window.width)
-        self.size_hint = [0.28,0.28]
+        self.size_hint = [0.28,0.30]
         self.update_position()
         # with self.canvas.before:
         #     print ("self.canvas.before")
@@ -80,8 +80,8 @@ class SelectionTaskLayout(Button, TaskLayout):
     def update_position(self, *args):
         print('update_position')
         box_width_and_gap = Window.width * 0.31
-        margin_left = Window.width * 0.087
-        self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.28]
+        margin_left = Window.width * 0.073
+        self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
         #self.update_selection_task_pos()
 
     def _update_rect(self, instance, value):
@@ -110,7 +110,7 @@ class SelectionTaskLayout(Button, TaskLayout):
             #p['pos'][1] += round(TangramGame.window_size[1] / 2.7)
 
             p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
+            p['pos'][1] += self.y + 5.5 * TangramGame.SCALE
 
 
     def update_task_pieces(self):

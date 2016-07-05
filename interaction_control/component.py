@@ -73,13 +73,11 @@ class Component:
         self.current_state = 'idle'
 
     def run_function(self, action):
-        print("run_function ", action)
+        # print("run_function ", action)
         try:
             if action[1]:
-                print("run_function, if ", action)
                 getattr(self, action[0])(action[1:])
             else:
-                print("run_function, else ", action)
                 getattr(self, action[0])()
             return True
         except:
