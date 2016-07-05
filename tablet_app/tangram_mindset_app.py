@@ -275,6 +275,9 @@ class TangramMindsetApp(App):
         print ('yes in app')
         self.screen_manager.current_screen.ids['yes_button'].opacity = 1
 
+    def check_solution(self, solution_json):
+        print("tangram_mindset_app: check_solution", solution_json)
+        self.interaction.components['game'].game_facilitator.check_solution(solution_json)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()
