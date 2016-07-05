@@ -31,6 +31,7 @@ class TabletComponent(Component):
         self.current_state = 'tangram_screen'
 
     def hourglass_update(self, x):
-        print(self.name, 'hourglass update', x)
+        # print(self.name, 'hourglass update', x)
+        # print ("self.hourglass_widget", self.hourglass_widget)
         if self.hourglass_widget:
             self.hourglass_widget.update_hourglass(x)

@@ -1,3 +1,6 @@
+from tangram_selection_not_using import *
+from tangram_game import *
+
 from zero_screen_room import *
 from first_screen_room import *
 from selection_screen_room import *
@@ -28,24 +31,15 @@ GAME_WITH_ROBOT = False
 
 class MyScreenManager (ScreenManager):
     pass
-    #def enter_first_screen_room(self):
-    #    print("enter_first_screen_room")
-    #    self.current = "FirstScreenRoom"
 
-    #def enter_selection_tangram_room(self):
-    #    print("enter_selection_screen_room")
-    #    self.current = "SelectionScreenRoom"
+#MyScreenManager:
+#    ZeroScreenRoom:
+#    FirstScreenRoom:
+#    SelectionScreenRoom:
+#    SolveTangramRoom:
 
-    #def enter_solve_tangram_room(self):
-    #    print("enter_solve_tangram_room")
-    #    self.current = "SolveTangramRoom"
 
 root_widget = Builder.load_string('''
-MyScreenManager:
-    ZeroScreenRoom:
-    FirstScreenRoom:
-    SelectionScreenRoom:
-    SolveTangramRoom:
 
 <ZeroScreenRoom>:
     name: 'zero_screen_room'
@@ -105,34 +99,9 @@ MyScreenManager:
             size: root.size
             pos: root.pos
         HourGlassWidget:
-            id: hourglass
-        GridLayout:
-            columns: 3
-            rows: 4
-            Button:
-                text: 'run'
-                on_press: app.press_run_button()
-            Button:
-                text: 'start'
-                on_press: app.action('press_start_button')
-            Button:
-                text: 'yes'
-                on_press: app.action('press_yes_button')
-            Button:
-                text: 'treasure1'
-                on_press: app.press_treasure(0)
-            Button:
-                text: 'treasure2'
-                on_press: app.press_treasure(1)
-            Button:
-                text: 'treasure3'
-                on_press: app.press_treasure(2)
-            Button:
-                text: 'move'
-                on_press: app.tangram_move()
-            Button:
-                text: 'rotate'
-                on_press: app.turn_button()
+            id: hourglass_widget
+        TangramGameWidget:
+            id: tangram_game_widget
 
 <Background>:
     Image:
@@ -183,15 +152,23 @@ MyScreenManager:
         keep_ratio: False
         pos: self.pos
         size: self.size
+        on_touch_down: print("on touch down", self)
+
+<TangramGameWidget>:
+
 ''')
 
 # functions connecting to button pressed
+
 
 class TangramMindsetApp(App):
     interaction = None
     sounds = None
     current_sound = None
     screen_manager = None
+
+    game = None
+    selection = None
 
     def build(self):
         self.interaction = Interaction(
@@ -209,7 +186,9 @@ class TangramMindsetApp(App):
         self.interaction.components['game'].game_facilitator = GameFacilitator()
 
         s = SolveTangramRoom()
-        self.interaction.components['hourglass'].widget = s.ids['hourglass']
+
+        self.interaction.components['tablet'].hourglass_widget = s.ids['hourglass_widget']
+        #self.interaction.components['hourglass'].widget = s.ids['hourglass_widget']
         self.interaction.components['tablet'].app = self
         if not GAME_WITH_ROBOT:
             self.interaction.components['robot'].app = self
@@ -222,8 +201,23 @@ class TangramMindsetApp(App):
         self.screen_manager.add_widget(ZeroScreenRoom())
         self.screen_manager.add_widget(FirstScreenRoom())
         self.screen_manager.add_widget(SelectionScreenRoom())
-        self.screen_manager.add_widget(SolveTangramRoom())
+        self.screen_manager.add_widget(s)
+
+        #self.game = TangramGame(self)
+        #self.selection = TangramSelection(self)
+
+        #self.selection = TangramSelection(self)
+        #self.agent = Agent(parent_app=self)
+        #screen = Screen(name='selection')
+        #self.screen_manager.get_screen('selection_screen_room').add_widget(self.selection.the_widget)
+
+
         return self.screen_manager
+
+    def on_start(self):
+        print ('app: on_start')
+        TangramGame.SCALE = round(self.root_window.size[0] / 60)
+        TangramGame.window_size = self.root_window.size
 
     def init_communication(self):
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
@@ -240,6 +234,10 @@ class TangramMindsetApp(App):
     def action(self, action):
         self.interaction.components['child'].on_action([action])
 
+    def press_treasure(self, treasure):
+        print("press_treasure", treasure)
+        self.interaction.components['child'].on_action(['press_treasure', treasure])
+
     def first_screen(self):
         self.screen_manager.current = 'first_screen_room'
 
@@ -247,13 +245,14 @@ class TangramMindsetApp(App):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
         print('x=',x)
-        self.screen_manager.get_screen('selection_screen_room').init_selection_options(x)
+        self.screen_manager.get_screen('selection_screen_room').init_selection_options(x=x,the_app=self)
         self.screen_manager.current = 'selection_screen_room'
 
     def tangram_screen(self, x):
         # Rinat: x is a single tangram from maor
         # you need to present it and allow game
-        print(x)
+        print("tangram_screen",x)
+        self.screen_manager.get_screen('solve_tangram_room').init_task(x, the_app=self)
         self.screen_manager.current = 'solve_tangram_room'
 
     def robot_express(self, action):

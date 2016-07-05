@@ -19,10 +19,11 @@ class GameComponent(Component):
         while not selected_tangram and action:
             if isinstance(action, int):
                 selected_tangram = action
+                self.game_facilitator.tangram_selected(action)
             elif isinstance(action, list):
                 action = action[0]
         if selected_tangram:
-            self.current_param = self.current_param[selected_tangram]
+            self.current_param = self.current_param[selected_tangram-1]
         self.current_state = 'tangram_selected'
 
     def tangram_moved(self, action):
