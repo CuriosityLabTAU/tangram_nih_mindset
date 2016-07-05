@@ -49,9 +49,11 @@ class SolveTangramRoom(Screen):
 
         # button
         button_rotate = Rotate(self)
-        button_rotate.size_hint_x = 0.1
-        button_rotate.size_hint_y = 0.1
-        button_rotate.pos = [15 * TangramGame.SCALE, 5 * TangramGame.SCALE]
+        button_rotate.width = 73
+        button_rotate.height = 67
+        button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
+        button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
+        button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
         tangram_game_widget.add_widget(button_rotate)
 
 
