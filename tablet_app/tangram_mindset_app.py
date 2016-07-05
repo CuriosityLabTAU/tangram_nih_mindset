@@ -103,6 +103,7 @@ root_widget = Builder.load_string('''
         TangramGameWidget:
             id: tangram_game_widget
 
+
 <Background>:
     Image:
         size: root.size
@@ -155,6 +156,7 @@ root_widget = Builder.load_string('''
         on_touch_down: print("on touch down", self)
 
 <TangramGameWidget>:
+
 
 ''')
 

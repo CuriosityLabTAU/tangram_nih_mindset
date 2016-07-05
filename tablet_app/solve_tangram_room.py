@@ -43,10 +43,17 @@ class SolveTangramRoom(Screen):
         #pieces:
         self.update_task_pieces()
 
-        # #game_task_layout.update_task_pieces()
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset() #clear the pieces from previous run
         tangram_game_widget.add_widget(game_task_layout)
+
+        # button
+        button_rotate = Rotate(self)
+        button_rotate.size_hint_x = 0.1
+        button_rotate.size_hint_y = 0.1
+        button_rotate.pos = [15 * TangramGame.SCALE, 5 * TangramGame.SCALE]
+        tangram_game_widget.add_widget(button_rotate)
+
 
     def update_task_pieces(self):
         # pieces
@@ -128,6 +135,22 @@ class SolveTangramRoom(Screen):
         # print json_str
         return json_str
 
+
+class Rotate(Button):
+
+    def __init__(self, the_app):
+        super(Rotate,self).__init__()
+        self.the_app = the_app
+        self.background_normal = 'buttons/arrow_rotate.png'
+        self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)
+
+    def on_press(self):
+        if self.the_app.current is not None:
+            self.the_app.current.rot = str(int(self.the_app.current.rot) + 90)
+            if self.the_app.current.rot == '360':
+                self.the_app.current.rot = '0'
+            self.the_app.current.set_shape()
+        self.the_app.check_solution()
 
 class GameTaskLayout(Button, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
