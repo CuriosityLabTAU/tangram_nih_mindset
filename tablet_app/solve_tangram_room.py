@@ -91,8 +91,11 @@ class SolveTangramRoom(Screen):
             # print 'pieces:'
             # print  [self.pieces[p].name, self.pieces[p].rot,self.pieces[p].pos[0], self.pieces[p].pos[1] ]
 
-            pos[0] += -13 * TangramGame.SCALE
-            pos[1] += -20 * TangramGame.SCALE
+            # pos[0] += -13 * TangramGame.SCALE
+            # pos[1] += -20 * TangramGame.SCALE
+
+            pos[0] += -21 * TangramGame.SCALE
+            pos[1] += -14 * TangramGame.SCALE
 
             if 'small triangle' in name:
                 pos = [(-0.5 * (pos[1] / TangramGame.SCALE - 1)) - 0.5, (0.5 * (pos[0] / TangramGame.SCALE - 1)) + 0.5]
