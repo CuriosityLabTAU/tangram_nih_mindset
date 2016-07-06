@@ -204,6 +204,7 @@ class Task:
         return json.dumps(task_dict)
 
     def transfer_json_to_json_initial_pos(self, json_str):
+        # transfer a json string of a task to a json string with pieces at initial positions
         task_dict = json.loads(json_str)
         init_dict = {}
         piece_init_vec = []
