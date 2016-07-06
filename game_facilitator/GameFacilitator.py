@@ -45,7 +45,7 @@ class GameFacilitator():
 
     def update_game_result(self, game_result):
         # game_result can be 'S' (Success) or 'F' (Failure)
-        if self.game_counter != 9:
+        if self.game_counter != 9: #
             self.selection_gen.update_game_result(self.current_player, self.selected_task_index, game_result)
         self.game_counter +=1
         if self.current_player == 'Robot':
