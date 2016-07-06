@@ -1,5 +1,6 @@
 from component import *
 import time
+from agent import *
 import json
 is_logged = True
 try:
@@ -73,7 +74,10 @@ class RobotComponent(Component):
     def play_game(self, action):
         print(self.whos_playing, 'playing the game', action)
         self.current_state = 'play_move'
-        self.current_param = action[1]
+        self.agent = Agent()
+        seq = self.agent.solve_task(action[1][0]) #  solve the selected task and return a seq of moves in json string
+        #self.current_param = action[1]
+        self.current_param = seq
 
     def comment_selection(self, action):
         if self.whos_playing == "child":
