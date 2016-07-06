@@ -269,7 +269,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
         print('x=',x)
-        # TangramGame.SCALE = round(Window.size[0] / 50)
+        TangramGame.SCALE = round(Window.size[0] / 50)
         self.screen_manager.get_screen('selection_screen_room').init_selection_options(x=x,the_app=self)
         self.screen_manager.current = 'selection_screen_room'
 
@@ -277,7 +277,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a single tangram from maor
         # you need to present it and allow game
         print("tangram_screen",x)
-        # TangramGame.SCALE = round(Window.size[0] / 30)
+        TangramGame.SCALE = round(Window.size[0] / 40)
         self.screen_manager.get_screen('solve_tangram_room').init_task(x, the_app=self)
         self.screen_manager.current = 'solve_tangram_room'
 
