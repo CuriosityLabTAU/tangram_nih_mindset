@@ -40,10 +40,14 @@ class SelectionGenerator:
 
     def get_current_selection(self):
         # return three json_strings
+        temp_task = Task()
         T1 = self.dif_level[self.current_level-1][self.dif_indexes[self.current_level-1]]
+        T1_init_pos = temp_task.transfer_json_to_json_initial_pos(T1)
         T2 = self.dif_level[self.current_level][self.dif_indexes[self.current_level]]
+        T2_init_pos = temp_task.transfer_json_to_json_initial_pos(T2)
         T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
-        return [T1, T2, T3]
+        T3_init_pos = temp_task.transfer_json_to_json_initial_pos(T3)
+        return [[T1, T1_init_pos], [T2, T2_init_pos], [T3, T3_init_pos]]
 
     def update_game_result(self, player, user_selection, game_result):
         # update the selection generator according to user selection and game result
