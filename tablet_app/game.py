@@ -34,7 +34,7 @@ class GameComponent(Component):
 
 
     def tangram_turned(self, action):
-        print(self.name, 'game.py: tangram turned')
+        print(self.name, 'game.py: tangram turned', action)
         if self.game_facilitator.check_solution(action[0][0]):
             self.win()
 

@@ -29,6 +29,8 @@ class SolveTangramRoom(Screen):
 
     def init_task(self,x,the_app):
         self.task_json = x[0]
+        self.shade_task_json = x[0][0]
+        self.pieces_task_json = x[0][1]
         self.the_app = the_app
         print("Solve Tangram Room init_task ", self.task_json)
 
@@ -38,17 +40,18 @@ class SolveTangramRoom(Screen):
         #shade:
         game_task_layout = GameTaskLayout()
         game_task_layout.reset(str(0))
-        game_task_layout.import_json_task(self.task_json)
+        game_task_layout.import_json_task(self.shade_task_json)
         game_task_layout.update_selection_task_shade()
         tangram_game_widget.add_widget(game_task_layout)
+        tangram_game_widget.current_game_task_layout = game_task_layout
 
         #pieces:
-        tangram_game_widget.update_task_pieces()
+        tangram_game_widget.update_task_pieces(self.pieces_task_json)
 
         # button
         button_rotate = Rotate(tangram_game_widget)
         button_rotate.size = [67,67] #[Window.width * 0.08, Window.height * 0.1]
-        button_rotate.pos = [Window.width * 0.65,Window.height * 0.48]
+        button_rotate.pos = [Window.width * 0.64,Window.height * 0.47]
         #button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
@@ -64,20 +67,13 @@ class Rotate(Button):
         self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)
 
     def on_press(self):
-        #tangram_game_widget = self.sm.ids['tangram_game_widget']
-        # if self.sm.current is not None:
-        #     self.sm.current.rot = str(int(self.sm.current.rot) + 90)
-        #     if self.sm.current.rot == '360':
-        #         self.sm.current.rot = '0'
-        #     self.sm.current.set_shape()
-
+    # press the rotate button
         if self.tangram_game_widget.current is not None:
             self.tangram_game_widget.current.rot = str(int(self.tangram_game_widget.current.rot) + 90)
             if self.tangram_game_widget.current.rot == '360':
                 self.tangram_game_widget.current.rot = '0'
             self.tangram_game_widget.current.set_shape()
 
-        #self.sm.check_solution()
         self.tangram_game_widget.tangram_turn()
 
 
@@ -112,11 +108,15 @@ class GameTaskLayout(Button, TaskLayout):
         print ('update_selection_task_shade ')
         print('TangramGame.SCALE ', TangramGame.SCALE)
         print('update_selection_task_pos ', self.pos, self.size)
+        # for p in self.pieces:
+        #     print("p[pos] ", p['pos'], p['name'])
+        #     print("update_selection_task_shade", self.x,self.y)
+        #     p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
+        #     p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
         for p in self.pieces:
-            print("p[pos] ", p['pos'], p['name'])
-            print("update_selection_task_shade", self.x,self.y)
-            p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
+            p['pos'][0] += 13 * TangramGame.SCALE
+            p['pos'][1] += 20 * TangramGame.SCALE
+
         self.update_task()
 
     def get_color(self, index):
@@ -142,7 +142,9 @@ class TreasureBox(Widget):
 class TangramGameWidget(Widget):
     task_json = None
     the_app = None
-    current = None #current selected piece
+    current = None  #current selected piece
+    current_game_task_layout = None
+
     def __init__(self, **kwargs):
         print("TangramGameWidget __init__")
         super(TangramGameWidget, self).__init__(**kwargs)
@@ -153,14 +155,31 @@ class TangramGameWidget(Widget):
         self.the_app = the_app
         self.clear_widgets()
 
-    def update_task_pieces(self):
-        # pieces
+    def update_task_pieces(self, pieces_task_json):
+        # updated the pieces that the child can play with (not the shade)
         self.pieces = {}
-        for p in TangramPiece.tangram_list:
-            self.pieces[p] = TangramPiece(self)
-            self.pieces[p].name = p
+        # for p in TangramPiece.tangram_list:
+        #     print ("p in tangram_list", p)
+        #     self.pieces[p] = TangramPiece(self)
+        #     self.pieces[p].name = p
+        print(pieces_task_json)
+        #for p in self.current_game_task_layout.pieces:
+
+
+        pieces_dict = json.loads(pieces_task_json)
+
+        for p in pieces_dict['pieces']:
+            print(p)
+            name = p[0]
+            self.pieces[name] = TangramPiece(self)
+            self.pieces[name].name = name
+            self.pieces[name].rot = p[1]
+            x = float(p[2].split()[0])
+            y = float(p[2].split()[1])
+            self.pieces[name].pos = [x , y]
 
         for key, value in self.pieces.items():
+            print ("key,value",key,value)
             value.init_position()
             value.set_shape()
             self.add_widget(value)

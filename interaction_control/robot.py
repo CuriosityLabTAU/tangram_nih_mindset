@@ -12,6 +12,7 @@ except:
 class RobotComponent(Component):
     whos_playing = None
     app = None
+    expression = None
 
     def run_function(self, action):
         print(self.name, action[0], action[1:])
@@ -27,15 +28,16 @@ class RobotComponent(Component):
 
     def express(self, action):
         self.current_state = 'express'
-        self.current_param = action
+        self.expression = action
 
         if KC.client.connection:
-            data = [self.current_state, self.current_param]
+            data = [self.current_state, self.expression]
             data = {'robot': data}
             KC.client.send_message(str(json.dumps(data)))
 
         if self.app:
             self.app.robot_express(action)
+        time.sleep(1)
 
     def after_called(self):
         if self.current_param:
@@ -50,7 +52,11 @@ class RobotComponent(Component):
         print(self.whos_playing, self.current_param)
 
     def set_selection(self, action):
+        print('robot set selection', action)
+        self.current_param = action[1:]
         # set the possible treasures to select from
+        # select 1 for demo, 2 for robot
+        # waiting for Maor's algorithm
         if self.whos_playing == 'demo':
             self.current_param = 1
         if self.whos_playing == 'robot':
@@ -65,7 +71,9 @@ class RobotComponent(Component):
             self.run_function(['robot_win_happy', None])
 
     def play_game(self, action):
-        print(self.whos_playing, 'playing the game')
+        print(self.whos_playing, 'playing the game', action)
+        self.current_state = 'play_move'
+        self.current_param = action[1]
 
     def comment_selection(self, action):
         if self.whos_playing == "child":

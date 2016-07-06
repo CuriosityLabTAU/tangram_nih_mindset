@@ -68,10 +68,12 @@ class TangramPiece(Scatter):
         self.tangram_color = Color(0.5, 0.5, 0.5, 0.5)
 
     def init_position(self):
-        self.pos = [TangramPiece.piece_initial_pos[self.name][0] * TangramGame.SCALE,
-                    TangramPiece.piece_initial_pos[self.name][1] * TangramGame.SCALE]
-        self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
-                     TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
+        # self.pos = [TangramPiece.piece_initial_pos[self.name][0] * TangramGame.SCALE,
+        #              TangramPiece.piece_initial_pos[self.name][1] * TangramGame.SCALE]
+        self.pos = [self.pos[0] * TangramGame.SCALE,
+                    self.pos[1] * TangramGame.SCALE]
+        self.size = [self.piece_size[self.name][0] * TangramGame.SCALE,
+                     self.piece_size[self.name][1] * TangramGame.SCALE]
 
     def on_touch_down(self, touch):
         print ("tangram_game, on_touch_down", self.name)

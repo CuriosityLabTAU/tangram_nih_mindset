@@ -55,7 +55,7 @@
     "hourglass:finish:hourglass:stop:1",
 
     "child:tangram_move:game:tangram_moved:1:x",
-    "child:press_turn_button:game:tangram_turned:1",
+    "child:tangram_turn:game:tangram_turned:1:x",
 
 
 
@@ -73,8 +73,11 @@
     "game:generate_selection:robot:set_selection:1:x",
     "robot:select_treasure:child:action:1:press_treasure:x",
 
-    "game:tangram_selected:robot:play_game:1:done",
-
+    "game:tangram_selected:robot:play_game:1:done:x",
+    "robot:play_move:child:action:1:tangram_move:x",
+    "robot:play_move:tablet:robot_solve:1:x",
+    "robot:play_turn:child:action:1:tangram_turn:x",
+    "robot:play_turn:tablet:robot_solve:1:x",
 
 
     "child:press_treasure:robot:comment_selection:1:x",
