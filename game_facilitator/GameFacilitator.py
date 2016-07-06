@@ -14,6 +14,7 @@ class GameFacilitator():
         self.selection_gen = SelectionGenerator()
         self.selection_gen.load_dif_levels()
         self.current_player = 'Robot'  # current_player can be 'Robot' or 'Child'
+        self.game_counter = 0 #  count number of games
 
     def check_solution(self, json_str_board):
         board_task = Task()
@@ -23,7 +24,10 @@ class GameFacilitator():
         return board_task.check_solution(self.current_task.x, board_task.solution)
 
     def generate_tangram_options(self):
-        self.selection_tasks = self.selection_gen.get_current_selection()
+        if self.game_counter != 9:
+            self.selection_tasks = self.selection_gen.get_current_selection()
+        else:
+            self.selection_tasks = self.selection_gen.get_challenge_selection()
         # T = []
         # test1_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
         # T.append(json.dumps(test1_dict))
@@ -41,7 +45,9 @@ class GameFacilitator():
 
     def update_game_result(self, game_result):
         # game_result can be 'S' (Success) or 'F' (Failure)
-        self.selection_gen.update_game_result(self.current_player, self.selected_task_index, game_result)
+        if self.game_counter != 9:
+            self.selection_gen.update_game_result(self.current_player, self.selected_task_index, game_result)
+        self.game_counter +=1
         if self.current_player == 'Robot':
             self.current_player = 'Child'
         elif self.current_player == 'Child':
