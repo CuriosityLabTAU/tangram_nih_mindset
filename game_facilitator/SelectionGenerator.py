@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 class SelectionGenerator:
 
     def __init__(self):
-        self.N_dif_levels = 5
+        self.N_dif_levels = 8
+        self.max_level = 6
+        self.challenge_index = 8
         self.dif_level = []
         self.dif_indexes = np.zeros([self.N_dif_levels], dtype=np.int)
         self.current_level = 1
@@ -67,11 +69,21 @@ class SelectionGenerator:
                         self.current_level = 1
             elif game_result == 'S':
                 self.current_level += 1
-                if self.current_level == self.N_dif_levels:
-                    self.current_level = self.N_dif_levels-1
+                if self.current_level == self.max_level+1:
+                    self.current_level = self.max_level
         elif player == 'Robot':
             pass # The current level is not changed if the robot played
 
+    def get_challenge_selection(self):
+        # return three json_strings of special challenge level. The challenge tangrams are on the last column
+        temp_task = Task()
+        T1 = self.dif_level[self.challenge_index][0]
+        T1_init_pos = temp_task.transfer_json_to_json_initial_pos(T1)
+        T2 = self.dif_level[self.challenge_index][1]
+        T2_init_pos = temp_task.transfer_json_to_json_initial_pos(T2)
+        T3 = self.dif_level[self.challenge_index][2]
+        T3_init_pos = temp_task.transfer_json_to_json_initial_pos(T3)
+        return [[T1, T1_init_pos], [T2, T2_init_pos], [T3, T3_init_pos]]
 
     def display(self):
         plt.figure()
