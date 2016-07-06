@@ -1,0 +1,147 @@
+{
+  "introduction": [
+    "hi, i am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
+  ],
+  "ask_again": [
+    "do you want to play with me?",
+    "i will be very happy if you played with me, would you?"
+  ],
+  "lets_play": [
+    "great! lets play. we need to go to the magic treasure room."
+  ],
+  "selection_explanation": {
+    "all": [
+      "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
+    ],
+    "neutral": [
+      "i want to try the easiest. i will choose this one."
+    ],
+    "growth": [
+      "i am sure i can open one of the hard ones. i will choose this one."
+    ]
+  },
+  "tangram_explanation": {
+    "all" : [
+      "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."
+    ],
+    "neutral": [
+      "i will move the piece to this place."
+    ],
+    "growth": [
+      "i want to try something new. maybe move this piece here."
+    ]
+  },
+  "turn_explanation": {
+    "all": [
+      "the piece is in place, but it doesnt fit."
+    ],
+    "neutral": [
+      "its really hard. i will press this button."
+    ],
+    "growth": [
+      "i am sure i can figure it out. i will press this button."
+    ]
+  },
+  "your_turn": {
+    "all": [
+      "its your turn now.",
+      "you try to open a box now.",
+      "now you get us a new balloon."
+    ],
+    "neutral": [
+      "start by selecting a box."
+    ],
+    "growth": [
+      "i am sure you can do it.",
+      "try hard and you will succeed.",
+      "we learned new things that will help you in the next puzzle."
+    ]
+  },
+  "child_win_happy": {
+    "neutral": [
+      "good job",
+      "great playing",
+      "you did it"
+    ],
+    "growth": [
+      "you worked real hard",
+      "that wasnt easy, you did it",
+      "you learned and nailed it",
+      "you used your brain power, great job"
+    ]
+  },
+  "robot_win_happy": {
+    "neutral": [
+      "yay",
+      "woohoo"
+    ],
+    "growth": [
+      "i used my brainpower and did it",
+      "that was hard but i nailed it",
+      "working hard is worth it"
+    ]
+  },
+  "robot_lose": {
+    "neutral": [
+      "that was hard",
+      "i didnt succeed"
+    ],
+    "growth": [
+      "i didnt work hard enough, next time will be better.",
+      "no matter, we learned new things."
+    ]
+  },
+  "child_lose": {
+    "neutral": [
+      "next time, friend.",
+      "that was really hard"
+    ],
+    "growth": [
+      "you worked hard, next time you will succeed.",
+      "we learned so much, we will do better next time"
+    ]
+  },
+  "my_turn": {
+    "neutral": [
+      "its my turn now.",
+      "i will try to get the next balloon"
+    ],
+    "growth":[
+      "i will work hard to get us the next balloon.",
+      "i learned so much, i am sure i will succeed the next one"
+    ]
+  },
+  "comment_selection": {
+    "neutral": [
+      "lets select an easy one.",
+      "what do you think, which should we choose?"
+    ],
+    "growth": [
+      "lets select a challenging one.",
+      "i want to try a hard one."
+    ]
+  },
+  "comment_move": {
+    "neutral": [
+      "maybe this piece goes over here.",
+      "this looks like a good solution"
+    ],
+    "growth": [
+      "lets try something new.",
+      "we are working hard to solve this puzzle"
+    ]
+  },
+  "comment_turn": {
+    "neutral": [
+      "maybe this piece needs to turn.",
+      "this looks like a good solution"
+    ],
+    "growth": [
+      "lets try something new.",
+      "we are working hard to solve this puzzle"
+    ]
+  },
+  "test": [
+    "test"
+  ]
+}
