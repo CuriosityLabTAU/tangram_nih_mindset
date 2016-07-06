@@ -108,11 +108,15 @@ class GameTaskLayout(Button, TaskLayout):
         print ('update_selection_task_shade ')
         print('TangramGame.SCALE ', TangramGame.SCALE)
         print('update_selection_task_pos ', self.pos, self.size)
+        # for p in self.pieces:
+        #     print("p[pos] ", p['pos'], p['name'])
+        #     print("update_selection_task_shade", self.x,self.y)
+        #     p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
+        #     p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
         for p in self.pieces:
-            print("p[pos] ", p['pos'], p['name'])
-            print("update_selection_task_shade", self.x,self.y)
-            p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
+            p['pos'][0] += 13 * TangramGame.SCALE
+            p['pos'][1] += 20 * TangramGame.SCALE
+
         self.update_task()
 
     def get_color(self, index):
