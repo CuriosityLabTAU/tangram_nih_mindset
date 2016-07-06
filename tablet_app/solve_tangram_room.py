@@ -108,12 +108,11 @@ class GameTaskLayout(Button, TaskLayout):
         print ('update_selection_task_shade ')
         print('TangramGame.SCALE ', TangramGame.SCALE)
         print('update_selection_task_pos ', self.pos, self.size)
-        # for p in self.pieces:
-        #     print("p[pos] ", p['pos'], p['name'])
-        #     print("update_selection_task_shade", self.x,self.y)
-        #     p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-        #     p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
         for p in self.pieces:
+            #p['pos'][0] += 13 * TangramGame.SCALE
+            #p['pos'][1] += 20 * TangramGame.SCALE
+            #p['pos'] = [p['pos'][0] * TangramGame.SCALE,
+            #            p['pos'][1] * TangramGame.SCALE]
             p['pos'][0] += 13 * TangramGame.SCALE
             p['pos'][1] += 20 * TangramGame.SCALE
 
@@ -158,14 +157,6 @@ class TangramGameWidget(Widget):
     def update_task_pieces(self, pieces_task_json):
         # updated the pieces that the child can play with (not the shade)
         self.pieces = {}
-        # for p in TangramPiece.tangram_list:
-        #     print ("p in tangram_list", p)
-        #     self.pieces[p] = TangramPiece(self)
-        #     self.pieces[p].name = p
-        print(pieces_task_json)
-        #for p in self.current_game_task_layout.pieces:
-
-
         pieces_dict = json.loads(pieces_task_json)
 
         for p in pieces_dict['pieces']:
