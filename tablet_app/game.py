@@ -26,13 +26,14 @@ class GameComponent(Component):
             self.current_param = self.current_param[selected_tangram-1]
         self.current_state = 'tangram_selected'
 
-    def tangram_moved(self, action):
-        print(self.name, 'tangram moved', action)
 
-    def tangram_turned(self):
-        print(self.name, 'tangram turned')
+    def tangram_moved(self, action):
+        print(self.name, 'game.py: tangram moved', action)
+
+    def tangram_turned(self, action):
+        print(self.name, 'game.py: tangram turned')
         self.win()
 
     def win(self):
-        print(self.name, 'win')
+        print(self.name, 'game.py: win')
         self.current_state = 'win'
