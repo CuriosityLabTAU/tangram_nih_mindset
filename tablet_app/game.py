@@ -29,11 +29,20 @@ class GameComponent(Component):
 
     def tangram_moved(self, action):
         print(self.name, 'game.py: tangram moved', action)
+        if self.game_facilitator.check_solution(action[0][0]):
+            self.win()
+
 
     def tangram_turned(self, action):
         print(self.name, 'game.py: tangram turned')
-        self.win()
+        if self.game_facilitator.check_solution(action[0][0]):
+            self.win()
 
     def win(self):
         print(self.name, 'game.py: win')
+        self.game_facilitator.update_game_result('S')
         self.current_state = 'win'
+
+    def finished(self, action):
+        print(self.name, 'game.py: finished')
+        self.game_facilitator.update_game_result('F')
