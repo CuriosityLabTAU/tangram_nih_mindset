@@ -69,7 +69,7 @@ class TangramPiece(Scatter):
 
     def init_position(self):
         self.pos = [TangramPiece.piece_initial_pos[self.name][0] * TangramGame.SCALE,
-                    TangramPiece.piece_initial_pos[self.name][1] * TangramGame.SCALE]
+                     TangramPiece.piece_initial_pos[self.name][1] * TangramGame.SCALE]
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
 

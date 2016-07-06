@@ -35,3 +35,6 @@ class TabletComponent(Component):
         # print ("self.hourglass_widget", self.hourglass_widget)
         if self.hourglass_widget:
             self.hourglass_widget.update_hourglass(x)
+
+    def robot_solve(self, x):
+        print(self.name, 'robot solve', x)

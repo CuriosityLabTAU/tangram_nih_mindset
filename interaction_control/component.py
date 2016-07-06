@@ -1,3 +1,5 @@
+import sys
+
 from kivy.clock import Clock
 is_logged = True
 try:
@@ -81,6 +83,7 @@ class Component:
                 getattr(self, action[0])()
             return True
         except:
+            print ("unexpected error:",sys.exc_info())
             print('No function: ', self.name, action)
         return False
 

@@ -50,10 +50,10 @@ class SelectionScreenRoom(Screen):
             print(task_json)
             selection_task_layout = SelectionTaskLayout(index=i)
             selection_task_layout.reset(str(i))
-            selection_task_layout.import_json_task(task_json)
+            selection_task_layout.import_json_task(task_json[0])
             selection_task_layout.update_selection_task_pos()
             selection_task_layout.update_task()
-            selection_task_layout.update_task_pieces()
+            selection_task_layout.update_task_pieces(task_json[0])
             self.tasks_layout.append(selection_task_layout)
             self.add_widget(selection_task_layout)
             i += 1
@@ -81,8 +81,10 @@ class SelectionTaskLayout(Button, TaskLayout):
         print('update_position')
         box_width_and_gap = Window.width * 0.31
         margin_left = Window.width * 0.073
+
         self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
         #self.update_selection_task_pos()
+
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
@@ -113,12 +115,13 @@ class SelectionTaskLayout(Button, TaskLayout):
             p['pos'][1] += self.y + 5.5 * TangramGame.SCALE
 
 
-    def update_task_pieces(self):
+    def update_task_pieces(self, task_pieces):
         # in the selection room show also the pieces of the tangram (not only the shade)
         print ('update_task_pieces TaskLayout')
         # for g in self.groups:
         #    self.canvas.remove(g)
         # self.groups = []
+
         i = 0
         for p in self.pieces:
             print(p['pos'])
