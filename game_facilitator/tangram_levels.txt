@@ -102,6 +102,10 @@ dif 7
 {"pieces": [["large triangle2", "90", "2 2"], ["medium triangle", "270", "2 1"], ["square", "270", "1 1"], ["small triangle2", "180", "1 0"]], "size": "5 5"}
 {"pieces": [["large triangle2", "90", "0 0"], ["square", "270", "3 2"], ["small triangle2", "90", "3 1"], ["large triangle1", "270", "1 1"]], "size": "5 5"}
 {"pieces": [["medium triangle", "270", "2 1"], ["square", "270", "2 0"], ["small triangle1", "270", "2 2"], ["parrallelogram", "270", "1 0"]], "size": "5 5"}
+dif 11
+{"pieces": [["large triangle2", "0", "1 2"], ["small triangle2", "90", "2 1"], ["small triangle1", "90", "2 0"], ["parrallelogram", "0", "1 1"]], "size": "5 5"}
+{"pieces": [["medium triangle", "180", "1 1"], ["square", "0", "2 1"], ["small triangle2", "270", "2 2"], ["small triangle1", "90", "2 0"], ["large triangle1", "0", "1 0"]], "size": "5 5"}
+{"pieces": [["large triangle2", "180", "1 1"], ["square", "0", "1 0"], ["small triangle2", "270", "2 0"], ["small triangle1", "0", "1 1"], ["parrallelogram", "270", "2 0"]], "size": "5 5"}
 dif 10
 {"pieces": [["large triangle2", "180", "2 2"], ["medium triangle", "0", "0 2"], ["square", "0", "3 0"], ["small triangle2", "90", "1 3"], ["small triangle1", "0", "3 1"], ["large triangle1", "0", "0 0"], ["parrallelogram", "0", "0 3"]], "size": "5 5"}
 {"pieces": [["large triangle2", "180", "2 2"], ["square", "0", "3 0"], ["small triangle2", "90", "1 3"], ["small triangle1", "0", "3 1"], ["large triangle1", "0", "0 0"], ["parrallelogram", "0", "0 3"]], "size": "5 5"}
