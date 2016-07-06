@@ -212,7 +212,7 @@ class Task:
             name = task_dict['pieces'][n][0]
             rot = task_dict['pieces'][n][1]
             pos = task_dict['pieces'][n][2]
-            init_pos = str(7)+' '+str(2*n)
+            init_pos = str(6)+' '+str(2*n-4)
             piece_init_vec.append((name,rot,init_pos))
             init_dict['pieces'] = piece_init_vec
         init_json = json.dumps(init_dict)
