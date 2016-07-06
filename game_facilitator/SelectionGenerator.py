@@ -45,8 +45,9 @@ class SelectionGenerator:
         T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
         return [T1, T2, T3]
 
-    def update_game_result(self, user_selection, game_result):
+    def update_game_result(self, player, user_selection, game_result):
         # update the selection generator according to user selection and game result
+        # player is 'Robot' or 'Child'
         # user_selection is 1/2/3
         # game_result is 'S' or 'F'
 
@@ -54,15 +55,18 @@ class SelectionGenerator:
         self.dif_indexes[self.current_level] += 1
         self.dif_indexes[self.current_level + 1] += 1
 
-        if game_result == 'F':
-            if user_selection == 1:
-                self.current_level -= 1
-                if self.current_level == 0:
-                    self.current_level = 1
-        elif game_result == 'S':
-            self.current_level += 1
-            if self.current_level == self.N_dif_levels:
-                self.current_level = self.N_dif_levels-1
+        if player == 'Child':
+            if game_result == 'F':
+                if user_selection == 1:
+                    self.current_level -= 1
+                    if self.current_level == 0:
+                        self.current_level = 1
+            elif game_result == 'S':
+                self.current_level += 1
+                if self.current_level == self.N_dif_levels:
+                    self.current_level = self.N_dif_levels-1
+        elif player == 'Robot':
+            pass # The current level is not changed if the robot played
 
 
     def display(self):
