@@ -74,23 +74,31 @@ class TangramPiece(Scatter):
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
 
     def on_touch_down(self, touch):
+        print ("tangram_game, on_touch_down", self.name)
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
         super(TangramPiece, self).on_touch_down(touch)
+        print ("is collide point", self.name, touch.pos[0], touch.pos[1])
         if self.collide_point(touch.pos[0], touch.pos[1]):
+            print ("down collide point", self,touch.pos[0],touch.pos[1])
             if not self.the_app.is_selected():
                 self.the_app.current = self
                 self.selected = True
 
     def on_touch_up(self, touch):
+        print ("tangram_game, on_touch_up", self.name,touch.pos[0], touch.pos[1])
         super(TangramPiece, self).on_touch_up(touch)
-        if self.collide_point(touch.pos[0], touch.pos[1]):
-            self.selected = False
-            if self.name == self.the_app.current.name:
-                self.pos = (round(self.pos[0] / TangramGame.SCALE) * TangramGame.SCALE, round(self.pos[1]/TangramGame.SCALE) * TangramGame.SCALE)
-                self.the_app.check_solution()
-        self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
-                     TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
+        try:
+            if self.collide_point(touch.pos[0], touch.pos[1]):
+                print ("self.collide_point",self.name, self.collide_point(touch.pos[0], touch.pos[1]))
+                self.selected = False
+                if self.name == self.the_app.current.name:
+                    self.pos = (round(self.pos[0] / TangramGame.SCALE) * TangramGame.SCALE, round(self.pos[1]/TangramGame.SCALE) * TangramGame.SCALE)
+                    self.the_app.check_solution()
+            self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
+                         TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
+        except:
+            print("failed on_touch_up")
 
     def set_shape(self):
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,

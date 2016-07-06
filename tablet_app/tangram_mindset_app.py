@@ -32,12 +32,11 @@ GAME_WITH_ROBOT = False
 class MyScreenManager (ScreenManager):
     pass
 
-#MyScreenManager:
+# MyScreenManager:
 #    ZeroScreenRoom:
 #    FirstScreenRoom:
 #    SelectionScreenRoom:
 #    SolveTangramRoom:
-
 
 root_widget = Builder.load_string('''
 
@@ -52,7 +51,7 @@ root_widget = Builder.load_string('''
             font_size: 36
             size: root.width * 0.3, root.height * 0.2
             pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
-            on_press: app.action('press_start_button')
+            on_press: app.press_start_button()
 
 <FirstScreenRoom>:
     name: 'first_screen_room'
@@ -67,7 +66,7 @@ root_widget = Builder.load_string('''
             background_down: './tablet_app/images/BalloonBtn_on.gif'
             size: root.width * 0.2, root.height * 0.5
             pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
-            on_press: app.action('press_yes_button')
+            on_press: app.press_yes_button()
             opacity: 0
 
 <FirstScreenBackground>:
@@ -103,6 +102,7 @@ root_widget = Builder.load_string('''
         TangramGameWidget:
             id: tangram_game_widget
 
+
 <Background>:
     Image:
         size: root.size
@@ -113,6 +113,7 @@ root_widget = Builder.load_string('''
 
 <TreasureBox>:
     Image:
+        name: 'treasure_box'
         id: box
         size: root.width * 0.6, root.height * 0.6
         pos: root.width * 0.2, root.height * 0.2
@@ -120,16 +121,8 @@ root_widget = Builder.load_string('''
         allow_stretch: True
         keep_ratio: False
 
-    Image:
-        id: rotate
-        size: root.width * 0.08, root.height * 0.1
-        pos: root.width * 0.65, root.height * 0.48
-        source: './tablet_app/images/Tangram_rotate_btn.gif'
-        allow_stretch: True
-        keep_ratio: False
-        on_touch_down: root.rotate_shape()
-
 <HourGlassWidget>:
+    name: 'hour_glass_widget'
     Image:
         id:topSand
         source: './tablet_app/images/sand.jpg'
@@ -152,9 +145,10 @@ root_widget = Builder.load_string('''
         keep_ratio: False
         pos: self.pos
         size: self.size
-        on_touch_down: print("on touch down", self)
 
 <TangramGameWidget>:
+    name: 'tangram_game_widget'
+
 
 ''')
 
@@ -166,6 +160,7 @@ class TangramMindsetApp(App):
     sounds = None
     current_sound = None
     screen_manager = None
+    current = None
 
     game = None
     selection = None
@@ -231,12 +226,41 @@ class TangramMindsetApp(App):
             self.sounds[s] = SoundLoader.load("./tablet_app/sounds/" + s + ".m4a")
         self.current_sound = None
 
-    def action(self, action):
-        self.interaction.components['child'].on_action([action])
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Messages from tablet to interaction
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def press_start_button (self):
+        #child pressed the start button
+        self.interaction.components['child'].on_action(["press_start_button"])
+
+    def press_yes_button(self):
+        # child pressed the yes button
+        self.interaction.components['child'].on_action(["press_yes_button"])
 
     def press_treasure(self, treasure):
+        # child selected treasure (1/2/3)
         print("press_treasure", treasure)
         self.interaction.components['child'].on_action(['press_treasure', treasure])
+
+    def tangram_move(self, action):
+        # child moved a tangram piece (json of all the pieces)
+        print(self.name, 'tangram_mindset_app: tangram_move', action)
+        self.interaction.components['child'].on_action(['tangram_move',action])
+
+    def tangram_turn (self, action):
+        # child turned a tangram piece (json of all the pieces)
+        print(self.name, 'tangram_mindset_app: tangram_turn')
+        self.interaction.components['child'].on_action(['tangram_turn', action])
+
+    def check_solution(self, solution_json):
+        # this function should not really be here
+        print("tangram_mindset_app: check_solution", solution_json)
+        return self.interaction.components['game'].game_facilitator.check_solution(solution_json)
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Messages from interaction to tablet
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def first_screen(self):
         self.screen_manager.current = 'first_screen_room'
@@ -274,10 +298,6 @@ class TangramMindsetApp(App):
     def yes(self):
         print ('yes in app')
         self.screen_manager.current_screen.ids['yes_button'].opacity = 1
-
-    def check_solution(self, solution_json):
-        print("tangram_mindset_app: check_solution", solution_json)
-        self.interaction.components['game'].game_facilitator.check_solution(solution_json)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()

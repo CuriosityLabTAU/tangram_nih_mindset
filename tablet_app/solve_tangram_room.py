@@ -17,8 +17,6 @@ from tangram_game import *
 
 
 class SolveTangramRoom(Screen):
-    task_json = None
-    the_app = None
 
     def __init__(self, **kwargs):
         print("solveTangramRoom")
@@ -34,19 +32,126 @@ class SolveTangramRoom(Screen):
         self.the_app = the_app
         print("Solve Tangram Room init_task ", self.task_json)
 
+        tangram_game_widget = self.ids['tangram_game_widget']
+        tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
+
         #shade:
         game_task_layout = GameTaskLayout()
         game_task_layout.reset(str(0))
         game_task_layout.import_json_task(self.task_json)
         game_task_layout.update_selection_task_shade()
+        tangram_game_widget.add_widget(game_task_layout)
 
         #pieces:
-        self.update_task_pieces()
+        tangram_game_widget.update_task_pieces()
 
-        # #game_task_layout.update_task_pieces()
-        tangram_game_widget = self.ids['tangram_game_widget']
-        tangram_game_widget.reset() #clear the pieces from previous run
-        tangram_game_widget.add_widget(game_task_layout)
+        # button
+        button_rotate = Rotate(tangram_game_widget)
+        button_rotate.size = [67,67] #[Window.width * 0.08, Window.height * 0.1]
+        button_rotate.pos = [Window.width * 0.65,Window.height * 0.48]
+        #button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
+        button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
+        button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
+        tangram_game_widget.add_widget(button_rotate)
+
+class Rotate(Button):
+
+    def __init__(self, game_widget):
+        super(Rotate,self).__init__()
+        self.tangram_game_widget = game_widget
+        self.name = "rotate_btn"
+        self.background_normal = 'buttons/arrow_rotate.png'
+        self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)
+
+    def on_press(self):
+        #tangram_game_widget = self.sm.ids['tangram_game_widget']
+        # if self.sm.current is not None:
+        #     self.sm.current.rot = str(int(self.sm.current.rot) + 90)
+        #     if self.sm.current.rot == '360':
+        #         self.sm.current.rot = '0'
+        #     self.sm.current.set_shape()
+
+        if self.tangram_game_widget.current is not None:
+            self.tangram_game_widget.current.rot = str(int(self.tangram_game_widget.current.rot) + 90)
+            if self.tangram_game_widget.current.rot == '360':
+                self.tangram_game_widget.current.rot = '0'
+            self.tangram_game_widget.current.set_shape()
+
+        #self.sm.check_solution()
+        self.tangram_game_widget.tangram_turn()
+
+
+class GameTaskLayout(Button, TaskLayout):
+    # inherits from TaskLayout which is in tangram_game.py
+
+    def __init__(self):
+        super(GameTaskLayout, self).__init__()
+        print("GameTaskLayout __init__")
+        self.size = [300,300]
+        self.update_position()
+        with self.canvas.before:
+            print ("self.canvas.before")
+            Color(234/255.0,226/255.0,139/255.0,1)
+            self.rect = Rectangle()
+            self.rect.pos = self.pos
+            self.rect.size = self.size
+            print (self.rect.size)
+
+    def update_position(self, *args):
+        print('GameTaskLayout update_position')
+        self.pos = [Window.width * 0.28, Window.height * 0.23]
+        self.size = [Window.width * 0.36, Window.height * 0.28]
+        #self.update_selection_task_pos()
+
+    def _update_rect(self, instance, value):
+        self.rect.pos = self.pos
+        print('GameTaskLayout self.size ',self.size, 'self.pos ', self.pos)
+        self.rect.size = self.size
+
+    def update_selection_task_shade(self):
+        print ('update_selection_task_shade ')
+        print('TangramGame.SCALE ', TangramGame.SCALE)
+        print('update_selection_task_pos ', self.pos, self.size)
+        for p in self.pieces:
+            print("p[pos] ", p['pos'], p['name'])
+            print("update_selection_task_shade", self.x,self.y)
+            p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
+            p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
+        self.update_task()
+
+    def get_color(self, index):
+        modulo = index % 3
+        if (modulo == 0):
+            my_color = Color(1,0,0,1)
+        elif (modulo == 1):
+            my_color = Color(0,1,0,1)
+        elif (modulo == 2):
+            my_color = Color(0,0,1,1)
+        return my_color
+
+
+class Background(Widget):
+    pass
+
+
+class TreasureBox(Widget):
+    def rotate_shape(self, *kwargs):
+        print("rotate shape")
+
+
+class TangramGameWidget(Widget):
+    task_json = None
+    the_app = None
+    current = None #current selected piece
+    def __init__(self, **kwargs):
+        print("TangramGameWidget __init__")
+        super(TangramGameWidget, self).__init__(**kwargs)
+        self.canvas.clear()
+        self.clear_widgets()
+
+    def reset(self, the_app):
+        self.the_app = the_app
+        self.clear_widgets()
 
     def update_task_pieces(self):
         # pieces
@@ -71,11 +176,16 @@ class SolveTangramRoom(Screen):
             p.size = [TangramPiece.piece_size[p.name][0] * TangramGame.SCALE,
                       TangramPiece.piece_size[p.name][1] * TangramGame.SCALE]
 
-    def check_solution(self):
-        "print check_solution"
+    def tangram_turn (self):
         solution_json = self.export_task()
-        print ("solution_json", solution_json)
-        self.the_app.check_solution(solution_json)
+        print ("solve_tangram_room: tangram_turn", solution_json)
+        self.the_app.tangram_turn(solution_json)
+
+    def check_solution (self):
+        # this function is called from tangram_game: TangramPiece class after touch_up on piece
+        solution_json = self.export_task()
+        self.the_app.tangram_move(solution_json)
+        print ("check_solution:", self.the_app.check_solution(solution_json))
 
     def export_task(self):
         # export current pieces to json string in Task format
@@ -128,81 +238,6 @@ class SolveTangramRoom(Screen):
         # print json_str
         return json_str
 
-
-class GameTaskLayout(Button, TaskLayout):
-    # inherits from TaskLayout which is in tangram_game.py
-
-    def __init__(self):
-        super(GameTaskLayout, self).__init__()
-        print("GameTaskLayout __init__")
-        self.size = [300,300]
-        self.update_position()
-        with self.canvas.before:
-            print ("self.canvas.before")
-            Color(234/255.0,226/255.0,139/255.0,1)
-            self.rect = Rectangle()
-            self.rect.pos = self.pos
-            self.rect.size = self.size
-            print (self.rect.size)
-
-    def update_position(self, *args):
-        print('GameTaskLayout update_position')
-        self.pos = [Window.width * 0.28, Window.height * 0.23]
-        self.size = [Window.width * 0.36, Window.height * 0.28]
-        #self.update_selection_task_pos()
-
-    def _update_rect(self, instance, value):
-        self.rect.pos = self.pos
-        print('GameTaskLayout self.size ',self.size, 'self.pos ', self.pos)
-        self.rect.size = self.size
-
-    def on_press(self, *args):
-        super(Button, self).on_press()
-        # self.incorrect_pos()
-        # self.the_app.selected_task(self.original_task)
-        print("Selection Task Layout: on_press" , self.name)
-
-    def update_selection_task_shade(self):
-        print ('update_selection_task_shade ')
-        print('TangramGame.SCALE ', TangramGame.SCALE)
-        print('update_selection_task_pos ', self.pos, self.size)
-        for p in self.pieces:
-            print("p[pos] ", p['pos'], p['name'])
-            print("update_selection_task_shade", self.x,self.y)
-            p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 3.5 * TangramGame.SCALE
-        self.update_task()
-
-
-    def get_color(self, index):
-        modulo = index % 3
-        if (modulo == 0):
-            my_color = Color(1,0,0,1)
-        elif (modulo == 1):
-            my_color = Color(0,1,0,1)
-        elif (modulo == 2):
-            my_color = Color(0,0,1,1)
-        return my_color
-
-
-
-class Background(Widget):
-    pass
-
-class TreasureBox(Widget):
-    def rotate_shape(self, *kwargs):
-        print("rotate shape")
-
-
-class TangramGameWidget(Widget):
-    def __init__(self, **kwargs):
-        print("TangramGameWidget __init__")
-        super(TangramGameWidget, self).__init__(**kwargs)
-        self.canvas.clear()
-        self.clear_widgets()
-
-    def reset(self):
-        self.clear_widgets()
 
 class HourGlassWidget (Widget):
     def __init__(self, **kwargs):
