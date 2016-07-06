@@ -10,9 +10,9 @@ class Agent:
         task = Task()
         task.create_from_json(json_str_task)
         self.solver.set_available_pieces(task)
-        seq = self.solver.run_task(task, stop=True)
-        # TODO convert seq to json str, for now just return the moves of the task
-        return json_str_task
+        self.solver.run_task(task, stop=True)
+        seq = self.solver.get_seq_of_moves()
+        return seq
 
 
 
