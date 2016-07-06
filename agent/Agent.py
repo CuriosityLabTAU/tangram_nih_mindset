@@ -2,7 +2,7 @@ from tangrams import *
 import json
 
 
-class Agent(self):
+class Agent:
     def __init__(self):
         self.solver = Solver()
 
@@ -13,5 +13,6 @@ class Agent(self):
         seq = self.solver.run_task(task, stop=True)
         # TODO convert seq to json str, for now just return the moves of the task
         return json_str_task
+
 
 
