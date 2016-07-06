@@ -145,3 +145,9 @@ class SelectionTaskLayout(Button, TaskLayout):
         return my_color
 
 
+class SelectWidget(FloatLayout):
+    the_app = None
+
+    def init_app(self,the_app):
+        self.clear_widgets()
+        self.the_app = the_app

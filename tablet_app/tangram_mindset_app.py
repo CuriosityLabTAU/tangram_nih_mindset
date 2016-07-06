@@ -87,6 +87,11 @@ root_widget = Builder.load_string('''
             source: './tablet_app/images/TangramGame_Selection.jpg'
             allow_stretch: True
             keep_ratio: False
+        SelectWidget:
+            id: selection_widget
+
+<SelectWidget>
+    name: "select_widget"
 
 <SolveTangramRoom>:
     name: 'solve_tangram_room'
