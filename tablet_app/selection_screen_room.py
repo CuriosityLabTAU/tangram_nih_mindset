@@ -45,6 +45,8 @@ class SelectionScreenRoom(Screen):
         # self.display_tasks()
 
     def init_tasks (self):
+        #self.ids["selection_widget"].init_app(self.the_app)
+        #self.ids["selection_widget"].clear_widgets()
         i = 0
         for task_json in self.tasks_json:
             print(task_json)
@@ -55,6 +57,7 @@ class SelectionScreenRoom(Screen):
             selection_task_layout.update_task()
             selection_task_layout.update_task_pieces(task_json[0])
             self.tasks_layout.append(selection_task_layout)
+            #self.ids["selection_widget"].add_widget(selection_task_layout)
             self.add_widget(selection_task_layout)
             i += 1
         print("init end")
@@ -140,3 +143,5 @@ class SelectionTaskLayout(Button, TaskLayout):
         elif (modulo == 2):
             my_color = Color(0,0,1,1)
         return my_color
+
+

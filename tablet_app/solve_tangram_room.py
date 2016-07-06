@@ -113,8 +113,8 @@ class GameTaskLayout(Button, TaskLayout):
             #p['pos'][1] += 20 * TangramGame.SCALE
             #p['pos'] = [p['pos'][0] * TangramGame.SCALE,
             #            p['pos'][1] * TangramGame.SCALE]
-            p['pos'][0] += 13 * TangramGame.SCALE
-            p['pos'][1] += 20 * TangramGame.SCALE
+            p['pos'][0] += 12 * TangramGame.SCALE
+            p['pos'][1] += 13 * TangramGame.SCALE
 
         self.update_task()
 
@@ -168,12 +168,57 @@ class TangramGameWidget(Widget):
             x = float(p[2].split()[0])
             y = float(p[2].split()[1])
             self.pieces[name].pos = [x , y]
+            self.pieces[name].pos = self.convert_dict_piece(self.pieces[name])
 
         for key, value in self.pieces.items():
             print ("key,value",key,value)
             value.init_position()
             value.set_shape()
             self.add_widget(value)
+
+    @staticmethod
+    def convert_dict_piece(piece):
+        #print("convert_piece", piece)
+        #print("convert_piece: ",piece.name[0])
+        pos = piece.pos
+        converted_piece = {'name': piece.name, 'rot': piece.rot}
+        if 'small triangle' in converted_piece['name']:
+            converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                      (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+        if 'medium triangle' in converted_piece['name']:
+            if converted_piece['rot'] == '0':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+                                          (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+            if converted_piece['rot'] == '90':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                          (-2 * int(pos[0])) * TangramGame.SCALE]
+            if converted_piece['rot'] == '180':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+                                          (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+            if converted_piece['rot'] == '270':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                          (-2 * int(pos[0])) * TangramGame.SCALE]
+        if 'large triangle' in converted_piece['name']:
+            converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+                                      (-2 * int(pos[0])) * TangramGame.SCALE]
+        if 'square' in converted_piece['name']:
+            converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                      (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+        if 'parrallelogram' in converted_piece['name']:
+            if converted_piece['rot'] == '0':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                          (-2 * int(pos[0])) * TangramGame.SCALE]
+            if converted_piece['rot'] == '90':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+                                          (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+            if converted_piece['rot'] == '180':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+                                          (-2 * int(pos[0])) * TangramGame.SCALE]
+            if converted_piece['rot'] == '270':
+                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+                                          (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+        return converted_piece['pos']
+
 
     def is_selected(self):
         for k, p in self.pieces.items():
@@ -214,8 +259,8 @@ class TangramGameWidget(Widget):
             # pos[0] += -13 * TangramGame.SCALE
             # pos[1] += -20 * TangramGame.SCALE
 
-            pos[0] += -21 * TangramGame.SCALE
-            pos[1] += -14 * TangramGame.SCALE
+            pos[0] += -12 * TangramGame.SCALE
+            pos[1] += -13 * TangramGame.SCALE
 
             if 'small triangle' in name:
                 pos = [(-0.5 * (pos[1] / TangramGame.SCALE - 1)) - 0.5, (0.5 * (pos[0] / TangramGame.SCALE - 1)) + 0.5]
