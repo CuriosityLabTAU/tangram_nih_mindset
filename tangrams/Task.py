@@ -203,7 +203,20 @@ class Task:
         task_dict['pieces'] = pieces_vec
         return json.dumps(task_dict)
 
-
+    def transfer_json_to_json_initial_pos(self, json_str):
+        task_dict = json.loads(json_str)
+        init_dict = {}
+        piece_init_vec = []
+        init_dict['size'] = task_dict['size']
+        for n in range(len(task_dict['pieces'])):
+            name = task_dict['pieces'][n][0]
+            rot = task_dict['pieces'][n][1]
+            pos = task_dict['pieces'][n][2]
+            init_pos = str(7)+' '+str(2*n)
+            piece_init_vec.append((name,rot,init_pos))
+            init_dict['pieces'] = piece_init_vec
+        init_json = json.dumps(init_dict)
+        return init_json
 
 
 
