@@ -45,8 +45,9 @@ class SelectionScreenRoom(Screen):
         # self.display_tasks()
 
     def init_tasks (self):
-        #self.ids["selection_widget"].init_app(self.the_app)
-        #self.ids["selection_widget"].clear_widgets()
+        print("init_tasks",self.the_app)
+        self.ids["tangram_selection_widget"].clear_widgets()
+        self.ids["tangram_selection_widget"].init_app(self.the_app)
         i = 0
         for task_json in self.tasks_json:
             print(task_json)
@@ -57,8 +58,8 @@ class SelectionScreenRoom(Screen):
             selection_task_layout.update_task()
             selection_task_layout.update_task_pieces(task_json[0])
             self.tasks_layout.append(selection_task_layout)
-            #self.ids["selection_widget"].add_widget(selection_task_layout)
-            self.add_widget(selection_task_layout)
+            self.ids["tangram_selection_widget"].add_widget(selection_task_layout)
+            #self.add_widget(selection_task_layout)
             i += 1
         print("init end")
 
@@ -71,20 +72,22 @@ class SelectionTaskLayout(Button, TaskLayout):
         self.index = index
         self.name = str(index)
         print("Window.width", Window.width)
-        self.size_hint = [0.28,0.30]
+        #self.size_hint = [0.28,0.30]
         self.update_position()
-        # with self.canvas.before:
-        #     print ("self.canvas.before")
-        #     Color(1,0,0,1)
-        #     self.rect = Rectangle()
-        #     self.bind(size=self._update_rect, pos=self._update_rect)
-        #     self.bind(size=self.update_position, pos=self.update_position)
+        with self.canvas.before:
+            print ("self.canvas.before")
+            # Color(1,0,0,1)
+            # self.rect = Rectangle()
+            # self.rect.pos= self.pos
+            # self.rect.size = self.size
+            # # self.bind(size=self._update_rect, pos=self._update_rect)
+            # # self.bind(size=self.update_position, pos=self.update_position)
 
     def update_position(self, *args):
         print('update_position')
         box_width_and_gap = Window.width * 0.31
         margin_left = Window.width * 0.073
-
+        self.size = [Window.width * 0.28, Window.height * 0.30]
         self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
         #self.update_selection_task_pos()
 
@@ -96,8 +99,6 @@ class SelectionTaskLayout(Button, TaskLayout):
 
     def on_press(self, *args):
         super(Button, self).on_press()
-        # self.incorrect_pos()
-        # self.the_app.selected_task(self.original_task)
         print("Selection Task Layout: on_press" , self.index)
         self.parent.the_app.press_treasure(self.index+1)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
 
@@ -145,9 +146,17 @@ class SelectionTaskLayout(Button, TaskLayout):
         return my_color
 
 
-class SelectWidget(FloatLayout):
+class TangramSelectionWidget(Widget):
+    task_json = None
     the_app = None
+    current = None  #current selected piece
+    current_game_task_layout = None
+
+    def __init__(self, **kwargs):
+        print("TangramSelectionWidget __init__")
+        super(TangramSelectionWidget, self).__init__(**kwargs)
+        self.canvas.clear()
+        self.clear_widgets()
 
     def init_app(self,the_app):
-        self.clear_widgets()
-        self.the_app = the_app
+        self.the_app =  the_app
