@@ -1,7 +1,7 @@
 from tangrams import *
 import json
 import numpy as np
-import matplotlib.pyplot as plt
+#  import matplotlib.pyplot as plt
 
 
 class SelectionGenerator:
@@ -86,34 +86,35 @@ class SelectionGenerator:
         return [[T1, T1_init_pos], [T2, T2_init_pos], [T3, T3_init_pos]]
 
     def display(self):
-        plt.figure()
-        task = Task()
-        num_of_rows = max(len(l) for l in self.dif_level)  # find the maximal length of all sub lists in dif_level
-        for n in range(self.N_dif_levels):
-            for k in range(len(self.dif_level[n])):
-                plt.subplot(num_of_rows,self.N_dif_levels, n+1+k*self.N_dif_levels)
-                task.create_from_json(self.dif_level[n][k])
-                if k < self.dif_indexes[n]:
-                    plt.imshow(task.x*-1, interpolation='none')
-                    plt.axis('off')
-                else:
-                    plt.imshow(task.x, interpolation='none')
-                    plt.axis('off')
-        plt.subplot(num_of_rows,self.N_dif_levels,
-                    self.current_level-1+1+(self.dif_indexes[self.current_level - 1])*self.N_dif_levels)
-        task.create_from_json(self.dif_level[self.current_level-1][self.dif_indexes[self.current_level - 1]])
-        plt.imshow(np.sin(task.x), interpolation='none')
-        plt.axis('off')
-        plt.subplot(num_of_rows, self.N_dif_levels,
-                    self.current_level  + 1 + (self.dif_indexes[self.current_level]) * self.N_dif_levels)
-        task.create_from_json(self.dif_level[self.current_level ][self.dif_indexes[self.current_level ]])
-        plt.imshow(np.sin(task.x), interpolation='none')
-        plt.axis('off')
-        plt.subplot(num_of_rows, self.N_dif_levels,
-                    self.current_level + 1 + 1 + (self.dif_indexes[self.current_level + 1]) * self.N_dif_levels)
-        task.create_from_json(self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]])
-        plt.imshow(np.sin(task.x), interpolation='none')
-        plt.axis('off')
+        pass
+        # plt.figure()
+        # task = Task()
+        # num_of_rows = max(len(l) for l in self.dif_level)  # find the maximal length of all sub lists in dif_level
+        # for n in range(self.N_dif_levels):
+        #     for k in range(len(self.dif_level[n])):
+        #         plt.subplot(num_of_rows,self.N_dif_levels, n+1+k*self.N_dif_levels)
+        #         task.create_from_json(self.dif_level[n][k])
+        #         if k < self.dif_indexes[n]:
+        #             plt.imshow(task.x*-1, interpolation='none')
+        #             plt.axis('off')
+        #         else:
+        #             plt.imshow(task.x, interpolation='none')
+        #             plt.axis('off')
+        # plt.subplot(num_of_rows,self.N_dif_levels,
+        #             self.current_level-1+1+(self.dif_indexes[self.current_level - 1])*self.N_dif_levels)
+        # task.create_from_json(self.dif_level[self.current_level-1][self.dif_indexes[self.current_level - 1]])
+        # plt.imshow(np.sin(task.x), interpolation='none')
+        # plt.axis('off')
+        # plt.subplot(num_of_rows, self.N_dif_levels,
+        #             self.current_level  + 1 + (self.dif_indexes[self.current_level]) * self.N_dif_levels)
+        # task.create_from_json(self.dif_level[self.current_level ][self.dif_indexes[self.current_level ]])
+        # plt.imshow(np.sin(task.x), interpolation='none')
+        # plt.axis('off')
+        # plt.subplot(num_of_rows, self.N_dif_levels,
+        #             self.current_level + 1 + 1 + (self.dif_indexes[self.current_level + 1]) * self.N_dif_levels)
+        # task.create_from_json(self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]])
+        # plt.imshow(np.sin(task.x), interpolation='none')
+        # plt.axis('off')
                 # T1 = self.dif_level[self.current_level - 1][self.dif_indexes[self.current_level - 1]]
                 # T2 = self.dif_level[self.current_level][self.dif_indexes[self.current_level]]
                 # T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
