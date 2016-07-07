@@ -1,5 +1,5 @@
 dif 0
-{"pieces": [["large triangle2", "270", "2 0"], ["medium triangle", "180", "1 0"], ["large triangle1", "90", "2 0"]], "size": "5 5"}
+{"pieces": [["large triangle2", "270", "1 1"], ["medium triangle", "180", "0 1"], ["large triangle1", "90", "1 1"]], "size": "5 5"}
 {"pieces": [["large triangle1", "0", "1 1"]], "size": "5 5"}
 {"pieces": [["small triangle2", "0", "1 1"]], "size": "5 5"}
 {"pieces": [["square", "0", "1 1"]], "size": "5 5"}
