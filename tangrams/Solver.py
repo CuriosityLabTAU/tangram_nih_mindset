@@ -138,9 +138,10 @@ class Solver:
             min_error[t] = np.min(error)
 
         if show:
+            pass
             # fig, ax = plt.subplots()
-            ax.errorbar(d, avg_error, yerr=std_error)
-            ax.plot(d, min_error, 'r')
+            # ax.errorbar(d, avg_error, yerr=std_error)
+            # ax.plot(d, min_error, 'r')
             # plt.axis([d[0], d[-1], -5.5, 10])
             # plt.draw()
             # plt.show()
