@@ -7,7 +7,7 @@ import json
 
 class Solver:
 
-    n_networks = 10
+    n_networks = 3
     efficiency = 1.0
 
     def __init__(self):
