@@ -74,14 +74,14 @@ class SelectionTaskLayout(Button, TaskLayout):
         print("Window.width", Window.width)
         #self.size_hint = [0.28,0.30]
         self.update_position()
-        # with self.canvas.before:
-        #     print ("self.canvas.before")
-        #     Color(1,0,0,1)
-        #     self.rect = Rectangle()
-        #     self.rect.pos= self.pos
-        #     self.rect.size = self.size
-        #     # self.bind(size=self._update_rect, pos=self._update_rect)
-        #     # self.bind(size=self.update_position, pos=self.update_position)
+        with self.canvas.before:
+            print ("self.canvas.before")
+            # Color(1,0,0,1)
+            # self.rect = Rectangle()
+            # self.rect.pos= self.pos
+            # self.rect.size = self.size
+            # # self.bind(size=self._update_rect, pos=self._update_rect)
+            # # self.bind(size=self.update_position, pos=self.update_position)
 
     def update_position(self, *args):
         print('update_position')
