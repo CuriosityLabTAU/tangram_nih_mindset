@@ -17,11 +17,10 @@ class GameComponent(Component):
         print(self.name, 'tangram selected', action)
         selected_tangram = None
         while not selected_tangram and action:
-            if isinstance(action, int):
-                selected_tangram = action
-                self.game_facilitator.tangram_selected(action)
-            elif isinstance(action, list):
+            while isinstance(action, list):
                 action = action[0]
+            selected_tangram = action
+            self.game_facilitator.tangram_selected(action)
         if selected_tangram:
             self.current_param = self.current_param[selected_tangram-1]
         self.current_state = 'tangram_selected'

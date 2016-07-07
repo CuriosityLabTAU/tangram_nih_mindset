@@ -7,19 +7,11 @@
     "i will be very happy if you played with me, would you?"
   ],
   "lets_play": [
-    "great! lets play. we need to go to the magic treasure room."
+    "great, lets play. we need to go to the magic treasure room."
   ],
-  "selection_explanation": {
-    "all": [
+  "selection_explanation": [
       "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
     ],
-    "neutral": [
-      "i want to try the easiest. i will choose this one."
-    ],
-    "growth": [
-      "i am sure i can open one of the hard ones. i will choose this one."
-    ]
-  },
   "tangram_explanation": {
     "all" : [
       "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."

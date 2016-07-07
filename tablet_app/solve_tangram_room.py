@@ -17,13 +17,15 @@ from tangram_game import *
 
 
 class SolveTangramRoom(Screen):
+    the_tablet = None
 
-    def __init__(self, **kwargs):
-        print("solveTangramRoom")
-        super(Screen, self).__init__(**kwargs)
+    def __init__(self, the_tablet):
+        self.the_tablet = the_tablet
+        super(Screen, self).__init__()
 
     def on_enter(self, *args):
         print("on_enter solve_tangram_room")
+        self.the_tablet.change_state('tangram_screen')
         # self.load_sounds()
         # self.play_sound("TangramOpen_myFriend")
 

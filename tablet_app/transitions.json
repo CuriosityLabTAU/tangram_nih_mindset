@@ -7,31 +7,37 @@
     "tablet:zero_screen:child:zero_screen:1",
 
     "child:press_start_button:tablet:first_screen:1",
+    "child:press_start_button:child:idle:1",
 
     "tablet:first_screen:robot:introduction:1",
 
     "robot:introduction:tablet:yes:1",
-    "robot:introduction:robot:set_playing:1:demo:done",
+    "robot:introduction:robot:idle:1",
+    "robot:introduction_not_working:robot:set_playing:1:demo:done",
 
     "tablet:yes:child:yes:1",
-    "tablet:yes:internal_clock:yes:1:5",
+    "tablet:yes:internal_clock:yes:1:20",
+    "tablet:yes:robot:set_playing:1:demo:done",
 
     "internal_clock:prompt_yes:robot:ask_again:1:done",
 
     "robot:ask_again:child:yes:1",
-    "robot:ask_again:internal_clock:yes:1:5",
+    "robot:ask_again:internal_clock:yes:1:20",
 
     "child:press_yes_button:robot:lets_play:1",
 
     "robot:lets_play:internal_clock:stop:1",
     "robot:lets_play:game:generate_selection:1",
 
-
-    "robot:lets_play:robot:selection_explanation:1",
+    "child:treasure:robot:selection_explanation:1",
+    "child:treasure:child:idle:1",
 
     "robot:selection_explanation:child:action:1:press_treasure:x",
+    "robot:selection_explanation:robot:idle:1",
 
-    "robot:selection_explanation:robot:tangram_explanation:1",
+    "robot:selection_explanation_not_working:robot:tangram_explanation:1",
+    "child:move:robot:tangram_explanation:1",
+
 
     "robot:tangram_explanation:child:action:1:tangram_move:x",
 
@@ -48,6 +54,7 @@
 
     "child:press_treasure:game:tangram_selected:1:x",
     "game:tangram_selected:tablet:tangram_screen:1:x",
+    "tablet:tangram_screen:child:move:1:x",
 
     "tablet:tangram_screen:hourglass:start:1",
     "hourglass:update:tablet:hourglass_update:1:x",
@@ -73,15 +80,16 @@
     "game:generate_selection:robot:set_selection:1:x",
     "robot:select_treasure:child:action:1:press_treasure:x",
 
-    "game:tangram_selected:robot:play_game:1:done:x",
+    "tablet:tangram_screen:robot:play_game:1:done:x",
+    "game:tangram_selected_not_working:robot:play_game:1:done:x",
     "robot:play_move:child:action:1:tangram_move:x",
     "robot:play_move:tablet:robot_solve:1:x",
     "robot:play_turn:child:action:1:tangram_turn:x",
     "robot:play_turn:tablet:robot_solve:1:x",
 
 
-    "child:press_treasure:robot:comment_selection:1:x",
-    "child:tangram_move:robot:comment_move:1:x",
-    "child:press_turn_button:robot:comment_turn:1:x"
+    "child:press_treasure_dont:robot:comment_selection:1:x",
+    "child:tangram_move_dont:robot:comment_move:1:x",
+    "child:press_turn_button_dont:robot:comment_turn:1:x"
   ]
 }

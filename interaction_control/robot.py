@@ -14,9 +14,13 @@ class RobotComponent(Component):
     whos_playing = None
     app = None
     expression = None
+    agent = None
 
     def run_function(self, action):
         print(self.name, action[0], action[1:])
+        if action[0] == action[1:]:
+            print('weird')
+            return False
         try:
             if action[1]:
                 getattr(self, action[0])(action[1])
@@ -24,6 +28,7 @@ class RobotComponent(Component):
                 getattr(self, action[0])()
             return True
         except:
+            print ("unexpected error:",sys.exc_info())
             self.express(action)
         return False
 
@@ -38,7 +43,6 @@ class RobotComponent(Component):
 
         if self.app:
             self.app.robot_express(action)
-        time.sleep(1)
 
     def after_called(self):
         if self.current_param:
@@ -54,12 +58,13 @@ class RobotComponent(Component):
 
     def set_selection(self, action):
         print('robot set selection', action)
-        self.current_param = action[1:]
+        # self.current_param = action[1:]
         # set the possible treasures to select from
         # select 1 for demo, 2 for robot
         # waiting for Maor's algorithm
         if self.whos_playing == 'demo':
             self.current_param = 1
+            self.current_state = 'idle'
         if self.whos_playing == 'robot':
             self.current_state = 'select_treasure'
             self.current_param = 2
@@ -79,22 +84,22 @@ class RobotComponent(Component):
         #self.current_param = action[1]
         self.current_param = seq
 
-    def comment_selection(self, action):
-        if self.whos_playing == "child":
-            print(self.name, 'commenting on selection ', action)
+    # def comment_selection(self, action):
+    #     if self.whos_playing == "child":
+    #         print(self.name, 'commenting on selection ', action)
 
-    def comment_move(self, action):
-        if self.whos_playing == "child":
-            print(self.name, 'commenting on move ', action)
+    # def comment_move(self, action):
+    #     if self.whos_playing == "child":
+    #         print(self.name, 'commenting on move ', action)
 
-    def comment_turn(self, action):
-        if self.whos_playing == "child":
-            print(self.name, 'commenting on turn ', action)
+    # def comment_turn(self, action):
+    #     if self.whos_playing == "child":
+    #         print(self.name, 'commenting on turn ', action)
 
     def finished_expression(self, action):
-        self.current_param = None
+        # self.current_param = None
         self.current_state = action
-        print(self.name, action, self.current_state)
+        print('finished expression:', self.name, action, self.current_state)
 
     def data_received(self, data):
         # if data signals end of speech

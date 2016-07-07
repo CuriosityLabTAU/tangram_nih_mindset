@@ -1,4 +1,5 @@
 import sys
+from functools import partial
 
 from kivy.clock import Clock
 is_logged = True
@@ -57,14 +58,14 @@ class Component:
                                 if action[1] == 'x':
                                     action[1] = self.current_param
                         self.log_data(target=target, action=action)
-                        self.interaction.components[target].run_function(action)
+                        self.interaction.components[target].schedule_running(action)
                         called = True
                 if self.name in self.current_action.keys():
                     action = self.current_action[self.name]
                     if action[1] and action[1] == 'x':
                         action[1] = self.current_param
                     self.log_data(action=action)
-                    self.run_function(action)
+                    self.schedule_running(action)
                     called = True
 
                 self.current_action = {}
@@ -73,6 +74,10 @@ class Component:
 
     def after_called(self):
         self.current_state = 'idle'
+
+    def schedule_running(self, action):
+        # self.run_function(action)
+        Clock.schedule_once(lambda dt: self.run_function(action), 0.01)
 
     def run_function(self, action):
         # print("run_function ", action)

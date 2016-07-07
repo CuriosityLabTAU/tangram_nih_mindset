@@ -26,11 +26,11 @@ class SelectionScreenRoom(Screen):
     tasks_json = None
     tasks_layout = []
     the_app = None
+    the_tablet = None
 
-    def __init__(self,**kwargs):
-        # print(self.the_app)
-        print("init first")
-        super(Screen, self).__init__(**kwargs)
+    def __init__(self, the_tablet):
+        self.the_tablet = the_tablet
+        super(Screen, self).__init__()
 
     def init_selection_options(self,x,the_app):
         # this function is called from tangram_mindset_app
@@ -41,6 +41,7 @@ class SelectionScreenRoom(Screen):
     def on_enter(self, *args):
         print("on_enter selection_screen_room")
         self.init_tasks()
+        self.the_tablet.change_state('selection_screen')
         # self.selections_widget = SelectionsWidget()
         # self.display_tasks()
 
@@ -129,7 +130,8 @@ class SelectionTaskLayout(Button, TaskLayout):
         i = 0
         for p in self.pieces:
             print(p['pos'])
-            p['pos'] = [self.x + 40 * i, Window.height * 0.14]
+            # p['pos'] = [self.x + 40 * i, Window.height * 0.14]
+            p['pos'] = [self.x + TangramGame.SCALE * 3 * i, Window.height * 0.14]
             #p['rot'] = 0
             self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
             self.canvas.add(self.groups[-1])
