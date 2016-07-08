@@ -1,14 +1,14 @@
 {
   "sequence": [
     "opening",
-    "robot_play",
+    "tutorial",
     "child_play",
-    "tutorial"
+    "robot_play"
   ],
   "opening": {
     "start": "tablet:zero_screen",
     "internal_clock": [
-      "how_long:5"
+      "how_long:20"
     ],
     "transitions": [
       "tablet:zero_screen:child:zero_screen:1",
@@ -23,13 +23,16 @@
       "robot:ask_again:child:yes:1",
       "robot:ask_again:internal_clock:yes:1",
       "child:press_yes_button:robot:lets_play:1",
+      "child:press_yes_button:internal_clock:stop:1",
       "robot:lets_play:internal_clock:stop:1",
       "robot:lets_play:interaction:end:1"
     ]
   },
   "tutorial": {
     "start": "robot:start_tutorial",
-    "internal_clock_wait": 5,
+    "internal_clock": [
+      "how_long:20"
+    ],
     "transitions": [
       "robot:start_tutorial:game:generate_selection:1:done",
       "game:generate_selection:tablet:selection_screen:1:x",
@@ -46,7 +49,7 @@
       "robot:tangram_tutorial:robot:select_move:1:x",
       "robot:select_move:robot:explain_move:1:x",
       "robot:explain_move:tablet:change_pieces:1:x",
-      "child:tangram_change:game:tangram_changed:1:x",
+      "child:tangram_change:game:tangram_changed:1:x:done",
       "game:not_solved:tablet:not_solved:1:x",
       "tablet:not_solved:robot:select_move:1:x",
       "game:solved:tablet:solved:1:x",
@@ -60,7 +63,9 @@
   },
   "child_play": {
     "start": "child:start_play",
-    "internal_clock_wait": 5,
+    "internal_clock": [
+      "how_long:20"
+    ],
     "transitions": [
       "child:start_play:game:generate_selection:1",
       "game:generate_selection:tablet:selection_screen:1:x",
@@ -83,7 +88,9 @@
   },
   "robot_play": {
     "start": "robot:start_play",
-    "internal_clock_wait": 5,
+    "internal_clock": [
+      "how_long:20"
+    ],
     "transitions": [
       "robot:start_play:game:generate_selection:1:done",
       "game:generate_selection:tablet:selection_screen:1:x",

@@ -1,13 +1,19 @@
 import json
 from random import choice
 import time
+the_tts = None
 try:
     from plyer import tts
     tts.speak('hello')
     the_tts = 'plyer'
 except:
+    pass
+
+try:
     import pyttsx
     the_tts = 'pyttsx'
+except:
+    pass
 
 
 class TextHandler:
@@ -46,7 +52,7 @@ class TextHandler:
             for txt in the_text:
                 if the_tts is 'pyttsx':
                     self.engine.say(txt)
-                else:
+                if the_tts is 'plyer':
                     tts.speak(txt)
                     time.sleep(float(len(txt)) * 0.05)
             if the_tts is 'pyttsx':

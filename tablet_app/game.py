@@ -24,6 +24,8 @@ class GameComponent(Component):
         print(self.name, 'tangram_changed', x)
         if self.game_facilitator.check_solution(x):
             self.win()
+        else:
+            self.not_yet()
 
     def tangram_moved(self, action):
         print(self.name, 'game.py: tangram moved', action)
@@ -39,7 +41,11 @@ class GameComponent(Component):
     def win(self):
         print(self.name, 'game.py: win')
         self.game_facilitator.update_game_result('S')
-        self.current_state = 'win'
+        self.current_state = 'solved'
+
+    def not_yet(self):
+        print(self.name, 'game.py: not_yet')
+        self.current_state = 'not_solved'
 
     def finished(self, action):
         print(self.name, 'game.py: finished')

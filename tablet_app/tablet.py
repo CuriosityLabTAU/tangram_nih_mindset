@@ -54,5 +54,11 @@ class TabletComponent(Component):
         self.current_param = x
         self.app.change_pieces(self.current_param)
 
+    def solved(self, x):
+        print(self.name, 'solved', x)
+        self.current_state = 'solved'
+        self.current_param = x
+
+
     def robot_solve(self, x):
         print(self.name, 'robot solve', x)

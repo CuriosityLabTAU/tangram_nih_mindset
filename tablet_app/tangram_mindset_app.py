@@ -28,7 +28,6 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-
 GAME_WITH_ROBOT = False
 CONDITION = 'growth'
 

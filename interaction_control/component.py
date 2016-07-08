@@ -19,6 +19,15 @@ class Component:
         self.current_action = {}
         self.current_param = None
         self.general_param = None
+        self.event = None
+
+    def init_transitions(self):
+        self.actors = {}
+        self.current_state = 'idle'
+        self.current_action = {}
+        self.current_param = None
+        self.general_param = None
+        self.event = None
 
     def add_transition(self, state, target, fun, value, param=None):
         if state not in self.actors:
@@ -32,7 +41,10 @@ class Component:
 
     def run(self):
         print(self.name, 'running ...')
-        Clock.schedule_interval(self.resolve, 0.5)
+        self.event = Clock.schedule_interval(self.resolve, 0.5)
+
+    def end_run(self):
+        Clock.unschedule(self.event)
 
     def resolve(self, *args):
         # print('resolve', self.name, self.current_state)
@@ -44,6 +56,7 @@ class Component:
                 if 'interaction' in self.actors[self.current_state]:
                     if 'end' in self.actors[self.current_state]['interaction']:
                         self.end_interaction()
+                        return False
                 for target, funs in self.actors[self.current_state].items():
                     Q = []
                     for value in funs.values():
@@ -144,3 +157,5 @@ class Component:
 
     def end_interaction(self):
         print('end interaction, please work')
+        Clock.unschedule(self.event)
+        self.interaction.end_interaction()

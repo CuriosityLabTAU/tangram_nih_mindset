@@ -28,6 +28,11 @@ class Interaction:
             c.run()
         self.components[start[0]].current_state = start[1]
 
+    def end_interaction(self):
+        for c in self.components.values():
+            c.end_run()
+        self.next_interaction()
+
     def show(self):
         for c in self.components.values():
             c.show()
@@ -35,11 +40,18 @@ class Interaction:
     def load(self, filename='transitions.json'):
         with open(filename) as data_file:
             self.data = json.load(data_file)
-        self.current_interaction = 0
+        self.current_interaction = -1
 
     def next_interaction(self):
+        self.current_interaction += 1
+        if self.current_interaction >= len(self.data['sequence']):
+            print('THE END!')
+            return True
         the_interaction = self.data['sequence'][self.current_interaction]
         the_data = self.data[the_interaction]
+
+        for c in self.components.values():
+            c.init_transitions()
 
         # first nonify all general param
         for c_key, c_val in self.components.items():
