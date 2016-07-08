@@ -16,6 +16,7 @@ class Solver:
         self.solutions = []
         self.errors = []
         self.solved_network_index = None
+        self.available_pieces = None
 
         for i in range(0, self.n_networks):
             self.networks.append(Network())
@@ -36,6 +37,7 @@ class Solver:
 
     def set_available_pieces(self, task):
         # initialize networks with pieces in task (with all translations and rotations)
+        self.available_pieces = copy.deepcopy(task)  #
         for net in self.networks:
             net.set_available_pieces(task)
             net.init_network()
@@ -81,7 +83,7 @@ class Solver:
         return None, None
 
     def get_seq_of_moves(self):
-        # return a json string such that the list of pieces, contains the moves of the robot.
+        # return a json string of a list, such that each element in the list is a json string of the board pieces
         # should be called after run_task()
         seq = []
         if self.solved_network_index is not None:
@@ -100,7 +102,7 @@ class Solver:
                     if self.solutions[n][k][i] > 0:
                         seq.append(self.networks[n].nodes[i])
         # return seq
-        # convert seq to json_string
+        # convert seq to json of list of board pieces jsons
         seq_dict = {}
         (I, J) = self.networks[0].nodes[0].x.shape
         seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
@@ -108,7 +110,25 @@ class Solver:
         for p in seq:
             pieces_vec.append((p.name[0], p.name[1], p.name[2]))
         seq_dict['pieces'] = pieces_vec
-        return json.dumps(seq_dict)
+
+        seq_jsons = []
+        temp_json = self.available_pieces.export_to_json()
+        init_pos_json = self.available_pieces.transfer_json_to_json_initial_pos(temp_json)
+        seq_jsons.append(init_pos_json)
+
+        task_dict = json.loads(init_pos_json)
+        pieces_vec = task_dict['pieces']
+        size = task_dict['size']
+        for p in seq:
+            for n in range(len(pieces_vec)):
+                if p.name[0] == pieces_vec[n][0]:
+                    pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
+            task_dict['pieces'] = pieces_vec
+            seq_jsons.append(json.dumps(task_dict))
+
+        return json.dumps(seq_jsons)
+        #  return json.dumps(seq_dict)
+
 
 
     def print_current_solutions(self):
