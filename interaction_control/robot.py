@@ -15,9 +15,10 @@ class RobotComponent(Component):
     app = None
     expression = None
     agent = None
+    current_tangram = None
 
     def run_function(self, action):
-        print(self.name, action[0], action[1:])
+        print(self.name, 'run_function', action[0], action[1:])
         if action[0] == action[1:]:
             print('weird')
             return False
@@ -28,13 +29,16 @@ class RobotComponent(Component):
                 getattr(self, action[0])()
             return True
         except:
-            print ("unexpected error:",sys.exc_info())
+            if not isinstance(sys.exc_info()[1], AttributeError):
+                print ("unexpected error:",sys.exc_info())
             self.express(action)
         return False
 
     def express(self, action):
         self.current_state = 'express'
-        self.expression = action
+        self.expression = action[0]
+        if len(action) > 1:
+            self.current_param = action[1:]
 
         if KC.client.connection:
             data = [self.current_state, self.expression]
@@ -42,32 +46,43 @@ class RobotComponent(Component):
             KC.client.send_message(str(json.dumps(data)))
 
         if self.app:
-            self.app.robot_express(action)
+            self.app.robot_express(self.expression)
 
     def after_called(self):
         if self.current_param:
             if isinstance(self.current_param, list):
                 if 'done' in self.current_param:
                     self.current_state = 'idle'
-                    self.current_param = None
 
     def set_playing(self, action):
         self.current_param = action[1:]
         self.whos_playing = action[0]
         print(self.whos_playing, self.current_param)
 
-    def set_selection(self, action):
-        print('robot set selection', action)
-        # self.current_param = action[1:]
-        # set the possible treasures to select from
-        # select 1 for demo, 2 for robot
-        # waiting for Maor's algorithm
-        if self.whos_playing == 'demo':
-            self.current_param = 1
-            self.current_state = 'idle'
-        if self.whos_playing == 'robot':
-            self.current_state = 'select_treasure'
-            self.current_param = 2
+    def select_treasure(self):
+        print(self.name, 'select_treasure', 2, self.current_param)
+        the_selection = 2
+        self.current_tangram = self.current_param[0][the_selection]
+        self.current_state = 'select_treasure'
+        self.current_param = the_selection
+
+    def select_move(self, x):
+        print(self.name, 'select_move', x)
+        self.current_state = 'select_move'
+        self.current_param = self.current_tangram[0]
+
+    # def set_selection(self, action):
+    #     print('robot set selection', action)
+    #     # self.current_param = action[1:]
+    #     # set the possible treasures to select from
+    #     # select 1 for demo, 2 for robot
+    #     # waiting for Maor's algorithm
+    #     if self.whos_playing == 'demo':
+    #         self.current_param = 1
+    #         self.current_state = 'idle'
+    #     if self.whos_playing == 'robot':
+    #         self.current_state = 'select_treasure'
+    #         self.current_param = 2
 
     def win(self):
         print(self.name, self.whos_playing, 'wins!')
@@ -78,7 +93,7 @@ class RobotComponent(Component):
 
     def play_game(self, action):
         print(self.whos_playing, 'playing the game', action)
-        self.current_state = 'play_move'
+        self.current_state = 'play_game'
         self.agent = Agent()
         seq = self.agent.solve_task(action[1][0]) #  solve the selected task and return a seq of moves in json string
         #self.current_param = action[1]
@@ -106,4 +121,3 @@ class RobotComponent(Component):
         # call: self.finished_expression(action)
         print(self.name, data)
         self.finished_expression(data)
-

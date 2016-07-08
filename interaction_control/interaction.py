@@ -3,15 +3,15 @@ from component import *
 
 
 class Interaction:
+    data = None
+    components = {}
+    current_interaction = None
 
     def __init__(self):
-        self.components = {}
-        self.start = None
+        pass
 
     def __init__(self, component_list=None):
         # list of tuples (name, class_name)
-        self.start = None
-        self.components = {}
         if component_list:
             for c in component_list:
                 name = c[0]
@@ -23,11 +23,10 @@ class Interaction:
                 class_ = getattr(module, class_name)
                 self.components[name] = class_(self, name)
 
-    def run(self):
+    def run(self, start):
         for c in self.components.values():
             c.run()
-        print(self.start)
-        self.components[self.start[0]].current_state = self.start[1]
+        self.components[start[0]].current_state = start[1]
 
     def show(self):
         for c in self.components.values():
@@ -35,8 +34,25 @@ class Interaction:
 
     def load(self, filename='transitions.json'):
         with open(filename) as data_file:
-            data = json.load(data_file)
-        for t in data['transitions']:
+            self.data = json.load(data_file)
+        self.current_interaction = 0
+
+    def next_interaction(self):
+        the_interaction = self.data['sequence'][self.current_interaction]
+        the_data = self.data[the_interaction]
+
+        # first nonify all general param
+        for c_key, c_val in self.components.items():
+            if c_key in the_data.keys():
+                c_val.general_param = {}
+                for i in the_data[c_key]:
+                    i_str = i.split(':')
+                    c_val.general_param[i_str[0]] = i_str[1]
+            else:
+                c_val.general_param = None
+
+
+        for t in the_data['transitions']:
             info = str(t).split(':')
             source, state, target, fun, value = info[0:5]
             param = None
@@ -49,6 +65,7 @@ class Interaction:
             if target not in self.components.keys():
                 self.components[target] = Component(self, target)
             self.components[source].add_transition(state, target, fun, value, param)
-        self.start = data['start'].split(':')
-        self.start = [str(x) for x in self.start]
-        print("start", self.start)
+        start = the_data['start'].split(':')
+        start = [str(x) for x in start]
+        print("starting", the_interaction)
+        self.run(start)

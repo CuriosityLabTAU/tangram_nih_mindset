@@ -35,7 +35,7 @@ class SelectionScreenRoom(Screen):
     def init_selection_options(self,x,the_app):
         # this function is called from tangram_mindset_app
         print ('init_selection_options', x)
-        self.tasks_json = x[0]
+        self.tasks_json = x
         self.the_app=the_app
 
     def on_enter(self, *args):
@@ -101,7 +101,7 @@ class SelectionTaskLayout(Button, TaskLayout):
     def on_press(self, *args):
         super(Button, self).on_press()
         print("Selection Task Layout: on_press" , self.index)
-        self.parent.the_app.press_treasure(self.index+1)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
+        self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
 
     def update_selection_task_pos(self):  # rinat
         print ('update_selection_task_pos ', self.index)

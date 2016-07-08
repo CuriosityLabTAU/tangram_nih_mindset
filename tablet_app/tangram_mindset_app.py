@@ -185,10 +185,8 @@ class TangramMindsetApp(App):
         )
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
-        
-        self.interaction.components['hourglass'].max_counter = 120
-        self.interaction.load(filename='./tablet_app/transitions.json')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
+        self.interaction.components['hourglass'].max_counter = 120
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -197,7 +195,9 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'].app = self
         if not GAME_WITH_ROBOT:
             self.interaction.components['robot'].app = self
-        self.interaction.run()
+
+        self.interaction.load(filename='./tablet_app/transitions.json')
+        self.interaction.next_interaction()
 
         # self.load_sounds()
         self.text_handler = TextHandler(CONDITION)
@@ -255,15 +255,19 @@ class TangramMindsetApp(App):
         print("press_treasure", treasure)
         self.interaction.components['child'].on_action(['press_treasure', treasure])
 
-    def tangram_move(self, action):
-        # child moved a tangram piece (json of all the pieces)
-        print(self.name, 'tangram_mindset_app: tangram_move', action)
-        self.interaction.components['child'].on_action(['tangram_move',action])
+    def change_pieces(self, x):
+        print('app changes pieces to ', x)
+        self.interaction.components['child'].on_action(['tangram_change', x])
 
-    def tangram_turn (self, action):
+    def tangram_move(self, x):
+        # child moved a tangram piece (json of all the pieces)
+        print(self.name, 'tangram_mindset_app: tangram_move', x)
+        self.interaction.components['child'].on_action(['tangram_change', x])
+
+    def tangram_turn (self, x):
         # child turned a tangram piece (json of all the pieces)
-        print(self.name, 'tangram_mindset_app: tangram_turn', action)
-        self.interaction.components['child'].on_action(['tangram_turn', action])
+        print(self.name, 'tangram_mindset_app: tangram_turn', x)
+        self.interaction.components['child'].on_action(['tangram_chnage', x])
 
     def check_solution(self, solution_json):
         # this function should not really be here
@@ -295,7 +299,7 @@ class TangramMindsetApp(App):
 
     def robot_express(self, action):
         print ('robot_express ',action)
-        self.current_sound = action[0]
+        self.current_sound = action
         # attempt tts
         if self.text_handler.say(self.current_sound):
             self.finish_robot_express(0)
@@ -306,7 +310,7 @@ class TangramMindsetApp(App):
                 sound.bind(on_stop=self.finish_robot_express)
                 sound.play()
             except: # there is no sound for
-                print('no sound for: ', action[0])
+                print('no sound for: ', self.current_sound)
                 self.finish_robot_express(0)
 
     def finish_robot_express (self, dt):

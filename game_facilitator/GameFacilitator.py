@@ -41,7 +41,7 @@ class GameFacilitator():
         # selected_task_index can be 1/2/3 according to user selection.
         self.selected_task_index = selected_task_index
         #print 'GameFacilitator: '+str(self.selected_task_index)
-        self.current_task.create_from_json(self.selection_tasks[self.selected_task_index-1][0])
+        self.current_task.create_from_json(self.selection_tasks[self.selected_task_index][0])
 
     def update_game_result(self, game_result):
         # game_result can be 'S' (Success) or 'F' (Failure)
