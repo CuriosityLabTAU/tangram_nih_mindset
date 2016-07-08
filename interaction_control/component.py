@@ -143,4 +143,4 @@ class Component:
             self.current_param = ['done']
 
     def end_interaction(self):
-        print('end interaction')
+        print('end interaction, please work')
