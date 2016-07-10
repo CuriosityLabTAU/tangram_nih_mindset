@@ -207,6 +207,7 @@ class TangramGameWidget(Widget):
         pieces_dict = json.loads(pieces_target_json)
         for p in pieces_dict['pieces']:
             self.robot_change_piece(p)
+            #time.sleep(1)
 
     def robot_change_piece (self, piece_dict):
         name = piece_dict[0]
@@ -221,13 +222,13 @@ class TangramGameWidget(Widget):
         x -= TangramPiece.piece_size[name][0] * TangramGame.SCALE /2
         y -= TangramPiece.piece_size[name][1] * TangramGame.SCALE /2
 
-        self.pieces[name].pos = [x,y]
+        #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
 
-        # animPiece = Animation(x=x,y=y,
-        #                       duration=5,
-        #                       transition='in_quad')
-        # animPiece.start(self.pieces[name])
+        animPiece = Animation(x=x,y=y,
+                               duration=1,
+                               transition='in_quad')
+        animPiece.start(self.pieces[name])
         print("after sleep")
 
 
