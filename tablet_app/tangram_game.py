@@ -327,7 +327,7 @@ class TaskLayout(FloatLayout):
 
     def import_json_task(self, json_str):
         # create a task from a json string and import it
-        print("import_json_task")
+        print("import_json_task", json_str)
         task = Task()
         task.create_from_json(json_str)
         self.import_task(task)

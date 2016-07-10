@@ -1,12 +1,19 @@
 import json
 from random import choice
+import time
+the_tts = None
 try:
     from plyer import tts
     tts.speak('hello')
     the_tts = 'plyer'
 except:
+    pass
+
+try:
     import pyttsx
     the_tts = 'pyttsx'
+except:
+    pass
 
 
 class TextHandler:
@@ -17,10 +24,10 @@ class TextHandler:
         self.what = None
         if the_tts is 'pyttsx':
             self.engine = pyttsx.init()
-            self.engine.setProperty('voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0')
+            self.engine.setProperty('voice', 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_EN-US_ZIRA_11.0')
             self.engine.connect(topic='finished-utterance', cb=self.finished)
 
-    def load_text(self, filename='robot_text.json'): #'./tablet_app/robot_text.json'
+    def load_text(self, filename='./tablet_app/robot_text.json'):
         with open(filename) as data_file:
             self.data = json.load(data_file)
 
@@ -45,31 +52,12 @@ class TextHandler:
             for txt in the_text:
                 if the_tts is 'pyttsx':
                     self.engine.say(txt)
-                else:
-                    tts.speak(txt, what)
+                if the_tts is 'plyer':
+                    tts.speak(txt)
+                    time.sleep(float(len(txt)) * 0.05)
             if the_tts is 'pyttsx':
                 self.engine.runAndWait()
+                time.sleep(1)
             return self.finished()
         else:
             return False
-
-th = TextHandler()
-th.load_text()
-print(th.say('test'))
-
-
-def robot_express(self, action):
-    print ('robot_express ',action)
-    self.current_sound = action[0]
-    # attempt tts
-    if self.text_handler.say(self.current_sound):
-        self.finish_robot_express(0)
-    else:   # attempt recorded speech
-        try:
-            sound = self.sounds[self.current_sound]
-            print(sound)
-            sound.bind(on_stop=self.finish_robot_express)
-            sound.play()
-        except: # there is no sound for
-            print('no sound for: ', action[0])
-            self.finish_robot_express(0)

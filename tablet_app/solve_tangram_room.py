@@ -17,20 +17,22 @@ from tangram_game import *
 
 
 class SolveTangramRoom(Screen):
+    the_tablet = None
 
-    def __init__(self, **kwargs):
-        print("solveTangramRoom")
-        super(Screen, self).__init__(**kwargs)
+    def __init__(self, the_tablet):
+        self.the_tablet = the_tablet
+        super(Screen, self).__init__()
 
     def on_enter(self, *args):
         print("on_enter solve_tangram_room")
+        self.the_tablet.change_state('tangram_screen')
         # self.load_sounds()
         # self.play_sound("TangramOpen_myFriend")
 
     def init_task(self,x,the_app):
-        self.task_json = x[0]
-        self.shade_task_json = x[0][0]
-        self.pieces_task_json = x[0][1]
+        self.task_json = x
+        self.shade_task_json = x[0]
+        self.pieces_task_json = x[1]
         self.the_app = the_app
         print("Solve Tangram Room init_task ", self.task_json)
 
@@ -341,8 +343,8 @@ class HourGlassWidget (Widget):
 
     def update_hourglass (self, percent):
         # Rinat: change to percentage
-        current_time = float(percent[0][0])
-        total_time = float(percent[0][1])
+        current_time = float(percent[0])
+        total_time = float(percent[1])
         current_percent = current_time / total_time
         self.topSand.height =  self.sandHeight * current_percent
         self.bottomSand.height = self.sandHeight* (1 - current_percent)

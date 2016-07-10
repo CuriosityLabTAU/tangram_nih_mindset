@@ -17,16 +17,21 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
 class FirstScreenRoom(Screen):
-    print "first"
-    #self.sm.current = "SolveTangramRoom"
-    print(ScreenManager.current)
+    the_tablet = None
 
-    def __init__(self, **kwargs):
-        print("init first")
-        super(Screen, self).__init__(**kwargs)
+
+    # def __init__(self, **kwargs):
+    #     print("init first", kwargs)
+    #     super(Screen, self).__init__(**kwargs)
+
+    def __init__(self, the_tablet):
+        self.the_tablet = the_tablet
+        super(Screen, self).__init__()
 
     def on_enter(self, *args):
         print("on_enter first_screen_room")
+        self.the_tablet.change_state('first_screen')
+
         #self.load_sounds()
         #self.play_sound("TangramOpen_myFriend")
 

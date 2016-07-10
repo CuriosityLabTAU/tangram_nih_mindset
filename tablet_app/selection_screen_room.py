@@ -26,21 +26,22 @@ class SelectionScreenRoom(Screen):
     tasks_json = None
     tasks_layout = []
     the_app = None
+    the_tablet = None
 
-    def __init__(self,**kwargs):
-        # print(self.the_app)
-        print("init first")
-        super(Screen, self).__init__(**kwargs)
+    def __init__(self, the_tablet):
+        self.the_tablet = the_tablet
+        super(Screen, self).__init__()
 
     def init_selection_options(self,x,the_app):
         # this function is called from tangram_mindset_app
         print ('init_selection_options', x)
-        self.tasks_json = x[0]
+        self.tasks_json = x
         self.the_app=the_app
 
     def on_enter(self, *args):
         print("on_enter selection_screen_room")
         self.init_tasks()
+        self.the_tablet.change_state('selection_screen')
         # self.selections_widget = SelectionsWidget()
         # self.display_tasks()
 
@@ -100,7 +101,7 @@ class SelectionTaskLayout(Button, TaskLayout):
     def on_press(self, *args):
         super(Button, self).on_press()
         print("Selection Task Layout: on_press" , self.index)
-        self.parent.the_app.press_treasure(self.index+1)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
+        self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
 
     def update_selection_task_pos(self):  # rinat
         print ('update_selection_task_pos ', self.index)
@@ -129,7 +130,8 @@ class SelectionTaskLayout(Button, TaskLayout):
         i = 0
         for p in self.pieces:
             print(p['pos'])
-            p['pos'] = [self.x + 40 * i, Window.height * 0.14]
+            # p['pos'] = [self.x + 40 * i, Window.height * 0.14]
+            p['pos'] = [self.x + TangramGame.SCALE * 3 * i, Window.height * 0.14]
             #p['rot'] = 0
             self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
             self.canvas.add(self.groups[-1])

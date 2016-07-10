@@ -1,4 +1,5 @@
 import sys
+from functools import partial
 
 from kivy.clock import Clock
 is_logged = True
@@ -17,6 +18,16 @@ class Component:
         self.current_state = 'idle'
         self.current_action = {}
         self.current_param = None
+        self.general_param = None
+        self.event = None
+
+    def init_transitions(self):
+        self.actors = {}
+        self.current_state = 'idle'
+        self.current_action = {}
+        self.current_param = None
+        self.general_param = None
+        self.event = None
 
     def add_transition(self, state, target, fun, value, param=None):
         if state not in self.actors:
@@ -30,7 +41,10 @@ class Component:
 
     def run(self):
         print(self.name, 'running ...')
-        Clock.schedule_interval(self.resolve, 0.5)
+        self.event = Clock.schedule_interval(self.resolve, 0.5)
+
+    def end_run(self):
+        Clock.unschedule(self.event)
 
     def resolve(self, *args):
         # print('resolve', self.name, self.current_state)
@@ -38,6 +52,11 @@ class Component:
         if self.current_state != 'idle':
             called = False
             if self.current_state in self.actors:
+                # check if end
+                if 'interaction' in self.actors[self.current_state]:
+                    if 'end' in self.actors[self.current_state]['interaction']:
+                        self.end_interaction()
+                        return False
                 for target, funs in self.actors[self.current_state].items():
                     Q = []
                     for value in funs.values():
@@ -49,22 +68,17 @@ class Component:
                 for target,action in self.current_action.items():
                     if target != self.name:     # run own functions last
                         if action[1]:
-                            if isinstance(action[1], list):
-                                for k in range(0, len(action[1])):
-                                    if action[1][k] == 'x':
-                                        action[1][k] = self.current_param
-                            else:
-                                if action[1] == 'x':
-                                    action[1] = self.current_param
+                            action[1] = self.set_action1(action)
+
                         self.log_data(target=target, action=action)
-                        self.interaction.components[target].run_function(action)
+                        self.interaction.components[target].schedule_running(action)
                         called = True
                 if self.name in self.current_action.keys():
                     action = self.current_action[self.name]
-                    if action[1] and action[1] == 'x':
-                        action[1] = self.current_param
+                    if action[1]:
+                        action[1] = self.set_action1(action)
                     self.log_data(action=action)
-                    self.run_function(action)
+                    self.schedule_running(action)
                     called = True
 
                 self.current_action = {}
@@ -74,11 +88,18 @@ class Component:
     def after_called(self):
         self.current_state = 'idle'
 
+    def schedule_running(self, action):
+        # self.run_function(action)
+        Clock.schedule_once(lambda dt: self.run_function(action), 0.01)
+
     def run_function(self, action):
         # print("run_function ", action)
         try:
-            if action[1]:
-                getattr(self, action[0])(action[1:])
+            if action[1] is not None:
+                if len(action) == 2:
+                    getattr(self, action[0])(action[1])
+                else:
+                    getattr(self, action[0])(action[1:])
             else:
                 getattr(self, action[0])()
             return True
@@ -87,7 +108,6 @@ class Component:
             print('No function: ', self.name, action)
         return False
 
-
     def select_action(self, Q):
         # winner takes all
         return Q.index(max(Q))
@@ -95,3 +115,47 @@ class Component:
     def log_data(self, target=None, action=None):
         if is_logged:
             KL.log.insert(action=LogAction.data, obj=self.name, comment=[self.current_state, self.current_param, target, action])
+
+    def set_action1(self, action):
+        new_action1 = None
+        if isinstance(action[1], list):
+            for k in range(0, len(action[1])):
+                if action[1][k] == 'x':
+                    new_action1 = self.get_param()
+                    # action[1][k] = self.get_param()
+                if action[1][k] == 'done':
+                    self.add_done()
+        else:
+            if action[1] == 'x':
+                new_action1 = self.get_param()
+                # action[1] = self.get_param()
+            if action[1] == 'done':
+                self.add_done()
+        return new_action1
+
+    def get_param(self):
+        x = []
+        if isinstance(self.current_param, list):
+            if 'done' in self.current_param:
+                x = self.current_param.remove('done')
+            elif len(self.current_param) == 1:
+                x = self.current_param[0]
+            else:
+                x = self.current_param
+        else:
+            x = self.current_param
+        return x
+
+    def add_done(self):
+        if self.current_param:
+            if isinstance(self.current_param, list):
+                self.current_param.append('done')
+            else:
+                self.current_param = [self.current_param, 'done']
+        else:
+            self.current_param = ['done']
+
+    def end_interaction(self):
+        print('end interaction, please work')
+        Clock.unschedule(self.event)
+        self.interaction.end_interaction()

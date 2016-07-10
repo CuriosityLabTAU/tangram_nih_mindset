@@ -1,26 +1,18 @@
 {
   "introduction": [
-    "hi, i am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
+    "hi, i am tega. "
   ],
   "ask_again": [
     "do you want to play with me?",
     "i will be very happy if you played with me, would you?"
   ],
   "lets_play": [
-    "great! lets play. we need to go to the magic treasure room."
+    "great, lets play. we need to go to the magic treasure room."
   ],
-  "selection_explanation": {
-    "all": [
-      "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
+  "selection_tutorial": [
+      "this is the magic treasure room. "
     ],
-    "neutral": [
-      "i want to try the easiest. i will choose this one."
-    ],
-    "growth": [
-      "i am sure i can open one of the hard ones. i will choose this one."
-    ]
-  },
-  "tangram_explanation": {
+  "tangram_tutorial": {
     "all" : [
       "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."
     ],
@@ -142,6 +134,7 @@
     ]
   },
   "test": [
-    "test"
+    "it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open.",
+    "my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
   ]
 }
