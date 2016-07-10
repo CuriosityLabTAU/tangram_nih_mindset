@@ -14,7 +14,7 @@ class RobotComponent(Component):
     whos_playing = None
     app = None
     expression = None
-    agent = None
+    agent = Agent()
     current_tangram = None
 
     def run_function(self, action):
@@ -70,6 +70,8 @@ class RobotComponent(Component):
         print(self.name, 'select_move', x)
         self.current_state = 'select_move'
         self.current_param = self.current_tangram[0]
+        move = self.agent.play_move(x)
+        return move
 
     # def set_selection(self, action):
     #     print('robot set selection', action)
