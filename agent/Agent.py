@@ -7,6 +7,8 @@ class Agent:
         self.solver = Solver()
         # self.mindset = Mindset()
         # self.curiosity = Curiosity()
+        self.seq_of_jsons = None
+        self.current_move = None
         self.condition = 'Mindset' # value can be 'Mindset' or 'Neutral'
         self.current_round = 0
         self.child_selected_index = None #  indicates the selection of the child. possible values are 1/2/3
@@ -16,9 +18,25 @@ class Agent:
         task = Task()
         task.create_from_json(json_str_task)
         self.solver.set_available_pieces(task)
-        self.solver.run_task(task, duration=10, stop=True)
+        self.solver.run_task(task, duration=20, stop=True)
         seq = self.solver.get_seq_of_moves()
-        return seq
+        self.seq_of_jsons = seq
+        self.current_move = 0
+
+
+    def play_move(self, json_str_task):
+        if self.seq_of_jsons is None:
+            self.solve_task(json_str_task)
+        move = self.seq_of_jsons[self.current_move]
+        if self.current_move+1 < len(self.seq_of_jsons):
+            self.current_move += 1
+        return move
+
+    #def play_random_move(self, json_str_task):
+
+
+    def finish_moves(self):
+        self.seq_of_jsons = None
 
     def record_child_selection(self, selected_index):
         self.child_selected_index = selected_index
