@@ -47,6 +47,6 @@ class GameComponent(Component):
         print(self.name, 'game.py: not_yet')
         self.current_state = 'not_solved'
 
-    def finished(self, action):
-        print(self.name, 'game.py: finished')
+    def finish(self):
+        print(self.name, 'game.py: finish')
         self.game_facilitator.update_game_result('F')
