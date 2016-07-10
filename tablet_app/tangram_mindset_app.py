@@ -91,6 +91,11 @@ root_widget = Builder.load_string('''
             keep_ratio: False
         TangramSelectionWidget:
             id: tangram_selection_widget
+            canvas:
+                Line:
+                    points:[0, 0, 100, 0, 100, 100, 0,100]
+                    close:True
+                    width:3
 
 <TangramSelectionWidget>
     name: 'tangram_selection_widget'
@@ -264,9 +269,12 @@ class TangramMindsetApp(App):
         # child pressed the yes button
         self.interaction.components['child'].on_action(["press_yes_button"])
 
+
+
     def press_treasure(self, treasure):
         # child selected treasure (1/2/3)
         print("press_treasure", treasure)
+        #self.screen_manager.current_screen.show_selection(treasure)
         self.interaction.components['child'].on_action(['press_treasure', treasure])
 
     def tangram_move(self, x):
@@ -298,6 +306,13 @@ class TangramMindsetApp(App):
         TangramGame.SCALE = round(Window.size[0] / 60)
         self.screen_manager.get_screen('selection_screen_room').init_selection_options(x=x,the_app=self)
         self.screen_manager.current = 'selection_screen_room'
+
+    def select_treasure(self,treasure):
+        # robot selected treasure
+        print ("select_treasure",treasure)
+        print()
+        self.screen_manager.current_screen.show_selection(treasure)
+        self.press_treasure(treasure)
 
     def tangram_screen(self, x):
         # Rinat: x is a single tangram from maor
