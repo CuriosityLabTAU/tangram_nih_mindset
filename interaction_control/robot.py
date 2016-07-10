@@ -71,7 +71,7 @@ class RobotComponent(Component):
         self.current_state = 'select_move'
         self.current_param = self.current_tangram[0]
         move = self.agent.play_move(x)
-        return move
+        self.current_param = move
 
     # def set_selection(self, action):
     #     print('robot set selection', action)
