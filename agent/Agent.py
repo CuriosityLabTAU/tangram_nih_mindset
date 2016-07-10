@@ -5,6 +5,8 @@ import json
 class Agent:
     def __init__(self):
         self.solver = Solver()
+        # self.mindset = Mindset()
+        # self.curiosity = Curiosity()
         self.condition = 'Mindset' # value can be 'Mindset' or 'Neutral'
         self.current_round = 0
         self.child_selected_index = None #  indicates the selection of the child. possible values are 1/2/3
