@@ -59,6 +59,10 @@ class TabletComponent(Component):
         self.current_state = 'solved'
         self.current_param = x
 
+    def not_solved(self,x):
+        print(self.name, 'not_solved',x)
+        self.current_state = 'not_solved'
+        self.current_param = x
 
     def robot_solve(self, x):
         print(self.name, 'robot solve', x)

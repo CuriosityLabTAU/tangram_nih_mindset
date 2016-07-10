@@ -131,7 +131,13 @@ class SelectionTaskLayout(Button, TaskLayout):
         for p in self.pieces:
             print(p['pos'])
             # p['pos'] = [self.x + 40 * i, Window.height * 0.14]
-            p['pos'] = [self.x  + TangramGame.SCALE * 3 * (i+1), Window.height * 0.14]
+            name = p['name']
+            dx = TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
+            dy = TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
+            dx=0
+            dy=0
+
+            p['pos'] = [self.x - dx  + TangramGame.SCALE * 3 * (i+1), -dy + Window.height * 0.14]
             #p['rot'] = 0
             self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
             self.canvas.add(self.groups[-1])
