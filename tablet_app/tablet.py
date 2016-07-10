@@ -62,3 +62,4 @@ class TabletComponent(Component):
 
     def robot_solve(self, x):
         print(self.name, 'robot solve', x)
+        self.app.robot_solve(x)
