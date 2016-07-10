@@ -64,6 +64,12 @@ class SelectionScreenRoom(Screen):
             i += 1
         print("init end")
 
+    def show_selection(self, treasure):
+        print("show selection treasure=", treasure)
+        print(self.tasks_layout[treasure-1])
+        #self.task_layout[treasure-1].pos
+
+
 
 class SelectionTaskLayout(Button, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
@@ -77,7 +83,7 @@ class SelectionTaskLayout(Button, TaskLayout):
         self.update_position()
         with self.canvas.before:
             print ("self.canvas.before")
-            # Color(1,0,0,1)
+            Color(1,0,0,1)
             # self.rect = Rectangle()
             # self.rect.pos= self.pos
             # self.rect.size = self.size
@@ -102,6 +108,8 @@ class SelectionTaskLayout(Button, TaskLayout):
         super(Button, self).on_press()
         print("Selection Task Layout: on_press" , self.index)
         self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
+
+
 
     def update_selection_task_pos(self):  # rinat
         print ('update_selection_task_pos ', self.index)

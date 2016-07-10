@@ -33,7 +33,7 @@ class TabletComponent(Component):
     def select_treasure(self, x):
         print(self.name, 'select_treasure', x)
         self.current_state = 'idle'
-        self.app.press_treasure(x)
+        self.app.select_treasure(x)
 
     def tangram_screen(self, x):
         print(self.name, 'tangram_screen', x)
