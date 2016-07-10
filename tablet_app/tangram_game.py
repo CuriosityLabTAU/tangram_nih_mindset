@@ -66,6 +66,7 @@ class TangramPiece(Scatter):
         self.do_scale = False
 
         self.tangram_color = Color(0.5, 0.5, 0.5, 0.5)
+        self.auto_bring_to_front = True
 
     def init_position(self):
         # self.pos = [TangramPiece.piece_initial_pos[self.name][0] * TangramGame.SCALE,
@@ -73,11 +74,16 @@ class TangramPiece(Scatter):
         #self.pos = [self.pos[0] * TangramGame.SCALE,
         #            self.pos[1] * TangramGame.SCALE]
         #n=self.pos[0]
-        x = self.pos[0]  + 12 * TangramGame.SCALE
-        y = self.pos[1]  + 13 * TangramGame.SCALE
+        #x = self.pos[0] + 12 * TangramGame.SCALE
+        #y = self.pos[1] + 13 * TangramGame.SCALE
+
+        x = self.pos[0] + 13 * TangramGame.SCALE
+        y = self.pos[1] + 20 * TangramGame.SCALE
+
         self.pos = [x,y]
-        self.size = [self.piece_size[self.name][0] * TangramGame.SCALE,
-                     self.piece_size[self.name][1] * TangramGame.SCALE]
+        print("init_position",self.pos)
+        #self.size = [self.piece_size[self.name][0] * TangramGame.SCALE,
+        #             self.piece_size[self.name][1] * TangramGame.SCALE]
 
     def on_touch_down(self, touch):
         print ("tangram_game, on_touch_down", self.name)
@@ -106,7 +112,7 @@ class TangramPiece(Scatter):
         except:
             print("failed on_touch_up")
 
-    def set_shape(self):
+    def set_shape(self):#rinat
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
         if self.group is not None:
@@ -117,11 +123,12 @@ class TangramPiece(Scatter):
             'rot':  self.rot,
             'pos':  [self.size[0]/2, self.size[1]/2]
         }
-
+#[self.size[0]/2, self.size[1]/2]
         self.group = TangramPiece.get_shape(piece, TangramPiece.piece_color[piece['name']])
 
         if self.group is not None:
             self.canvas.add(self.group)
+            #self.canvas.ask_update()
 
     @staticmethod
     def get_shape(piece, color=None):
@@ -310,6 +317,7 @@ class TaskLayout(FloatLayout):
 
 
     def update_task(self):
+        #rinat
         print ('update_task TaskLayout')
         for g in self.groups:
             self.canvas.remove(g)
@@ -332,11 +340,11 @@ class TaskLayout(FloatLayout):
         task.create_from_json(json_str)
         self.import_task(task)
 
+
     @staticmethod
     def convert_piece(piece):
-        print("convert_piece", piece)
-        print("convert_piece: ",piece.name[0])
         pos = piece.name[2].split()
+        print("convert_piece before: ", pos)
         converted_piece = {'name': piece.name[0], 'rot': piece.name[1]}
         if 'small triangle' in converted_piece['name']:
             converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
@@ -373,6 +381,7 @@ class TaskLayout(FloatLayout):
             if converted_piece['rot'] == '270':
                 converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
+        print("convert_piece after: ", converted_piece['pos'])
         return converted_piece
 
 

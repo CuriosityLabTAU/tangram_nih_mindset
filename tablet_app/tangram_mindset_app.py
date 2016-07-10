@@ -238,6 +238,21 @@ class TangramMindsetApp(App):
         self.current_sound = None
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # Messages from robot to tablet to interaction
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    def change_pieces(self, x):
+        print('app changes pieces to ', x)
+        # first, start to move the pieces on the tablet
+
+        self.screen_manager.get_screen('solve_tangram_room').change_pieces(x)
+        # put dynamic here!
+        # XXXXXX RINAT XXX
+        # ONLY WHEN THE PIECES FINISHED MOVING, then call the interaction with the line below.
+        self.interaction.components['child'].on_action(['tangram_change', x])
+
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Messages from tablet to interaction
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -253,10 +268,6 @@ class TangramMindsetApp(App):
         # child selected treasure (1/2/3)
         print("press_treasure", treasure)
         self.interaction.components['child'].on_action(['press_treasure', treasure])
-
-    def change_pieces(self, x):
-        print('app changes pieces to ', x)
-        self.interaction.components['child'].on_action(['tangram_change', x])
 
     def tangram_move(self, x):
         # child moved a tangram piece (json of all the pieces)
@@ -297,6 +308,7 @@ class TangramMindsetApp(App):
         self.screen_manager.current = 'solve_tangram_room'
 
     def robot_express(self, action):
+        # robot is saying action
         print ('robot_express ',action)
         self.current_sound = action
         # attempt tts
@@ -313,12 +325,18 @@ class TangramMindsetApp(App):
                 self.finish_robot_express(0)
 
     def finish_robot_express (self, dt):
+        #robot finished to talk
         print ('finish_robot_express', self, self.current_sound)
         self.interaction.components['robot'].finished_expression(self.current_sound)
 
     def yes(self):
+        # yes balloon appear on the screen
         print ('yes in app')
         self.screen_manager.current_screen.ids['yes_button'].opacity = 1
+
+    def robot_solve(self, x):
+        # robot is providing a solution sequence x, and solve_tangram_room animates this solution
+        print ("tangram_mindset_app: robot_solve")
 
 if __name__ == "__main__":
     TangramMindsetApp().run()

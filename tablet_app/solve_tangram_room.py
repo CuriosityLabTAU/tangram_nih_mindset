@@ -18,6 +18,7 @@ from tangram_game import *
 
 class SolveTangramRoom(Screen):
     the_tablet = None
+    tangram_game_widget = None
 
     def __init__(self, the_tablet):
         self.the_tablet = the_tablet
@@ -39,8 +40,14 @@ class SolveTangramRoom(Screen):
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
 
+        dX = 20
+        dY = 15
+
         #shade:
         game_task_layout = GameTaskLayout()
+        game_task_layout.dX = dX
+        game_task_layout.dY = dY
+
         game_task_layout.reset(str(0))
         game_task_layout.import_json_task(self.shade_task_json)
         game_task_layout.update_selection_task_shade()
@@ -48,7 +55,10 @@ class SolveTangramRoom(Screen):
         tangram_game_widget.current_game_task_layout = game_task_layout
 
         #pieces:
+        tangram_game_widget.dX = dX
+        tangram_game_widget.dY = dY
         tangram_game_widget.update_task_pieces(self.pieces_task_json)
+        #tangram_game_widget.update_task_pieces(self.shade_task_json)
 
         # button
         button_rotate = Rotate(tangram_game_widget)
@@ -58,6 +68,15 @@ class SolveTangramRoom(Screen):
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
         tangram_game_widget.add_widget(button_rotate)
+        self.tangram_game_widget = tangram_game_widget
+
+
+    def change_pieces(self, x):
+        print ("solve_tangram_room: change_pieces", x)
+        tangram_game_widget = self.ids['tangram_game_widget']
+        tangram_game_widget.robot_change_pieces(x)
+        #tangram_game_widget.update_task_pieces(x)
+
 
 class Rotate(Button):
 
@@ -111,14 +130,11 @@ class GameTaskLayout(Button, TaskLayout):
         print('TangramGame.SCALE ', TangramGame.SCALE)
         print('update_selection_task_pos ', self.pos, self.size)
         for p in self.pieces:
-            #p['pos'][0] += 13 * TangramGame.SCALE
-            #p['pos'][1] += 20 * TangramGame.SCALE
-            #p['pos'] = [p['pos'][0] * TangramGame.SCALE,
-            #            p['pos'][1] * TangramGame.SCALE]
-            p['pos'][0] += 12 * TangramGame.SCALE
-            p['pos'][1] += 13 * TangramGame.SCALE
-
+            p['pos'][0] += self.dX * TangramGame.SCALE
+            p['pos'][1] += self.dY * TangramGame.SCALE
+            print("update_selection_task_shade", p['pos'])
         self.update_task()
+
 
     def get_color(self, index):
         modulo = index % 3
@@ -145,6 +161,9 @@ class TangramGameWidget(Widget):
     the_app = None
     current = None  #current selected piece
     current_game_task_layout = None
+    pieces = {}
+    dX = None
+    dY = None
 
     def __init__(self, **kwargs):
         print("TangramGameWidget __init__")
@@ -158,69 +177,107 @@ class TangramGameWidget(Widget):
 
     def update_task_pieces(self, pieces_task_json):
         # updated the pieces that the child can play with (not the shade)
+        print("update_task_pieces",pieces_task_json)
         self.pieces = {}
         pieces_dict = json.loads(pieces_task_json)
 
         for p in pieces_dict['pieces']:
             print(p)
             name = p[0]
+            rot = p[1]
             self.pieces[name] = TangramPiece(self)
             self.pieces[name].name = name
             self.pieces[name].rot = p[1]
             x = float(p[2].split()[0])
             y = float(p[2].split()[1])
-            self.pieces[name].pos = [x , y]
-            self.pieces[name].pos = self.convert_dict_piece(self.pieces[name])
+            converted_pos = self.convert_piece_pos(name,[x,y], rot)
+            self.pieces[name].pos = converted_pos
 
         for key, value in self.pieces.items():
             print ("key,value",key,value)
-            value.init_position()
+            x = value.pos[0] + self.dX * TangramGame.SCALE
+            y = value.pos[1] + self.dY * TangramGame.SCALE
+            value.pos = [x, y]
+            # value.init_position()
             value.set_shape()
             self.add_widget(value)
 
+    def robot_change_pieces(self, pieces_target_json):
+        print ("robot_change_pieces", pieces_target_json)
+        pieces_dict = json.loads(pieces_target_json)
+        for p in pieces_dict['pieces']:
+            self.robot_change_piece(p)
+
+    def robot_change_piece (self, piece_dict):
+        name = piece_dict[0]
+        rot = piece_dict[1]
+        x = float(piece_dict[2].split()[0])
+        y = float(piece_dict[2].split()[1])
+        self.pieces[name].rot = rot
+        new_pos = self.convert_piece_pos(name,[x,y],rot)
+        x = new_pos[0] + self.dX * TangramGame.SCALE
+        y = new_pos[1] + self.dY * TangramGame.SCALE
+
+        x -= TangramPiece.piece_size[name][0] * TangramGame.SCALE /2
+        y -= TangramPiece.piece_size[name][1] * TangramGame.SCALE /2
+
+        self.pieces[name].pos = [x,y]
+        self.pieces[name].set_shape()
+
+        # animPiece = Animation(x=x,y=y,
+        #                       duration=5,
+        #                       transition='in_quad')
+        # animPiece.start(self.pieces[name])
+        print("after sleep")
+
+
+
+
     @staticmethod
-    def convert_dict_piece(piece):
+    def convert_piece_pos(name,pos,rot):
         #print("convert_piece", piece)
         #print("convert_piece: ",piece.name[0])
-        pos = piece.pos
-        converted_piece = {'name': piece.name, 'rot': piece.rot}
-        if 'small triangle' in converted_piece['name']:
-            converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+        print("convert_dict_piece before",pos)
+        #converted_piece = {'name': piece.name, 'rot': piece.rot}
+        converted_pos = None
+        if 'small triangle' in name:
+            converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                       (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-        if 'medium triangle' in converted_piece['name']:
-            if converted_piece['rot'] == '0':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+        if 'medium triangle' in name:
+            if rot == '0':
+                converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-            if converted_piece['rot'] == '90':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+            if rot == '90':
+                converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                           (-2 * int(pos[0])) * TangramGame.SCALE]
-            if converted_piece['rot'] == '180':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+            if rot == '180':
+                converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-            if converted_piece['rot'] == '270':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+            if rot == '270':
+                converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                           (-2 * int(pos[0])) * TangramGame.SCALE]
-        if 'large triangle' in converted_piece['name']:
-            converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+        if 'large triangle' in name:
+            converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                       (-2 * int(pos[0])) * TangramGame.SCALE]
-        if 'square' in converted_piece['name']:
-            converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+        if 'square' in name:
+            converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                       (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-        if 'parrallelogram' in converted_piece['name']:
-            if converted_piece['rot'] == '0':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+        if 'parrallelogram' in name:
+            if rot == '0':
+                converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                           (-2 * int(pos[0])) * TangramGame.SCALE]
-            if converted_piece['rot'] == '90':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+            if rot == '90':
+                converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-            if converted_piece['rot'] == '180':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
+            if rot == '180':
+                converted_pos = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
                                           (-2 * int(pos[0])) * TangramGame.SCALE]
-            if converted_piece['rot'] == '270':
-                converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
+            if rot == '270':
+                converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-        return converted_piece['pos']
 
+        print("convert_piece_pos after", converted_pos)
+        return converted_pos
 
     def is_selected(self):
         for k, p in self.pieces.items():
@@ -258,11 +315,8 @@ class TangramGameWidget(Widget):
             # print 'pieces:'
             # print  [self.pieces[p].name, self.pieces[p].rot,self.pieces[p].pos[0], self.pieces[p].pos[1] ]
 
-            # pos[0] += -13 * TangramGame.SCALE
-            # pos[1] += -20 * TangramGame.SCALE
-
-            pos[0] += -12 * TangramGame.SCALE
-            pos[1] += -13 * TangramGame.SCALE
+            pos[0] += -self.dX * TangramGame.SCALE
+            pos[1] += -self.dY * TangramGame.SCALE
 
             if 'small triangle' in name:
                 pos = [(-0.5 * (pos[1] / TangramGame.SCALE - 1)) - 0.5, (0.5 * (pos[0] / TangramGame.SCALE - 1)) + 0.5]
