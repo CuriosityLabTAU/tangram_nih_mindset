@@ -47,6 +47,9 @@ class Solver:
         # return-   network that solved and time it took to solve
 
         # initialize networks with the current task and efficient
+
+        self.solved_network_index = None #  if solved_network_index remains None then no network solved the task
+
         for net in self.networks:
             if init_network:
                 net.set_network(task)
