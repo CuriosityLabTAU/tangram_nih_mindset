@@ -18,7 +18,7 @@ class Agent:
         task = Task()
         task.create_from_json(json_str_task)
         self.solver.set_available_pieces(task)
-        self.solver.run_task(task, duration=20, stop=True)
+        self.solver.run_task(task, duration=30, stop=True)
         seq = self.solver.get_seq_of_moves()
         self.seq_of_jsons = seq
         self.current_move = 0
