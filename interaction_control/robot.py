@@ -65,6 +65,7 @@ class RobotComponent(Component):
         self.current_tangram = self.current_param[0][the_selection]
         self.current_state = 'select_treasure'
         self.current_param = the_selection
+        self.agent.finish_moves() #  indication to the agent that the last game is finished. agent clears the last solution
 
     def select_move(self, x):
         print(self.name, 'select_move', x)
