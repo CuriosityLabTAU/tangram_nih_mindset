@@ -71,10 +71,8 @@ class SelectionScreenRoom(Screen):
 
     def show_selection(self, treasure):
         print("show selection treasure=", treasure)
-        print(self.tasks_layout[treasure-1])
         selection_task_layout = self.tasks_layout[treasure-1]
         selection_task_layout.set_border()
-        print("done")
 
 
 class SelectionTaskLayout(Button, TaskLayout):
@@ -84,8 +82,6 @@ class SelectionTaskLayout(Button, TaskLayout):
         super(SelectionTaskLayout, self).__init__()
         self.index = index
         self.name = str(index)
-        print("Window.width", Window.width)
-        #self.size_hint = [0.28,0.30]
         self.update_position()
         self.canvas.clear()
         with self.canvas.before:
@@ -101,17 +97,8 @@ class SelectionTaskLayout(Button, TaskLayout):
         print('update_position')
         box_width_and_gap = Window.width * 0.31
         margin_left = Window.width * 0.073
-        self.size = [Window.width * 0.28, Window.height * 0.30]
+        self.size = [Window.width * 0.28, Window.height * 0.36]
         self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
-        #self.update_selection_task_pos()
-        # g = InstructionGroup()
-        # g.add(Color(1, 0, 0, 1))
-        # L = Line(points=[0, 0, 500, 600, 400, 300,400,0],
-        #          close=True,
-        #          width=3)
-        # g.add(L)
-        # self.canvas.add(g)
-        # self.canvas.ask_update()
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
@@ -137,20 +124,9 @@ class SelectionTaskLayout(Button, TaskLayout):
 
     def update_selection_task_pos(self):
         print ('update_selection_task_pos ', self.index)
-        #index=self.index
-        print('TangramGame.SCALE ', TangramGame.SCALE)
-        print('update_selection_task_pos ', self.pos, self.size)
         for p in self.pieces:
-            # p['pos'][0] += 13 * TangramGame.SCALE
-            # p['pos'][1] += 20 * TangramGame.SCALE
-            print("p[pos] ", p['pos'], p['name'])
-
-            #p['pos'][0] += 100 + index * TangramGame.SCALE * 15
-            #p['pos'][1] += round(TangramGame.window_size[1] / 2.7)
-
             p['pos'][0] += self.x + 4.5 * TangramGame.SCALE
             p['pos'][1] += self.y + 6.5 * TangramGame.SCALE
-
 
     def update_task_pieces(self, task_pieces):
         # in the selection room show also the pieces of the tangram (not only the shade)
@@ -161,8 +137,6 @@ class SelectionTaskLayout(Button, TaskLayout):
 
         i = 0
         for p in self.pieces:
-            print(p['pos'])
-            # p['pos'] = [self.x + 40 * i, Window.height * 0.14]
             name = p['name']
             dx = TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
             dy = TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
@@ -170,7 +144,6 @@ class SelectionTaskLayout(Button, TaskLayout):
             dy=0
 
             p['pos'] = [self.x - dx  + TangramGame.SCALE * 3 * (i+1), -dy + Window.height * 0.14]
-            #p['rot'] = 0
             self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
             self.canvas.add(self.groups[-1])
             i += 1
