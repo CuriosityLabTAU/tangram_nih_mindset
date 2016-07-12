@@ -1,3 +1,7 @@
+import kivy
+kivy.require('1.8.0')  # replace with your current kivy_tests version !
+from kivy.graphics import *
+
 from interaction_control import *
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
@@ -9,10 +13,11 @@ from kivy.base import runTouchApp
 from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.core.window import Window
-
+from kivy.graphics.vertex_instructions import (Rectangle,
+                                               Ellipse,
+                                               Line)
 from kivy.app import App
 from kivy_communication import *
-
 from kivy.core.audio import SoundLoader
 from tangrams import *
 from tangram_game import *
@@ -67,8 +72,9 @@ class SelectionScreenRoom(Screen):
     def show_selection(self, treasure):
         print("show selection treasure=", treasure)
         print(self.tasks_layout[treasure-1])
-        #self.task_layout[treasure-1].pos
-
+        selection_task_layout = self.tasks_layout[treasure-1]
+        selection_task_layout.set_border()
+        print("done")
 
 
 class SelectionTaskLayout(Button, TaskLayout):
@@ -81,9 +87,10 @@ class SelectionTaskLayout(Button, TaskLayout):
         print("Window.width", Window.width)
         #self.size_hint = [0.28,0.30]
         self.update_position()
+        self.canvas.clear()
         with self.canvas.before:
             print ("self.canvas.before")
-            Color(1,0,0,1)
+            # Color(1,0,0,1)
             # self.rect = Rectangle()
             # self.rect.pos= self.pos
             # self.rect.size = self.size
@@ -97,7 +104,14 @@ class SelectionTaskLayout(Button, TaskLayout):
         self.size = [Window.width * 0.28, Window.height * 0.30]
         self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
         #self.update_selection_task_pos()
-
+        # g = InstructionGroup()
+        # g.add(Color(1, 0, 0, 1))
+        # L = Line(points=[0, 0, 500, 600, 400, 300,400,0],
+        #          close=True,
+        #          width=3)
+        # g.add(L)
+        # self.canvas.add(g)
+        # self.canvas.ask_update()
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
@@ -107,11 +121,21 @@ class SelectionTaskLayout(Button, TaskLayout):
     def on_press(self, *args):
         super(Button, self).on_press()
         print("Selection Task Layout: on_press" , self.index)
+        self.set_border()
         self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
 
+    def set_border (self):
+        print ('set_border')
+        g = InstructionGroup()
+        g.add(Color(1, 0, 0, 1))
+        L = Line(points=[self.x, self.y, self.x+self.width, self.y, self.x+self.width, self.y+self.height, self.x, self.y+self.height],
+                 close=True,
+                 width=3)
+        g.add(L)
+        self.canvas.add(g)
+        self.canvas.ask_update()
 
-
-    def update_selection_task_pos(self):  # rinat
+    def update_selection_task_pos(self):
         print ('update_selection_task_pos ', self.index)
         #index=self.index
         print('TangramGame.SCALE ', TangramGame.SCALE)
@@ -124,8 +148,8 @@ class SelectionTaskLayout(Button, TaskLayout):
             #p['pos'][0] += 100 + index * TangramGame.SCALE * 15
             #p['pos'][1] += round(TangramGame.window_size[1] / 2.7)
 
-            p['pos'][0] += self.x + 3.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 5.5 * TangramGame.SCALE
+            p['pos'][0] += self.x + 4.5 * TangramGame.SCALE
+            p['pos'][1] += self.y + 6.5 * TangramGame.SCALE
 
 
     def update_task_pieces(self, task_pieces):

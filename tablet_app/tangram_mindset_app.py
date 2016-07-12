@@ -91,11 +91,7 @@ root_widget = Builder.load_string('''
             keep_ratio: False
         TangramSelectionWidget:
             id: tangram_selection_widget
-            canvas:
-                Line:
-                    points:[0, 0, 100, 0, 100, 100, 0,100]
-                    close:True
-                    width:3
+
 
 <TangramSelectionWidget>
     name: 'tangram_selection_widget'
