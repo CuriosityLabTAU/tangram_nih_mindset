@@ -1,6 +1,6 @@
 {
   "introduction": [
-    "hi, i am tega. "
+    "hi, i am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
   ],
   "ask_again": [
     "do you want to play with me?",
@@ -13,6 +13,20 @@
       "this is the magic treasure room. "
     ],
   "tangram_tutorial": {
+    "all" : [
+      "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."
+    ],
+    "neutral": [
+      "i will move the piece to this place."
+    ],
+    "growth": [
+      "i want to try something new. maybe move this piece here."
+    ]
+  },
+  "selection_explanation": [
+      "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
+  ],
+  "tangram_explanation": {
     "all" : [
       "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."
     ],
@@ -53,24 +67,44 @@
     "neutral": [
       "good job",
       "great playing",
-      "you did it"
+      "you did it",
+      "You beat the challenge! You really used your skills on that game"
     ],
     "growth": [
       "you worked real hard",
-      "that wasnt easy, you did it",
+      "that wasn't easy, you did it",
       "you learned and nailed it",
-      "you used your brain power, great job"
+      "you used your brain power, great job",
+      "working hard is worth it",
+      "Wow, you really practiced that, and look how you've improved",
+      "I like the way you tried all kinds of strategies on that problem until you finally got it",
+      "You tried hard and made it!",
+      "You seem to be on the right track",
+      "You tried different strategies",
+      "You are not afraid of a challenge. I like that!",
+      "If you like new challenges, you can get better and better!",
+      "Good job trying something new and different - I know you haven't done this before",
+      "You beat the challenge! You really worked out your brain on this game"
     ]
   },
   "robot_win_happy": {
     "neutral": [
       "yay",
-      "woohoo"
+      "woohoo",
+      "I beat the challenge! I really used my skills on that game"
     ],
     "growth": [
       "i used my brainpower and did it",
       "that was hard but i nailed it",
-      "working hard is worth it"
+      "working hard is worth it",
+      "Wow, I really practiced that, and look how I have improved",
+      "I like the way I tried all kinds of strategies on that problem until I finally got it",
+      "I tried hard and made it!",
+      "I seem to be on the right track",
+      "I tried different strategies",
+      "I'm not afraid of a challenge. I like it!",
+      "I like new challenges, I can get better and better!",
+      "I tried something new and different - I know I haven't done this before"
     ]
   },
   "robot_lose": {
@@ -80,17 +114,47 @@
     ],
     "growth": [
       "i didnt work hard enough, next time will be better.",
-      "no matter, we learned new things."
+      "no matter, we learned new things.",
+      "I worked hard, next time I will succeed.",
+      "we learned so much, we will do better next time",
+      "I tried very hard. That's what matters",
+      "I'm proud of myself for trying really hard",
+      "I never gave up even when it was hard",
+      "Ah, I didn't make it in time, but I can try different methods. I should try again",
+      "That was hard, but I have learned a lot. I'll do better next time",
+      "That puzzle really taught me to think differently",
+      "That's an interesting strategy. Let's think about why it didn't work and whether it gives us some clues for a new path. What should we try next?",
+      "This is going to take some time and effort",
+      "Mistakes help me improve",
+      "I tried different strategies",
+      "I'm not afraid of a challenge. I like it!",
+      "I like new challenges, I can get better and better!",
+      "I tried something new and different - I know I haven't done this before"
     ]
   },
   "child_lose": {
     "neutral": [
       "next time, friend.",
-      "that was really hard"
+      "that was really hard",
+      "You didn’t beat that challenge, but you can use your skills to try again on the next game!"
     ],
     "growth": [
       "you worked hard, next time you will succeed.",
-      "we learned so much, we will do better next time"
+      "we learned so much, we will do better next time",
+      "you tried very hard. That's what matters",
+      "I'm proud that you tried really hard",
+      "you never gave up even when it was hard",
+      "Ah, you didn't make it in time, but you can try different methods. You should try again",
+      "That was hard, but you must have learned a lot. You'll do better next time",
+      "That puzzle really taught you to think differently, didn't it?",
+      "That's an interesting strategy. Let's think about why it didn't work and whether it gives us some clues for a new path. What should we try next?",
+      "This is going to take some time and effort",
+      "Mistakes help you improve",
+      "You tried different strategies",
+      "You are not afraid of a challenge. I like that!",
+      "If you like new challenges, you can get better and better!",
+      "Good job trying something new and different - I know you haven't done this before",
+      "You didn’t master that challenge yet, but you can keep growing your brain by practicing on the next games!"
     ]
   },
   "my_turn": {
@@ -134,7 +198,6 @@
     ]
   },
   "test": [
-    "it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open.",
-    "my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
+    "test"
   ]
 }
