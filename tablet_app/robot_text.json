@@ -37,15 +37,45 @@
       "i want to try something new. maybe move this piece here."
     ]
   },
+  "move_explanation": {
+    "neutral": [
+      "let me try this move",
+      "I'll move it here",
+      "lets try this move",
+      "I'll move this piece"
+    ],
+    "growth": [
+      "its really hard. maybe I'll move this piece here",
+      "i am sure i can figure it out. i will move this piece.",
+      "its really hard. maybe I'll move the piece here",
+      "this is challenging, let me try this move",
+      "I wonder what I'll learn if I'll move it here",
+      "lets try something new",
+      "If I'll keep trying I will succeed",
+      "maybe I'll try a new strategy",
+      "I'll try something I didn't do before"
+    ]
+  },
   "turn_explanation": {
     "all": [
       "the piece is in place, but it doesnt fit."
     ],
     "neutral": [
-      "its really hard. i will press this button."
+      "let me try this move",
+      "I'll move it here",
+      "lets try this move",
+      "I'll move this piece"
     ],
     "growth": [
-      "i am sure i can figure it out. i will press this button."
+      "its really hard. i will press this button.",
+      "i am sure i can figure it out. i will press this button.",
+      "its really hard. maybe I'll rotate this piece",
+      "this is challenging, let me try to rotate it",
+      "I wonder what I'll learn if I'll rotate this piece",
+      "lets try something new",
+      "If I'll keep trying I will succeed",
+      "maybe I'll try a new strategy",
+      "I'll try something I didn't do before"
     ]
   },
   "your_turn": {
@@ -188,7 +218,6 @@
     "all": [
       "its my turn now.",
       "I will try to open a box now.",
-      "i will try to get the next balloon",
       "I'm next",
       "ok, now me",
       "so, it is my turn now"
@@ -204,7 +233,7 @@
       "we learned new things that will help me in the next puzzle.",
       "if I choose a challenging puzzle, I will learn more",
       "which one is the most challenging...",
-      "if I choose a hard one, I will get more brain power",
+      "if I'll choose a hard one, I will get more brain power",
       "I prefer the challenging one"
     ]
   },
@@ -212,33 +241,61 @@
     "neutral": [
       "lets select an easy one.",
       "what do you think, which should we choose?",
-      ""
+      "lets select one of the treasures",
+      "lets get some more balloons"
     ],
     "growth": [
-      "lets select a challenging one.",
-      "i want to try a hard one."
+      "lets select a challenging one",
+      "i want to try a hard one",
+      "I want to learn something new, lets choose a challenging box",
+      "this one looks hard, lets try it",
+      "I want more brain power, lets choose the challenging puzzle",
+      "lets try something new"
     ]
   },
   "comment_move": {
     "neutral": [
-      "maybe this piece goes over here.",
+      "maybe this piece goes over here",
       "this looks like a good solution",
       "nice move",
-      "ok"
+      "ok",
+      "good"
     ],
     "growth": [
-      "lets try something new.",
-      "we are working hard to solve this puzzle"
+      "lets try something new",
+      "we are working hard to solve this puzzle",
+      "the more you try, the more you learn",
+      "great!",
+      "keep on trying",
+      "this is challenging, I like challenges!",
+      "interesting strategy",
+      "keep trying new ideas",
+      "this is a great idea",
+      "this is a creative move, very good",
+      "what can you do next?",
+      "hmm, what can we learn from this move.."
     ]
   },
   "comment_turn": {
     "neutral": [
       "maybe this piece needs to turn.",
-      "this looks like a good solution"
+      "this looks like a good solution",
+      "nice move",
+      "ok",
+      "good"
     ],
     "growth": [
-      "lets try something new.",
-      "we are working hard to solve this puzzle"
+      "we are working hard to solve this puzzle",
+      "the more you try, the more you learn",
+      "great!",
+      "keep on trying",
+      "this is challenging, I like challenges!",
+      "interesting strategy",
+      "keep trying new ideas",
+      "this is a great idea",
+      "this is a creative move, very good",
+      "what can you do next?",
+      "hmm, what can we learn from this turn.."
     ]
   },
   "test": [
