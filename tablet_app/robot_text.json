@@ -52,15 +52,28 @@
     "all": [
       "its your turn now.",
       "you try to open a box now.",
-      "now you get us a new balloon."
+      "now you get us a new balloon.",
+      "you are next",
+      "ok, now you",
+      "so, it is your turn now"
     ],
     "neutral": [
-      "start by selecting a box."
+      "start by selecting a box.",
+      "which box do you want to select?",
+      "select one of the boxes",
+      "please select a box",
+      "start by selecting a treasure",
+      "please select a treasure",
+      "which one do you think you can solve?"
     ],
     "growth": [
       "i am sure you can do it.",
       "try hard and you will succeed.",
-      "we learned new things that will help you in the next puzzle."
+      "we learned new things that will help you in the next puzzle.",
+      "if you choose a challenging puzzle, you will learn more",
+      "which one is the most challenging?",
+      "if you choose a hard one, you will get more brain power",
+      "I prefer the challenging one"
     ]
   },
   "child_win_happy": {
@@ -68,7 +81,10 @@
       "good job",
       "great playing",
       "you did it",
-      "You beat the challenge! You really used your skills on that game"
+      "You beat the challenge! You really used your skills on that game",
+      "very good",
+      "you solved the puzzle",
+      "good! now we have more balloons for the party"
     ],
     "growth": [
       "you worked real hard",
@@ -91,7 +107,11 @@
     "neutral": [
       "yay",
       "woohoo",
-      "I beat the challenge! I really used my skills on that game"
+      "I beat the challenge! I really used my skills on that game",
+      "great, I got us another balloon for the party",
+      "I did it!",
+      "I solved the puzzle",
+      "yes! I'm good at solving puzzles"
     ],
     "growth": [
       "i used my brainpower and did it",
@@ -110,7 +130,11 @@
   "robot_lose": {
     "neutral": [
       "that was hard",
-      "i didnt succeed"
+      "i didn't succeed",
+      "I'm not very good at that",
+      "I hope to have better luck next time",
+      "times up",
+      "that was difficult"
     ],
     "growth": [
       "i didnt work hard enough, next time will be better.",
@@ -136,7 +160,10 @@
     "neutral": [
       "next time, friend.",
       "that was really hard",
-      "You didn’t beat that challenge, but you can use your skills to try again on the next game!"
+      "You didn’t beat that challenge, but you can use your skills to try again on the next game!",
+      "better luck next time",
+      "maybe it will be easier next time",
+      "that was difficult"
     ],
     "growth": [
       "you worked hard, next time you will succeed.",
@@ -158,19 +185,34 @@
     ]
   },
   "my_turn": {
-    "neutral": [
+    "all": [
       "its my turn now.",
-      "i will try to get the next balloon"
+      "I will try to open a box now.",
+      "i will try to get the next balloon",
+      "I'm next",
+      "ok, now me",
+      "so, it is my turn now"
+    ],
+    "neutral": [
+      "I will select a box"
     ],
     "growth":[
       "i will work hard to get us the next balloon.",
-      "i learned so much, i am sure i will succeed the next one"
+      "i learned so much, i am sure i will succeed the next one",
+      "i am sure I can do it",
+      "If I will try hard I will succeed.",
+      "we learned new things that will help me in the next puzzle.",
+      "if I choose a challenging puzzle, I will learn more",
+      "which one is the most challenging...",
+      "if I choose a hard one, I will get more brain power",
+      "I prefer the challenging one"
     ]
   },
   "comment_selection": {
     "neutral": [
       "lets select an easy one.",
-      "what do you think, which should we choose?"
+      "what do you think, which should we choose?",
+      ""
     ],
     "growth": [
       "lets select a challenging one.",
@@ -180,7 +222,9 @@
   "comment_move": {
     "neutral": [
       "maybe this piece goes over here.",
-      "this looks like a good solution"
+      "this looks like a good solution",
+      "nice move",
+      "ok"
     ],
     "growth": [
       "lets try something new.",
