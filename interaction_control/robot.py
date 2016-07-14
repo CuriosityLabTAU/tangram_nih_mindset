@@ -61,7 +61,8 @@ class RobotComponent(Component):
 
     def select_treasure(self):
         print(self.name, 'select_treasure', 2, self.current_param)
-        the_selection = 2
+        #the_selection = 2
+        the_selection = self.agent.set_selection()
         self.current_tangram = self.current_param[0][the_selection]
         self.current_state = 'select_treasure'
         self.current_param = the_selection
