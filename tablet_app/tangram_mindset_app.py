@@ -45,8 +45,9 @@ root_widget = Builder.load_string('''
 <ZeroScreenRoom>:
     name: 'zero_screen_room'
     Widget:
-        Button:
+        LoggedButton:
             id: start_button
+            name: 'start_button'
             background_color: 1,0,1,1
             background_normal: ''
             text: 'Start'
@@ -61,8 +62,9 @@ root_widget = Builder.load_string('''
         FirstScreenBackground:
             size: root.size
             pos: root.pos
-        Button:
+        LoggedButton:
             id: yes_button
+            name: 'yes_button'
             borders: 2, 'solid', (1,1,0,1)
             background_normal: './tablet_app/images/BalloonBtn.gif'
             background_down: './tablet_app/images/BalloonBtn_on.gif'

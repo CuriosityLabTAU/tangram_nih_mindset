@@ -10,8 +10,10 @@ import copy
 import json
 from tangrams import Task
 from kivy.core.window import Window
+from kivy_communication import LoggedButton, WidgetLogger
 
-class TangramPiece(Scatter):
+
+class TangramPiece(Scatter, WidgetLogger):
     tangram_list = ['small triangle1','small triangle2',
                     'large triangle1','large triangle2',
                     'medium triangle',
@@ -266,10 +268,11 @@ class TangramPiece(Scatter):
         return None
 
 
-class Rotate(Button):
+class Rotate(LoggedButton):
 
     def __init__(self, the_app):
         super(Rotate,self).__init__()
+        self.name = 'rotate'
         self.the_app = the_app
         self.background_normal = 'buttons/arrow_rotate.png'
         self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)

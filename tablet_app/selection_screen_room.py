@@ -22,6 +22,7 @@ from kivy.core.audio import SoundLoader
 from tangrams import *
 from tangram_game import *
 import json
+from kivy_communication import logged_widgets
 
 from tangram_selection_not_using import *
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -81,7 +82,7 @@ class SelectionScreenRoom(Screen):
             c.disabled = True
 
 
-class SelectionTaskLayout(Button, TaskLayout):
+class SelectionTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
 
     def __init__(self, index):

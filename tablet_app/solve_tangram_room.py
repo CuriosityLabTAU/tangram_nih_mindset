@@ -89,7 +89,7 @@ class SolveTangramRoom(Screen):
                 c.disabled = True
 
 
-class Rotate(Button):
+class Rotate(LoggedButton):
 
     def __init__(self, game_widget):
         super(Rotate,self).__init__()
@@ -109,12 +109,13 @@ class Rotate(Button):
         self.tangram_game_widget.tangram_turn()
 
 
-class GameTaskLayout(Button, TaskLayout):
+class GameTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
 
     def __init__(self):
         super(GameTaskLayout, self).__init__()
         print("GameTaskLayout __init__")
+        self.name = 'GameTaskLayout'
         self.size = [300,300]
         self.update_position()
         with self.canvas.before:
