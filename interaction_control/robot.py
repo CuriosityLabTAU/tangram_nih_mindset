@@ -90,9 +90,9 @@ class RobotComponent(Component):
     def win(self):
         print(self.name, self.whos_playing, 'wins!')
         if self.whos_playing == 'child':
-            self.run_function(['child_win_happy', None])
+            self.run_function(['child_win', None])
         else:
-            self.run_function(['robot_win_happy', None])
+            self.run_function(['robot_win', None])
 
     def play_game(self, action):
         print(self.whos_playing, 'playing the game', action)

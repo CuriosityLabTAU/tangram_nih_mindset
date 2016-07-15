@@ -9,12 +9,20 @@
   "lets_play": [
     "great, lets play. we need to go to the magic treasure room."
   ],
-  "selection_tutorial": [
-      "this is the magic treasure room. "
+  "selection_tutorial": {
+   "all" : [
+    "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
     ],
+    "neutral" : [
+      "i will choose this one."
+    ],
+    "growth" : [
+      "i will choose this one, it looks challenging."
+    ]
+  },
   "tangram_tutorial": {
     "all" : [
-      "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area."
+      "these puzzels are made of pieces of different shapes. we need to find where to put them to fill in the shaded area. we have two minutes to try, until the sand in the hourglass runs out."
     ],
     "neutral": [
       "i will move the piece to this place."
@@ -24,7 +32,7 @@
     ]
   },
   "selection_explanation": [
-      "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you seek, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try and open."
+    "this is the magic treasure room. "
   ],
   "tangram_explanation": {
     "all" : [
@@ -106,7 +114,7 @@
       "I prefer the challenging one"
     ]
   },
-  "child_win_happy": {
+  "child_win": {
     "neutral": [
       "good job",
       "great playing",
@@ -133,7 +141,7 @@
       "You beat the challenge! You really worked out your brain on this game"
     ]
   },
-  "robot_win_happy": {
+  "robot_win": {
     "neutral": [
       "yay",
       "woohoo",

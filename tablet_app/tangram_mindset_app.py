@@ -175,6 +175,8 @@ class TangramMindsetApp(App):
 
     text_handler = None
 
+    tablet_disabled = False
+
     def build(self):
         self.interaction = Interaction(
             [('robot', 'RobotComponent'),
@@ -186,7 +188,7 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 120
+        self.interaction.components['hourglass'].max_counter = 20
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -348,6 +350,14 @@ class TangramMindsetApp(App):
     def robot_solve(self, x):
         # robot is providing a solution sequence x, and solve_tangram_room animates this solution
         print ("tangram_mindset_app: robot_solve")
+
+    # ~~~~~~ child-proofing ~~~~~~
+
+    def disable_tablet(self):
+        self.tablet_disabled = True
+
+    def enable_tablet(self):
+        self.tablet_disabled = False
 
 if __name__ == "__main__":
     TangramMindsetApp().run()

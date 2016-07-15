@@ -47,6 +47,8 @@ class SelectionScreenRoom(Screen):
         print("on_enter selection_screen_room")
         self.init_tasks()
         self.the_tablet.change_state('selection_screen')
+        if self.the_app.tablet_disabled:
+            self.disable_widgets()
         # self.selections_widget = SelectionsWidget()
         # self.display_tasks()
 
@@ -71,8 +73,12 @@ class SelectionScreenRoom(Screen):
 
     def show_selection(self, treasure):
         print("show selection treasure=", treasure)
-        selection_task_layout = self.tasks_layout[treasure-1]
+        selection_task_layout = self.tasks_layout[treasure]
         selection_task_layout.set_border()
+
+    def disable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = True
 
 
 class SelectionTaskLayout(Button, TaskLayout):
