@@ -77,6 +77,7 @@
       "child:start_play:tablet:enable_tablet:1",
       "tablet:enable_tablet:game:generate_selection:1",
       "game:generate_selection:tablet:selection_screen:1:x",
+      "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",
       "game:tangram_selected:tablet:tangram_screen:1:x",
       "tablet:tangram_screen:hourglass:start:1",

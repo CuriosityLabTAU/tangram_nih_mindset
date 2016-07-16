@@ -124,3 +124,6 @@ class RobotComponent(Component):
         # call: self.finished_expression(action)
         print(self.name, data)
         self.finished_expression(data)
+
+    def child_selection(self, x):
+        print(self.name, 'child selected', x)
