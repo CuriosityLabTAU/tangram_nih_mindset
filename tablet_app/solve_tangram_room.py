@@ -37,7 +37,11 @@ class SolveTangramRoom(Screen):
         self.shade_task_json = x[0]
         self.pieces_task_json = x[1]
         self.the_app = the_app
+
         print("Solve Tangram Room init_task ", self.task_json)
+
+        hourglass_widget = self.ids['hourglass_widget']
+        hourglass_widget.do_layout()
 
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
@@ -176,6 +180,8 @@ class TangramGameWidget(Widget):
     pieces = {}
     dX = None
     dY = None
+    anim = False
+    pieces_target_json = None
 
     def __init__(self, **kwargs):
         print("TangramGameWidget __init__")
@@ -209,19 +215,30 @@ class TangramGameWidget(Widget):
             print ("key,value",key,value)
             x = value.pos[0] + self.dX * TangramGame.SCALE
             y = value.pos[1] + self.dY * TangramGame.SCALE
+
+            x -= TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
+            y -= TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
+
             value.pos = [x, y]
             # value.init_position()
             value.set_shape()
             self.add_widget(value)
 
     def robot_change_pieces(self, pieces_target_json):
+        self.pieces_target_json = pieces_target_json
         print ("robot_change_pieces", pieces_target_json)
         pieces_dict = json.loads(pieces_target_json)
+        i=0
+        self.anim=False
         for p in pieces_dict['pieces']:
             self.robot_change_piece(p)
-            #time.sleep(1)
+        if not self.anim:
+            print("not anim")
+            self.robot_finished_change_piece(pieces_target_json)
+
 
     def robot_change_piece (self, piece_dict):
+        print("robot_change_piece")
         name = piece_dict[0]
         rot = piece_dict[1]
         x = float(piece_dict[2].split()[0])
@@ -236,15 +253,20 @@ class TangramGameWidget(Widget):
 
         #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
+        print("?", self.pieces[name].name, "pos=", self.pieces[name].pos, "target=", (x, y))
+        if (self.pieces[name].pos != (x,y)):
+            print("!=",self.pieces[name].name,"pos=",self.pieces[name].pos,"target=",(x,y))
+            self.anim = True
+            animPiece = Animation(x=x,y=y,
+                                   duration=1,
+                                   transition='in_quad')
+            animPiece.start(self.pieces[name])
+            animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json))
 
-        animPiece = Animation(x=x,y=y,
-                               duration=1,
-                               transition='in_quad')
-        animPiece.start(self.pieces[name])
-        print("after sleep")
 
-
-
+    def robot_finished_change_piece(self,pieces_target_json):
+        print("robot_finished_change_piece")
+        self.the_app.changed_pieces(self.pieces_target_json)
 
     @staticmethod
     def convert_piece_pos(name,pos,rot):
@@ -384,28 +406,29 @@ class HourGlassWidget (Widget):
     def do_layout(self, *args):
         print ("do_layout")
         print (self)
-        if (not self.init):
-            self.size = Window.width * 0.08, Window.height * 0.2
-            self.pos = Window.width * 0.85, Window.height * 0.25
-            sandWidth = self.width
-            sandHeight = self.height * 0.25
-            self.sandHeight = sandHeight
-            self.hourglass.size = self.width, self.height
-            self.hourglass.pos = self.x, self.y
-            self.topSand.size = sandWidth, sandHeight
-            self.topSand.pos = self.x, self.y+self.height * 0.5
-            self.middleSand.size = sandWidth * 0.05, sandHeight * 2
-            self.middleSand.pos = self.x + sandWidth/2.0 - sandWidth*0.02, self.y+0
-            self.bottomSand.size = sandWidth, 0
-            self.bottomSand.pos = self.x, self.y+0 + self.height * 0.041
-            self.init = True
+        #if (not self.init):
+        self.size = Window.width * 0.08, Window.height * 0.2
+        self.pos = Window.width * 0.85, Window.height * 0.25
+        sandWidth = self.width
+        sandHeight = self.height * 0.25
+        self.sandHeight = sandHeight
+        self.hourglass.size = self.width, self.height
+        self.hourglass.pos = self.x, self.y
+        self.topSand.size = sandWidth, sandHeight
+        self.topSand.pos = self.x, self.y+self.height * 0.5
+        self.middleSand.opacity = 1
+        self.middleSand.size = sandWidth * 0.05, sandHeight * 2
+        self.middleSand.pos = self.x + sandWidth/2.0 - sandWidth*0.02, self.y+0
+        self.bottomSand.size = sandWidth, 0
+        self.bottomSand.pos = self.x, self.y+0 + self.height * 0.041
+        self.init = True
 
     def start_hourglass(self):
         print('start hourglass')
         pass
 
     def stop_hourglass(self, *args):
-        self.middleSand.height = 0
+        #self.middleSand.height = 0
         print("time is up")
 
     def update_hourglass (self, percent):
@@ -416,21 +439,6 @@ class HourGlassWidget (Widget):
         self.topSand.height =  self.sandHeight * current_percent
         self.bottomSand.height = self.sandHeight* (1 - current_percent)
         if (current_percent < 0.02):
-            self.middleSand.height = 0
-
-
-
-
-    # def animate_sand (self,*args):
-    #     animTop = Animation(height=0,
-    #                      duration=60,
-    #                      transition='in_quad')
-    #     #animTop.start(self.topSand)
-    #     animBottom = Animation(height=100,
-    #                      duration=4,
-    #                      transition='in_quad')
-    #     animBottom.start(self.bottomSand)
-
-# runTouchApp(SolveTangramRoom())
-
+            #self.middleSand.height = 0
+            self.middleSand.opacity = 0
 
