@@ -54,7 +54,7 @@ class SelectionGenerator:
     def update_game_result(self, player, user_selection, game_result):
         # update the selection generator according to user selection and game result
         # player is 'Robot' or 'Child'
-        # user_selection is 1/2/3
+        # user_selection is 0/1/2
         # game_result is 'S' or 'F'
 
         self.dif_indexes[self.current_level - 1] += 1
@@ -63,7 +63,7 @@ class SelectionGenerator:
 
         if player == 'Child':
             if game_result == 'F':
-                if user_selection == 1:
+                if user_selection == 0:
                     self.current_level -= 1
                     if self.current_level == 0:
                         self.current_level = 1
