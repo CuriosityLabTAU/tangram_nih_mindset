@@ -180,6 +180,8 @@ class TangramGameWidget(Widget):
     pieces = {}
     dX = None
     dY = None
+    anim = False
+    pieces_target_json = None
 
     def __init__(self, **kwargs):
         print("TangramGameWidget __init__")
@@ -213,19 +215,30 @@ class TangramGameWidget(Widget):
             print ("key,value",key,value)
             x = value.pos[0] + self.dX * TangramGame.SCALE
             y = value.pos[1] + self.dY * TangramGame.SCALE
+
+            x -= TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
+            y -= TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
+
             value.pos = [x, y]
             # value.init_position()
             value.set_shape()
             self.add_widget(value)
 
     def robot_change_pieces(self, pieces_target_json):
+        self.pieces_target_json = pieces_target_json
         print ("robot_change_pieces", pieces_target_json)
         pieces_dict = json.loads(pieces_target_json)
+        i=0
+        self.anim=False
         for p in pieces_dict['pieces']:
             self.robot_change_piece(p)
-            #time.sleep(1)
+        if not self.anim:
+            print("not anim")
+            self.robot_finished_change_piece(pieces_target_json)
+
 
     def robot_change_piece (self, piece_dict):
+        print("robot_change_piece")
         name = piece_dict[0]
         rot = piece_dict[1]
         x = float(piece_dict[2].split()[0])
@@ -240,15 +253,20 @@ class TangramGameWidget(Widget):
 
         #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
+        print("?", self.pieces[name].name, "pos=", self.pieces[name].pos, "target=", (x, y))
+        if (self.pieces[name].pos != (x,y)):
+            print("!=",self.pieces[name].name,"pos=",self.pieces[name].pos,"target=",(x,y))
+            self.anim = True
+            animPiece = Animation(x=x,y=y,
+                                   duration=1,
+                                   transition='in_quad')
+            animPiece.start(self.pieces[name])
+            animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json))
 
-        animPiece = Animation(x=x,y=y,
-                               duration=1,
-                               transition='in_quad')
-        animPiece.start(self.pieces[name])
-        print("after sleep")
 
-
-
+    def robot_finished_change_piece(self,pieces_target_json):
+        print("robot_finished_change_piece")
+        self.the_app.changed_pieces(self.pieces_target_json)
 
     @staticmethod
     def convert_piece_pos(name,pos,rot):

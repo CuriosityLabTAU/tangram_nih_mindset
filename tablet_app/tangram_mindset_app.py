@@ -254,15 +254,18 @@ class TangramMindsetApp(App):
         # put dynamic here!
         # XXXXXX RINAT XXX
         # ONLY WHEN THE PIECES FINISHED MOVING, then call the interaction with the line below.
-        self.interaction.components['child'].on_action(['tangram_change', x])
+        #self.interaction.components['child'].on_action(['tangram_change', x])
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Messages from tablet to interaction
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    def changed_pieces(self, x):
+        # the robot finished changing the pieces
+        self.interaction.components['child'].on_action(['tangram_change', x])
 
     def press_start_button (self):
-        #child pressed the start button
+        # child pressed the start button
         self.interaction.components['child'].on_action(["press_start_button"])
 
     def press_yes_button(self):
