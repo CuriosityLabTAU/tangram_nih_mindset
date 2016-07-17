@@ -8,7 +8,7 @@ class GameFacilitator():
 
 
     def __init__(self):
-        self.selected_task_index = None  # 1/2/3 according to user selected task
+        self.selected_task_index = None  # 0/1/2 according to user selected task
         self.selection_tasks = None  # a list of 3 json strings that represent 3 tasks
         self.current_task = Task()  # The selected task as Task() object
         self.selection_gen = SelectionGenerator()
@@ -38,7 +38,7 @@ class GameFacilitator():
         return self.selection_tasks
 
     def tangram_selected(self, selected_task_index):
-        # selected_task_index can be 1/2/3 according to user selection.
+        # selected_task_index can be 0/1/2 according to user selection.
         self.selected_task_index = selected_task_index
         #print 'GameFacilitator: '+str(self.selected_task_index)
         self.current_task.create_from_json(self.selection_tasks[self.selected_task_index][0])
