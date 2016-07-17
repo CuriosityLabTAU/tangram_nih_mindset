@@ -60,9 +60,8 @@ class RobotComponent(Component):
         print(self.whos_playing, self.current_param)
 
     def select_treasure(self):
-        print(self.name, 'select_treasure', 2, self.current_param)
-        #the_selection = 2
         the_selection = self.agent.set_selection()
+        print(self.name, 'select_treasure', the_selection, self.current_param)
         self.current_tangram = self.current_param[0][the_selection]
         self.current_state = 'select_treasure'
         self.current_param = the_selection
@@ -88,12 +87,22 @@ class RobotComponent(Component):
     #         self.current_state = 'select_treasure'
     #         self.current_param = 2
 
-    def win(self):
+    def win(self):  # called only in tutorial
         print(self.name, self.whos_playing, 'wins!')
         if self.whos_playing == 'child':
             self.run_function(['child_win', None])
         else:
             self.run_function(['robot_win', None])
+
+    def child_win(self):
+        print(self.name, self.whos_playing, 'child_win')
+        self.agent.record_child_result('S')
+        self.current_state = 'child_win'
+
+    def child_lose(self):
+        print(self.name, self.whos_playing, 'child_lose')
+        self.agent.record_child_result('F')
+        self.current_state = 'child_lose'
 
     def play_game(self, action):
         print(self.whos_playing, 'playing the game', action)
@@ -128,3 +137,4 @@ class RobotComponent(Component):
 
     def child_selection(self, x):
         print(self.name, 'child selected', x)
+        self.agent.record_child_selection(x)
