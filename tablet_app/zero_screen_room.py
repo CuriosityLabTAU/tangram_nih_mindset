@@ -5,7 +5,9 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
 class ZeroScreenRoom(Screen):
-    pass
+
+    def on_enter(self, *args):
+        KL.restart()
     #print "Zero"
     #self.sm.current = "SolveTangramRoom"
     #def __init__(self, **kwargs):

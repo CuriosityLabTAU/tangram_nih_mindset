@@ -80,4 +80,8 @@ class Interaction:
         start = the_data['start'].split(':')
         start = [str(x) for x in start]
         print("starting", the_interaction)
+
+        for c_key, c_val in self.components.items():
+            c_val.current_state = 'idle'
+
         self.run(start)

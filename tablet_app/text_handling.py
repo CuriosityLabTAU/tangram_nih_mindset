@@ -49,15 +49,18 @@ class TextHandler:
                     the_text.append(choice(the_options[self.condition]))
 
             print('speak: ', the_text)
-            for txt in the_text:
-                if the_tts is 'pyttsx':
-                    self.engine.say(txt)
-                if the_tts is 'plyer':
-                    tts.speak(txt)
-                    time.sleep(float(len(txt)) * 0.05)
             if the_tts is 'pyttsx':
+                for txt in the_text:
+                    self.engine.say(txt)
                 self.engine.runAndWait()
                 time.sleep(1)
+            if the_tts is 'plyer':
+                txt = ''
+                for t in the_text:
+                    txt += t
+                tts.speak(txt)
+                time.sleep(float(len(txt)) * 0.075)
+
             return self.finished()
         else:
             return False

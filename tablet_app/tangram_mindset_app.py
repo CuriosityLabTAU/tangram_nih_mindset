@@ -43,6 +43,8 @@ class MyScreenManager (ScreenManager):
 root_widget = Builder.load_string('''
 
 <ZeroScreenRoom>:
+    start_button: start_button
+    subject_id: subject_id
     name: 'zero_screen_room'
     Widget:
         LoggedButton:
@@ -55,6 +57,19 @@ root_widget = Builder.load_string('''
             size: root.width * 0.3, root.height * 0.2
             pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
             on_press: app.press_start_button()
+
+        Label:
+            text: "Subject ID:"
+            size: root.width * 0.15, root.height * 0.2
+            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
+
+        LoggedTextInput:
+            id: subject_id
+            name: 'subject_id'
+            text: ''
+            font_size: 36
+            size: root.width * 0.5, root.height * 0.2
+            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
 
 <FirstScreenRoom>:
     name: 'first_screen_room'
@@ -209,7 +224,9 @@ class TangramMindsetApp(App):
         self.init_communication()
 
         self.screen_manager = MyScreenManager()
-        self.screen_manager.add_widget(ZeroScreenRoom())
+        zero_screen = ZeroScreenRoom()
+        zero_screen.ids['subject_id'].bind(text=zero_screen.ids['subject_id'].on_text_change)
+        self.screen_manager.add_widget(zero_screen)
         self.screen_manager.add_widget(FirstScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(SelectionScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(s)
@@ -254,7 +271,8 @@ class TangramMindsetApp(App):
         # put dynamic here!
         # XXXXXX RINAT XXX
         # ONLY WHEN THE PIECES FINISHED MOVING, then call the interaction with the line below.
-        #self.interaction.components['child'].on_action(['tangram_change', x])
+        time.sleep(1)
+        self.interaction.components['child'].on_action(['tangram_change', x])
 
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
