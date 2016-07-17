@@ -1,5 +1,6 @@
 from tangrams import *
 import json
+import time
 
 
 class Agent:
@@ -9,7 +10,13 @@ class Agent:
         # self.curiosity = Curiosity()
         self.seq_of_jsons = None
         self.current_move = None
-        self.condition = 'Mindset' # value can be 'Mindset' or 'Neutral'
+        self.condition = 'Neutral' #''Mindset' # value can be 'Mindset' or 'Neutral'
+        if self.condition == 'Mindset':
+            self.mindset = 0.9
+        else:
+            self.mindset = 0.1
+        self.efficiency_iter = iter([1,0,1,0,0,1,0]) # determines whether the robot will try to solve or act randomly for each round
+        self.current_efficiency = None # efficiency of current round
         self.current_round = 0
         self.child_selected_index = None # indicates the selection of the child. possible values are 0/1/2
         self.child_result = None  # indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
@@ -23,16 +30,28 @@ class Agent:
         self.seq_of_jsons = seq
         self.current_move = 0
 
+    def solve_task_randomly(self, json_str_task):
+        task = Task()
+        task.create_from_json(json_str_task)
+        self.solver.set_available_pieces(task)
+        self.solver.run_task(task, duration=30, stop=True)
+        seq = self.solver.get_seq_of_random_moves(50)
+        self.seq_of_jsons = seq
+        self.current_move = 0
 
     def play_move(self, json_str_task):
         if self.seq_of_jsons is None:
-            self.solve_task(json_str_task)
+            self.current_efficiency = self.efficiency_iter.next()
+            if self.current_efficiency == 1:
+                self.solve_task(json_str_task)
+            else:
+                self.solve_task_randomly(json_str_task)
         move = self.seq_of_jsons[self.current_move]
         if self.current_move+1 < len(self.seq_of_jsons):
             self.current_move += 1
+        if self.current_efficiency ==0 and np.random.rand() > self.mindset: #  if mindset is low then wait with high probabilty
+            time.sleep(2)
         return move
-
-#    def play_random_move(self, json_str_task):
 
 
     def finish_moves(self):
