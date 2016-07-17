@@ -37,7 +37,11 @@ class SolveTangramRoom(Screen):
         self.shade_task_json = x[0]
         self.pieces_task_json = x[1]
         self.the_app = the_app
+
         print("Solve Tangram Room init_task ", self.task_json)
+
+        hourglass_widget = self.ids['hourglass_widget']
+        hourglass_widget.do_layout()
 
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
@@ -384,28 +388,29 @@ class HourGlassWidget (Widget):
     def do_layout(self, *args):
         print ("do_layout")
         print (self)
-        if (not self.init):
-            self.size = Window.width * 0.08, Window.height * 0.2
-            self.pos = Window.width * 0.85, Window.height * 0.25
-            sandWidth = self.width
-            sandHeight = self.height * 0.25
-            self.sandHeight = sandHeight
-            self.hourglass.size = self.width, self.height
-            self.hourglass.pos = self.x, self.y
-            self.topSand.size = sandWidth, sandHeight
-            self.topSand.pos = self.x, self.y+self.height * 0.5
-            self.middleSand.size = sandWidth * 0.05, sandHeight * 2
-            self.middleSand.pos = self.x + sandWidth/2.0 - sandWidth*0.02, self.y+0
-            self.bottomSand.size = sandWidth, 0
-            self.bottomSand.pos = self.x, self.y+0 + self.height * 0.041
-            self.init = True
+        #if (not self.init):
+        self.size = Window.width * 0.08, Window.height * 0.2
+        self.pos = Window.width * 0.85, Window.height * 0.25
+        sandWidth = self.width
+        sandHeight = self.height * 0.25
+        self.sandHeight = sandHeight
+        self.hourglass.size = self.width, self.height
+        self.hourglass.pos = self.x, self.y
+        self.topSand.size = sandWidth, sandHeight
+        self.topSand.pos = self.x, self.y+self.height * 0.5
+        self.middleSand.opacity = 1
+        self.middleSand.size = sandWidth * 0.05, sandHeight * 2
+        self.middleSand.pos = self.x + sandWidth/2.0 - sandWidth*0.02, self.y+0
+        self.bottomSand.size = sandWidth, 0
+        self.bottomSand.pos = self.x, self.y+0 + self.height * 0.041
+        self.init = True
 
     def start_hourglass(self):
         print('start hourglass')
         pass
 
     def stop_hourglass(self, *args):
-        self.middleSand.height = 0
+        #self.middleSand.height = 0
         print("time is up")
 
     def update_hourglass (self, percent):
@@ -416,21 +421,6 @@ class HourGlassWidget (Widget):
         self.topSand.height =  self.sandHeight * current_percent
         self.bottomSand.height = self.sandHeight* (1 - current_percent)
         if (current_percent < 0.02):
-            self.middleSand.height = 0
-
-
-
-
-    # def animate_sand (self,*args):
-    #     animTop = Animation(height=0,
-    #                      duration=60,
-    #                      transition='in_quad')
-    #     #animTop.start(self.topSand)
-    #     animBottom = Animation(height=100,
-    #                      duration=4,
-    #                      transition='in_quad')
-    #     animBottom.start(self.bottomSand)
-
-# runTouchApp(SolveTangramRoom())
-
+            #self.middleSand.height = 0
+            self.middleSand.opacity = 0
 
