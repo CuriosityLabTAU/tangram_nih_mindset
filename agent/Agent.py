@@ -11,8 +11,8 @@ class Agent:
         self.current_move = None
         self.condition = 'Mindset' # value can be 'Mindset' or 'Neutral'
         self.current_round = 0
-        self.child_selected_index = None #  indicates the selection of the child. possible values are 1/2/3
-        self.child_result = None  #  indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
+        self.child_selected_index = None # indicates the selection of the child. possible values are 0/1/2
+        self.child_result = None  # indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
 
     def solve_task(self, json_str_task):
         task = Task()
@@ -32,7 +32,7 @@ class Agent:
             self.current_move += 1
         return move
 
-    #def play_random_move(self, json_str_task):
+#    def play_random_move(self, json_str_task):
 
 
     def finish_moves(self):
@@ -47,22 +47,22 @@ class Agent:
     def set_selection(self):
         if self.condition == 'Mindset':
             if self.child_result == None:
-                select = 2  # First round, select demo task
+                select = 1  # First round, select demo task
             elif self.child_result == 'S':
-                select = min(self.child_selected_index+1,3)
+                select = min(self.child_selected_index+1,2)
             elif self.child_result == 'F':
                 select = self.child_selected_index
             else:
-                select = 2  # in case of a bug, select 2
+                select = 1  # in case of a bug, select 2
         else:  # ==> self.condition == 'Neutral'
             if self.child_result == None:
-                select = 2 # First round, select demo task
+                select = 1 # First round, select demo task
             elif self.child_result == 'S':
                 select = self.child_selected_index
             elif self.child_result == 'F':
-                select = max(self.child_selected_index - 1, 1)
+                select = max(self.child_selected_index - 1, 0)
             else:
-                select = 2 # in case of a bug, select 2
+                select = 1 # in case of a bug, select 2
         return select
 
 
