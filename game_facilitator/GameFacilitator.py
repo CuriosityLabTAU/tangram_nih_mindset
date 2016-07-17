@@ -52,3 +52,4 @@ class GameFacilitator():
             self.current_player = 'Child'
         elif self.current_player == 'Child':
             self.current_player = 'Robot'
+        print ('GameFacilitator:updated game result ', self.game_counter, self.current_player)
