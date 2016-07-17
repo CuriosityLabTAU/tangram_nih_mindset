@@ -117,7 +117,7 @@ class SelectionGenerator:
     #             # T1 = self.dif_level[self.current_level - 1][self.dif_indexes[self.current_level - 1]]
     #             # T2 = self.dif_level[self.current_level][self.dif_indexes[self.current_level]]
     #             # T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
-
+    #
 
 
 # task_dic =  {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
