@@ -22,6 +22,7 @@ from kivy.core.audio import SoundLoader
 from tangrams import *
 from tangram_game import *
 import json
+from kivy_communication import logged_widgets
 
 from tangram_selection_not_using import *
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -47,6 +48,8 @@ class SelectionScreenRoom(Screen):
         print("on_enter selection_screen_room")
         self.init_tasks()
         self.the_tablet.change_state('selection_screen')
+        if self.the_app.tablet_disabled:
+            self.disable_widgets()
         # self.selections_widget = SelectionsWidget()
         # self.display_tasks()
 
@@ -71,11 +74,15 @@ class SelectionScreenRoom(Screen):
 
     def show_selection(self, treasure):
         print("show selection treasure=", treasure)
-        selection_task_layout = self.tasks_layout[treasure-1]
+        selection_task_layout = self.tasks_layout[treasure]
         selection_task_layout.set_border()
 
+    def disable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = True
 
-class SelectionTaskLayout(Button, TaskLayout):
+
+class SelectionTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
 
     def __init__(self, index):

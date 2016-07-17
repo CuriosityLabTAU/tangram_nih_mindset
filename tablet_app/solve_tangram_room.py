@@ -27,6 +27,8 @@ class SolveTangramRoom(Screen):
     def on_enter(self, *args):
         print("on_enter solve_tangram_room")
         self.the_tablet.change_state('tangram_screen')
+        if self.the_app.tablet_disabled:
+            self.disable_widgets()
         # self.load_sounds()
         # self.play_sound("TangramOpen_myFriend")
 
@@ -77,8 +79,17 @@ class SolveTangramRoom(Screen):
         tangram_game_widget.robot_change_pieces(x)
         #tangram_game_widget.update_task_pieces(x)
 
+    def disable_widgets(self):
+        for c in self.ids['tangram_game_widget'].children:
+            if isinstance(c, TangramPiece):
+                c.do_rotation = False
+                c.do_translation = False
+                c.do_scale = False
+            else:
+                c.disabled = True
 
-class Rotate(Button):
+
+class Rotate(LoggedButton):
 
     def __init__(self, game_widget):
         super(Rotate,self).__init__()
@@ -98,12 +109,13 @@ class Rotate(Button):
         self.tangram_game_widget.tangram_turn()
 
 
-class GameTaskLayout(Button, TaskLayout):
+class GameTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
 
     def __init__(self):
         super(GameTaskLayout, self).__init__()
         print("GameTaskLayout __init__")
+        self.name = 'GameTaskLayout'
         self.size = [300,300]
         self.update_position()
         with self.canvas.before:

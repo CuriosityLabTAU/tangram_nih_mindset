@@ -67,3 +67,17 @@ class TabletComponent(Component):
     def robot_solve(self, x):
         print(self.name, 'robot solve', x)
         self.app.robot_solve(x)
+
+    def finish(self, x):
+        print(self.name, 'finish', x)
+        self.current_state = 'finish'
+
+    def disable_tablet(self):
+        print(self.name, 'disable tablet')
+        self.app.disable_tablet()
+        self.current_state = 'disable_tablet'
+
+    def enable_tablet(self):
+        print(self.name, 'enable tablet')
+        self.app.enable_tablet()
+        self.current_state = 'enable_tablet'

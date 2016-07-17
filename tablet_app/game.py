@@ -50,3 +50,4 @@ class GameComponent(Component):
     def finish(self):
         print(self.name, 'game.py: finish')
         self.game_facilitator.update_game_result('F')
+        self.current_state = 'finish'

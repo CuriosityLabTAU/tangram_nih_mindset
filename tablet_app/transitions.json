@@ -3,6 +3,12 @@
     "opening",
     "tutorial",
     "child_play",
+    "robot_play",
+    "child_play",
+    "robot_play",
+    "child_play",
+    "robot_play",
+    "child_play",
     "robot_play"
   ],
   "opening": {
@@ -34,7 +40,8 @@
       "how_long:20"
     ],
     "transitions": [
-      "robot:start_tutorial:game:generate_selection:1:done",
+      "robot:start_tutorial:tablet:disable_tablet:1:done",
+      "tablet:disable_tablet:game:generate_selection:1:done",
       "game:generate_selection:tablet:selection_screen:1:x",
       "tablet:selection_screen:robot:selection_tutorial:1:x",
       "robot:selection_tutorial:robot:select_treasure:1",
@@ -53,9 +60,9 @@
       "game:not_solved:tablet:not_solved:1:x",
       "tablet:not_solved:robot:select_move:1:x",
       "game:solved:tablet:solved:1:x",
-      "tablet:solved:robot:robot_win:1",
+      "tablet:solved:robot:win:1",
       "game:finish:tablet:finish:1:x",
-      "tablet:finish:robot:robot_lose:1",
+      "tablet:finish:robot:lose:1",
       "robot:robot_win:robot:your_turn:1",
       "robot:robot_lose:robot:your_turn:1",
       "robot:your_turn:interaction:end:1"
@@ -67,8 +74,10 @@
       "how_long:20"
     ],
     "transitions": [
-      "child:start_play:game:generate_selection:1",
+      "child:start_play:tablet:enable_tablet:1",
+      "tablet:enable_tablet:game:generate_selection:1",
       "game:generate_selection:tablet:selection_screen:1:x",
+      "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",
       "game:tangram_selected:tablet:tangram_screen:1:x",
       "tablet:tangram_screen:hourglass:start:1",
@@ -92,7 +101,8 @@
       "how_long:20"
     ],
     "transitions": [
-      "robot:start_play:game:generate_selection:1:done",
+      "robot:start_play:tablet:disable_tablet:1:done",
+      "tablet:disable_tablet:game:generate_selection:1",
       "game:generate_selection:tablet:selection_screen:1:x",
       "tablet:selection_screen:robot:selection_explanation:1:x",
       "robot:selection_explanation:robot:select_treasure:1",
