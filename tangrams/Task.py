@@ -211,7 +211,7 @@ class Task:
         init_dict['size'] = task_dict['size']
         for n in range(len(task_dict['pieces'])):
             name = task_dict['pieces'][n][0]
-            rot = task_dict['pieces'][n][1]
+            rot = '0' # task_dict['pieces'][n][1]
             pos = task_dict['pieces'][n][2]
             init_pos = str(6)+' '+str(3*n-4)
             piece_init_vec.append((name,rot,init_pos))
