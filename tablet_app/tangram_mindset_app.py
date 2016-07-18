@@ -108,10 +108,86 @@ root_widget = Builder.load_string('''
             keep_ratio: False
         TangramSelectionWidget:
             id: tangram_selection_widget
-
+        BalloonsWonWidget:
+            id: balloon_won_widget
+            size: (root.size[0] * 0.7,root.size[1])
+            pos: root.pos
 
 <TangramSelectionWidget>
     name: 'tangram_selection_widget'
+
+<BalloonsWonWidget>
+    Image:
+        id: balloon1
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.1, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price1.gif'
+
+    Image:
+        id: balloon2
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.2, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price2.gif'
+
+    Image:
+        id: balloon3
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.3, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price3.gif'
+
+    Image:
+        id: balloon4
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.4, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price1.gif'
+
+    Image:
+        id: balloon5
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.5, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price2.gif'
+
+    Image:
+        id: balloon6
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.6, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price3.gif'
+
+    Image:
+        id: balloon7
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.1, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price1.gif'
+
+    Image:
+        id: balloon8
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.2, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price2.gif'
+
+    Image:
+        id: balloon9
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.3, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price3.gif'
+
+    Image:
+        id: balloon10
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.4, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price1.gif'
+
+    Image:
+        id: balloon11
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.5, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price2.gif'
+
+    Image:
+        id: balloon12
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.6, root.height * 0.85
+        source: './tablet_app/images/Balloon_Price3.gif'
 
 <SolveTangramRoom>:
     name: 'solve_tangram_room'

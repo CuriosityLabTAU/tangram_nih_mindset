@@ -179,3 +179,6 @@ class TangramSelectionWidget(Widget):
 
     def init_app(self,the_app):
         self.the_app =  the_app
+
+class BalloonsWonWidget (Widget):
+    pass
