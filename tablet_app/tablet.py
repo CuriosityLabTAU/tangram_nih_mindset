@@ -58,6 +58,7 @@ class TabletComponent(Component):
         print(self.name, 'solved', x)
         self.current_state = 'solved'
         self.current_param = x
+        self.app.solved()
 
     def not_solved(self,x):
         print(self.name, 'not_solved',x)

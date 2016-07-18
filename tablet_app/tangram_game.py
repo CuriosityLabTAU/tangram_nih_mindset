@@ -347,7 +347,7 @@ class TaskLayout(FloatLayout):
     @staticmethod
     def convert_piece(piece):
         pos = piece.name[2].split()
-        print("convert_piece before: ", pos)
+        #print("convert_piece before: ", pos)
         converted_piece = {'name': piece.name[0], 'rot': piece.name[1]}
         if 'small triangle' in converted_piece['name']:
             converted_piece['pos'] = [(2 * int(pos[1]) + 1) * TangramGame.SCALE,
@@ -384,7 +384,7 @@ class TaskLayout(FloatLayout):
             if converted_piece['rot'] == '270':
                 converted_piece['pos'] = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
-        print("convert_piece after: ", converted_piece['pos'])
+        #print("convert_piece after: ", converted_piece['pos'])
         return converted_piece
 
 

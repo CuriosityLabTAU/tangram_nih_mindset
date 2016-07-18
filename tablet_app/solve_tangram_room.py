@@ -49,6 +49,10 @@ class SolveTangramRoom(Screen):
         dX = 20
         dY = 15
 
+        #Treasure Box:
+        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureBoxLayers.gif'
+        self.ids['treasure_box'].ids['balloon'].opacity = 0
+
         #shade:
         game_task_layout = GameTaskLayout()
         game_task_layout.dX = dX
@@ -68,8 +72,8 @@ class SolveTangramRoom(Screen):
 
         # button
         button_rotate = Rotate(tangram_game_widget)
-        button_rotate.size = [67,67] #[Window.width * 0.08, Window.height * 0.1]
-        button_rotate.pos = [Window.width * 0.64,Window.height * 0.47]
+        button_rotate.size = [60,60] # [Window.width * 0.08, Window.height * 0.1]
+        button_rotate.pos = [Window.width * 0.58,Window.height * 0.48]
         #button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
@@ -92,7 +96,10 @@ class SolveTangramRoom(Screen):
             else:
                 c.disabled = True
 
-
+    def solved(self):
+        print("solve_tangram_room: solved")
+        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers.gif'
+        self.ids['treasure_box'].ids['balloon'].opacity = 1
 class Rotate(LoggedButton):
 
     def __init__(self, game_widget):
@@ -132,8 +139,8 @@ class GameTaskLayout(LoggedButton, TaskLayout):
 
     def update_position(self, *args):
         print('GameTaskLayout update_position')
-        self.pos = [Window.width * 0.28, Window.height * 0.23]
-        self.size = [Window.width * 0.36, Window.height * 0.28]
+        self.pos = [Window.width * 0.30, Window.height * 0.24]
+        self.size = [Window.width * 0.26, Window.height * 0.26]
         #self.update_selection_task_pos()
 
     def _update_rect(self, instance, value):
@@ -142,13 +149,13 @@ class GameTaskLayout(LoggedButton, TaskLayout):
         self.rect.size = self.size
 
     def update_selection_task_shade(self):
-        print ('update_selection_task_shade ')
-        print('TangramGame.SCALE ', TangramGame.SCALE)
-        print('update_selection_task_pos ', self.pos, self.size)
+        #print ('update_selection_task_shade ')
+        #print('TangramGame.SCALE ', TangramGame.SCALE)
+        #print('update_selection_task_pos ', self.pos, self.size)
         for p in self.pieces:
             p['pos'][0] += self.dX * TangramGame.SCALE
             p['pos'][1] += self.dY * TangramGame.SCALE
-            print("update_selection_task_shade", p['pos'])
+            #print("update_selection_task_shade", p['pos'])
         self.update_task()
 
 
@@ -170,7 +177,6 @@ class Background(Widget):
 class TreasureBox(Widget):
     def rotate_shape(self, *kwargs):
         print("rotate shape")
-
 
 class TangramGameWidget(Widget):
     task_json = None
@@ -234,11 +240,11 @@ class TangramGameWidget(Widget):
             self.robot_change_piece(p)
         if not self.anim:
             print("not anim")
-            self.robot_finished_change_piece(pieces_target_json)
-
+            #self.robot_finished_change_piece(pieces_target_json)
+            self.the_app.changed_pieces(pieces_target_json)
 
     def robot_change_piece (self, piece_dict):
-        print("robot_change_piece")
+        print("robot_change_piece", piece_dict)
         name = piece_dict[0]
         rot = piece_dict[1]
         x = float(piece_dict[2].split()[0])
@@ -254,25 +260,29 @@ class TangramGameWidget(Widget):
         #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
         print("?", self.pieces[name].name, "pos=", self.pieces[name].pos, "target=", (x, y))
-        if (self.pieces[name].pos != (x,y)):
+        if ((round(self.pieces[name].pos[0]),round(self.pieces[name].pos[1])) != (x,y)):
             print("!=",self.pieces[name].name,"pos=",self.pieces[name].pos,"target=",(x,y))
             self.anim = True
             animPiece = Animation(x=x,y=y,
                                    duration=1,
                                    transition='in_quad')
             animPiece.start(self.pieces[name])
-            animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json))
+            # Clock.schedule_once(lambda dt: self.robot_finished_change_piece, 1)
+            Clock.schedule_once(self.robot_finished_change_piece(), 1)
+            # animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json)) #the bind caused problems
+            # self.robot_finished_change_piece(self.pieces_target_json)
+            # self.the_app.changed_pieces(self.pieces_target_json)
 
-
-    def robot_finished_change_piece(self,pieces_target_json):
-        print("robot_finished_change_piece")
+    def robot_finished_change_piece(self, *args):
+        print("robot_finished_change_piece", self.pieces_target_json)
         self.the_app.changed_pieces(self.pieces_target_json)
+        return False
 
     @staticmethod
     def convert_piece_pos(name,pos,rot):
         #print("convert_piece", piece)
         #print("convert_piece: ",piece.name[0])
-        print("convert_dict_piece before",pos)
+        #print("convert_dict_piece before",pos)
         #converted_piece = {'name': piece.name, 'rot': piece.rot}
         converted_pos = None
         if 'small triangle' in name:
@@ -311,7 +321,7 @@ class TangramGameWidget(Widget):
                 converted_pos = [(2 * int(pos[1]) + 2) * TangramGame.SCALE,
                                           (-2 * int(pos[0]) + 1) * TangramGame.SCALE]
 
-        print("convert_piece_pos after", converted_pos)
+        #print("convert_piece_pos after", converted_pos)
         return converted_pos
 
     def is_selected(self):

@@ -93,7 +93,7 @@ class Component:
         Clock.schedule_once(lambda dt: self.run_function(action), 0.01)
 
     def run_function(self, action):
-        # print("run_function ", action)
+        print("run_function ", action)
         try:
             if action[1] is not None:
                 if len(action) == 2:
@@ -104,7 +104,7 @@ class Component:
                 getattr(self, action[0])()
             return True
         except:
-            print ("unexpected error:",sys.exc_info())
+            print ("unexpected error:", action,sys.exc_info())
             print('No function: ', self.name, action)
         return False
 

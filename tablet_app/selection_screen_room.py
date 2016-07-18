@@ -40,12 +40,12 @@ class SelectionScreenRoom(Screen):
 
     def init_selection_options(self,x,the_app):
         # this function is called from tangram_mindset_app
-        print ('init_selection_options', x)
+        # print ('init_selection_options', x)
         self.tasks_json = x
         self.the_app=the_app
 
     def on_enter(self, *args):
-        print("on_enter selection_screen_room")
+        # print("on_enter selection_screen_room")
         self.init_tasks()
         self.the_tablet.change_state('selection_screen')
         if self.the_app.tablet_disabled:
@@ -54,12 +54,12 @@ class SelectionScreenRoom(Screen):
         # self.display_tasks()
 
     def init_tasks (self):
-        print("init_tasks",self.the_app)
+        # print("init_tasks",self.the_app)
         self.ids["tangram_selection_widget"].clear_widgets()
         self.ids["tangram_selection_widget"].init_app(self.the_app)
         i = 0
         for task_json in self.tasks_json:
-            print(task_json)
+            # print(task_json)
             selection_task_layout = SelectionTaskLayout(index=i)
             selection_task_layout.reset(str(i))
             selection_task_layout.import_json_task(task_json[0])
@@ -70,10 +70,9 @@ class SelectionScreenRoom(Screen):
             self.ids["tangram_selection_widget"].add_widget(selection_task_layout)
             #self.add_widget(selection_task_layout)
             i += 1
-        print("init end")
 
     def show_selection(self, treasure):
-        print("show selection treasure=", treasure)
+        # print("show selection treasure=", treasure)
         selection_task_layout = self.tasks_layout[treasure]
         selection_task_layout.set_border()
 
@@ -101,7 +100,7 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
             # # self.bind(size=self.update_position, pos=self.update_position)
 
     def update_position(self, *args):
-        print('update_position')
+        # print('update_position')
         box_width_and_gap = Window.width * 0.31
         margin_left = Window.width * 0.073
         self.size = [Window.width * 0.28, Window.height * 0.36]
@@ -109,17 +108,17 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
-        print('self.size ',self.size, 'instance.size ', instance.size)
+        # print('self.size ',self.size, 'instance.size ', instance.size)
         self.rect.size = self.size
 
     def on_press(self, *args):
         super(Button, self).on_press()
-        print("Selection Task Layout: on_press" , self.index)
+        # print("Selection Task Layout: on_press" , self.index)
         self.set_border()
         self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
 
     def set_border (self):
-        print ('set_border')
+        # print ('set_border')
         g = InstructionGroup()
         g.add(Color(1, 0, 0, 1))
         L = Line(points=[self.x, self.y, self.x+self.width, self.y, self.x+self.width, self.y+self.height, self.x, self.y+self.height],
@@ -130,14 +129,14 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
         self.canvas.ask_update()
 
     def update_selection_task_pos(self):
-        print ('update_selection_task_pos ', self.index)
+        # print ('update_selection_task_pos ', self.index)
         for p in self.pieces:
             p['pos'][0] += self.x + 4.5 * TangramGame.SCALE
             p['pos'][1] += self.y + 6.5 * TangramGame.SCALE
 
     def update_task_pieces(self, task_pieces):
         # in the selection room show also the pieces of the tangram (not only the shade)
-        print ('update_task_pieces TaskLayout')
+        # print ('update_task_pieces TaskLayout')
         # for g in self.groups:
         #    self.canvas.remove(g)
         # self.groups = []
@@ -173,7 +172,7 @@ class TangramSelectionWidget(Widget):
     current_game_task_layout = None
 
     def __init__(self, **kwargs):
-        print("TangramSelectionWidget __init__")
+        # print("TangramSelectionWidget __init__")
         super(TangramSelectionWidget, self).__init__(**kwargs)
         self.canvas.clear()
         self.clear_widgets()

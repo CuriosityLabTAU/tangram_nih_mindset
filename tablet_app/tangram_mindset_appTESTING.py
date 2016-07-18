@@ -7,8 +7,6 @@ from selection_screen_room import *
 from solve_tangram_room import *
 from game_facilitator import *
 
-from text_handling import *
-
 from interaction_control import *
 from game import *
 from tablet import *
@@ -28,11 +26,11 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
+
 GAME_WITH_ROBOT = False
-CONDITION = 'growth'
 
 class MyScreenManager (ScreenManager):
-    the_tablet = None
+    pass
 
 # MyScreenManager:
 #    ZeroScreenRoom:
@@ -43,13 +41,10 @@ class MyScreenManager (ScreenManager):
 root_widget = Builder.load_string('''
 
 <ZeroScreenRoom>:
-    start_button: start_button
-    subject_id: subject_id
     name: 'zero_screen_room'
     Widget:
-        LoggedButton:
+        Button:
             id: start_button
-            name: 'start_button'
             background_color: 1,0,1,1
             background_normal: ''
             text: 'Start'
@@ -58,28 +53,14 @@ root_widget = Builder.load_string('''
             pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
             on_press: app.press_start_button()
 
-        Label:
-            text: "Subject ID:"
-            size: root.width * 0.15, root.height * 0.2
-            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
-
-        LoggedTextInput:
-            id: subject_id
-            name: 'subject_id'
-            text: ''
-            font_size: 36
-            size: root.width * 0.5, root.height * 0.2
-            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
-
 <FirstScreenRoom>:
     name: 'first_screen_room'
     Widget:
         FirstScreenBackground:
             size: root.size
             pos: root.pos
-        LoggedButton:
+        Button:
             id: yes_button
-            name: 'yes_button'
             borders: 2, 'solid', (1,1,0,1)
             background_normal: './tablet_app/images/BalloonBtn.gif'
             background_down: './tablet_app/images/BalloonBtn_on.gif'
@@ -109,7 +90,6 @@ root_widget = Builder.load_string('''
         TangramSelectionWidget:
             id: tangram_selection_widget
 
-
 <TangramSelectionWidget>
     name: 'tangram_selection_widget'
 
@@ -120,7 +100,6 @@ root_widget = Builder.load_string('''
             size: root.size
             pos: root.pos
         TreasureBox:
-            id: treasure_box
             size: root.size
             pos: root.pos
         HourGlassWidget:
@@ -141,20 +120,11 @@ root_widget = Builder.load_string('''
     Image:
         name: 'treasure_box'
         id: box
-        size: root.width * 0.55, root.width * 0.55
+        size: root.width * 0.6, root.height * 0.6
         pos: root.width * 0.2, root.height * 0.2
         source: './tablet_app/images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
-    Image:
-        name: 'balloon'
-        id: balloon
-        size: root.width * 0.25, root.width * 0.25
-        pos: root.width * 0.3, root.height * 0.6
-        source: './tablet_app/images/Balloon_Price1.gif'
-        allow_stretch: True
-        keep_ratio: False
-        opacity: 0
 
 <HourGlassWidget>:
     name: 'hour_glass_widget'
@@ -190,7 +160,7 @@ root_widget = Builder.load_string('''
 # functions connecting to button pressed
 
 
-class TangramMindsetApp(App):
+class TangramMindsetAppTesting(App):
     interaction = None
     sounds = None
     current_sound = None
@@ -200,45 +170,37 @@ class TangramMindsetApp(App):
     game = None
     selection = None
 
-    text_handler = None
-
-    tablet_disabled = False
-
     def build(self):
-        self.interaction = Interaction(
-            [('robot', 'RobotComponent'),
-             ('child', 'ChildComponent'),
-             ('internal_clock', 'ClockComponent'),
-             ('hourglass', 'HourglassComponent')
-             ]
-        )
-        self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
-        self.interaction.components['game'] = GameComponent(self.interaction, 'game')
-        self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 20
+        # self.interaction = Interaction(
+        #     [('robot', 'RobotComponent'),
+        #      ('child', 'ChildComponent'),
+        #      ('internal_clock', 'ClockComponent'),
+        #      ('hourglass', 'HourglassComponent')
+        #      ]
+        # )
+        # self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
+        # self.interaction.components['game'] = GameComponent(self.interaction, 'game')
+        #
+        # self.interaction.components['hourglass'].max_counter = 120
+        # self.interaction.load(filename='./tablet_app/transitions.json')
+        # self.interaction.components['game'].game_facilitator = GameFacilitator()
 
-        s = SolveTangramRoom(self.interaction.components['tablet'])
+        s = SolveTangramRoom()
 
-        self.interaction.components['tablet'].hourglass_widget = s.ids['hourglass_widget']
+        # self.interaction.components['tablet'].hourglass_widget = s.ids['hourglass_widget']
         #self.interaction.components['hourglass'].widget = s.ids['hourglass_widget']
-        self.interaction.components['tablet'].app = self
-        if not GAME_WITH_ROBOT:
-            self.interaction.components['robot'].app = self
+        # self.interaction.components['tablet'].app = self
+        # if not GAME_WITH_ROBOT:
+        #     self.interaction.components['robot'].app = self
+        # self.interaction.run()
 
-        self.interaction.load(filename='./tablet_app/transitions.json')
-        self.interaction.next_interaction()
-
-        # self.load_sounds()
-        self.text_handler = TextHandler(CONDITION)
-        self.text_handler.load_text()
-        self.init_communication()
+        self.load_sounds()
+        # self.init_communication()
 
         self.screen_manager = MyScreenManager()
-        zero_screen = ZeroScreenRoom()
-        zero_screen.ids['subject_id'].bind(text=zero_screen.ids['subject_id'].on_text_change)
-        self.screen_manager.add_widget(zero_screen)
-        self.screen_manager.add_widget(FirstScreenRoom(self.interaction.components['tablet']))
-        self.screen_manager.add_widget(SelectionScreenRoom(self.interaction.components['tablet']))
+        self.screen_manager.add_widget(ZeroScreenRoom())
+        self.screen_manager.add_widget(FirstScreenRoom())
+        self.screen_manager.add_widget(SelectionScreenRoom())
         self.screen_manager.add_widget(s)
 
         #self.game = TangramGame(self)
@@ -249,6 +211,10 @@ class TangramMindsetApp(App):
         #screen = Screen(name='selection')
         #self.screen_manager.get_screen('selection_screen_room').add_widget(self.selection.the_widget)
 
+        self.screen_manager.current = 'solve_tangram_room'
+        x='{"pieces": [["large triangle2", "270", "2 0"], ["medium triangle", "180", "1 0"], ["large triangle1", "90", "2 0"]], "size": "5 5"}'
+
+        self.tangram_screen(x)
 
         return self.screen_manager
 
@@ -270,55 +236,31 @@ class TangramMindsetApp(App):
         self.current_sound = None
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    # Messages from robot to tablet to interaction
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    def change_pieces(self, x):
-        print('app changes pieces to ', x)
-        # first, start to move the pieces on the tablet
-
-        self.screen_manager.get_screen('solve_tangram_room').change_pieces(x)
-        # put dynamic here!
-        # XXXXXX RINAT XXX
-        # ONLY WHEN THE PIECES FINISHED MOVING, then call the interaction with the line below.
-        # time.sleep(1)
-        # self.interaction.components['child'].on_action(['tangram_change', x])
-
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Messages from tablet to interaction
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    def changed_pieces(self, x):
-        # the robot finished changing the pieces
-        print("tangram_mindset_app:changed_pieces",x)
-        self.interaction.components['child'].on_action(['tangram_change', x])
-        print("finished changed_pieces")
 
     def press_start_button (self):
-        # child pressed the start button
+        #child pressed the start button
         self.interaction.components['child'].on_action(["press_start_button"])
 
     def press_yes_button(self):
         # child pressed the yes button
         self.interaction.components['child'].on_action(["press_yes_button"])
 
-
-
     def press_treasure(self, treasure):
         # child selected treasure (1/2/3)
-        # print("press_treasure", treasure)
-        #self.screen_manager.current_screen.show_selection(treasure)
+        print("press_treasure", treasure)
         self.interaction.components['child'].on_action(['press_treasure', treasure])
 
-    def tangram_move(self, x):
+    def tangram_move(self, action):
         # child moved a tangram piece (json of all the pieces)
-        print(self.name, 'tangram_mindset_app: tangram_move', x)
-        self.interaction.components['child'].on_action(['tangram_change', x])
+        print(self.name, 'tangram_mindset_app: tangram_move', action)
+        self.interaction.components['child'].on_action(['tangram_move',action])
 
-    def tangram_turn (self, x):
+    def tangram_turn (self, action):
         # child turned a tangram piece (json of all the pieces)
-        print(self.name, 'tangram_mindset_app: tangram_turn', x)
-        self.interaction.components['child'].on_action(['tangram_chnage', x])
+        print(self.name, 'tangram_mindset_app: tangram_turn', action)
+        self.interaction.components['child'].on_action(['tangram_turn', action])
 
     def check_solution(self, solution_json):
         # this function should not really be here
@@ -336,41 +278,30 @@ class TangramMindsetApp(App):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
         print('x=',x)
-        TangramGame.SCALE = round(Window.size[0] / 60)
+        TangramGame.SCALE = round(Window.size[0] / 50)
         self.screen_manager.get_screen('selection_screen_room').init_selection_options(x=x,the_app=self)
         self.screen_manager.current = 'selection_screen_room'
-
-    def select_treasure(self,treasure):
-        # robot selected treasure
-        print ("select_treasure",treasure)
-        print()
-        self.screen_manager.current_screen.show_selection(treasure)
-        self.press_treasure(treasure)
 
     def tangram_screen(self, x):
         # Rinat: x is a single tangram from maor
         # you need to present it and allow game
         print("tangram_screen",x)
-        TangramGame.SCALE = round(Window.size[0] / 50)
+        TangramGame.SCALE = round(Window.size[0] / 40)
         self.screen_manager.get_screen('solve_tangram_room').init_task(x, the_app=self)
         self.screen_manager.current = 'solve_tangram_room'
 
     def robot_express(self, action):
         # robot is saying action
         print ('robot_express ',action)
-        self.current_sound = action
-        # attempt tts
-        if self.text_handler.say(self.current_sound):
+        self.current_sound = action[0]
+        try:
+            sound = self.sounds[self.current_sound]
+            print(sound)
+            sound.bind(on_stop=self.finish_robot_express)
+            sound.play()
+        except:
+            print('no sound file: ', action[0])
             self.finish_robot_express(0)
-        else:   # attempt recorded speech
-            try:
-                sound = self.sounds[self.current_sound]
-                print(sound)
-                sound.bind(on_stop=self.finish_robot_express)
-                sound.play()
-            except: # there is no sound for
-                print('no sound for: ', self.current_sound)
-                self.finish_robot_express(0)
 
     def finish_robot_express (self, dt):
         #robot finished to talk
@@ -382,22 +313,9 @@ class TangramMindsetApp(App):
         print ('yes in app')
         self.screen_manager.current_screen.ids['yes_button'].opacity = 1
 
-
-    def solved(self):
-        print ("trangram_mindset_app: solved")
-        self.screen_manager.get_screen('solve_tangram_room').solved()
-
     def robot_solve(self, x):
         # robot is providing a solution sequence x, and solve_tangram_room animates this solution
         print ("tangram_mindset_app: robot_solve")
 
-    # ~~~~~~ child-proofing ~~~~~~
-
-    def disable_tablet(self):
-        self.tablet_disabled = True
-
-    def enable_tablet(self):
-        self.tablet_disabled = False
-
 if __name__ == "__main__":
-    TangramMindsetApp().run()
+    TangramMindsetTESITNGApp().run()
