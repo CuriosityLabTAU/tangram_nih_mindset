@@ -5,6 +5,7 @@ from zero_screen_room import *
 from first_screen_room import *
 from selection_screen_room import *
 from solve_tangram_room import *
+from party_screen_room import *
 from game_facilitator import *
 
 from text_handling import *
@@ -55,13 +56,13 @@ root_widget = Builder.load_string('''
             text: 'Start'
             font_size: 36
             size: root.width * 0.3, root.height * 0.2
-            pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
+            pos: root.width * 0.80 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
             on_press: app.press_start_button()
 
         Label:
             text: "Subject ID:"
             size: root.width * 0.15, root.height * 0.2
-            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
+            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
         LoggedTextInput:
             id: subject_id
@@ -69,7 +70,7 @@ root_widget = Builder.load_string('''
             text: ''
             font_size: 36
             size: root.width * 0.5, root.height * 0.2
-            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
+            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
 <FirstScreenRoom>:
     name: 'first_screen_room'
@@ -272,6 +273,20 @@ root_widget = Builder.load_string('''
 <TangramGameWidget>:
     name: 'tangram_game_widget'
 
+<PartyScreenRoom>:
+    name: 'party_screen_room'
+    Widget:
+        PartyScreenBackground:
+            size: root.size
+            pos: root.pos
+
+<PartyScreenBackground>:
+    Image:
+        size: root.size
+        pos: root.pos
+        source: './tablet_app/images/TangramGame_Open.jpg'
+        allow_stretch: True
+        keep_ratio: False
 
 ''')
 
@@ -325,6 +340,7 @@ class TangramMindsetApp(App):
         self.screen_manager.add_widget(zero_screen)
         self.screen_manager.add_widget(FirstScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(SelectionScreenRoom(self.interaction.components['tablet']))
+        self.screen_manager.add_widget(PartyScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(s)
 
         #self.game = TangramGame(self)
@@ -417,6 +433,10 @@ class TangramMindsetApp(App):
 
     def first_screen(self):
         self.screen_manager.current = 'first_screen_room'
+
+
+    def party_screen(self):
+        self.screen_manager.current = 'party_screen_room'
 
     def selection_screen(self, x):
         # Rinat: x is a list of tangrams from maor

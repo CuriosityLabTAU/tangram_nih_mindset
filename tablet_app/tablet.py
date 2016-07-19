@@ -13,6 +13,11 @@ class TabletComponent(Component):
         self.current_state = 'idle'
         self.app.first_screen()
 
+    def party_screen(self):
+        print(self.name, 'party_screen')
+        self.current_state = 'idle'
+        self.app.party_screen()
+
     def yes(self):
         print(self.name, 'yes in tablet')
         self.app.yes()

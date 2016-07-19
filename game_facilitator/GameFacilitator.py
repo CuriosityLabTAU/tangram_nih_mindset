@@ -23,11 +23,12 @@ class GameFacilitator():
         #print board_task.check_solution(self.current_task.x, board_task.solution)
         return board_task.check_solution(self.current_task.x, board_task.solution)
 
-    def generate_tangram_options(self):
-        if self.game_counter != 9:
-            self.selection_tasks = self.selection_gen.get_current_selection()
-        else:
+    def generate_tangram_options(self, challange):
+        if challange:
             self.selection_tasks = self.selection_gen.get_challenge_selection()
+        else:
+            self.selection_tasks = self.selection_gen.get_current_selection()
+
         # T = []
         # test1_dict = {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
         # T.append(json.dumps(test1_dict))

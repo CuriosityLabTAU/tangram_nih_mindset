@@ -122,15 +122,17 @@ class Component:
             for k in range(0, len(action[1])):
                 if action[1][k] == 'x':
                     new_action1 = self.get_param()
-                    # action[1][k] = self.get_param()
+                if action[1][k] == 'mark':
+                    new_action1 = 'mark'
                 if action[1][k] == 'done':
-                    self.add_done()
+                    self.add_something('done')
         else:
             if action[1] == 'x':
                 new_action1 = self.get_param()
-                # action[1] = self.get_param()
+            if action[1] == 'mark':
+                new_action1 = 'mark'
             if action[1] == 'done':
-                self.add_done()
+                self.add_something('done')
         return new_action1
 
     def get_param(self):
@@ -146,14 +148,14 @@ class Component:
             x = self.current_param
         return x
 
-    def add_done(self):
+    def add_something(self, something):
         if self.current_param:
             if isinstance(self.current_param, list):
-                self.current_param.append('done')
+                self.current_param.append(something)
             else:
-                self.current_param = [self.current_param, 'done']
+                self.current_param = [self.current_param, something]
         else:
-            self.current_param = ['done']
+            self.current_param = [something]
 
     def end_interaction(self):
         print('end interaction, please work')
