@@ -55,13 +55,13 @@ root_widget = Builder.load_string('''
             text: 'Start'
             font_size: 36
             size: root.width * 0.3, root.height * 0.2
-            pos: root.width * 0.5 - self.width * 0.5, root.height * 0.7 - self.height * 0.5
+            pos: root.width * 0.80 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
             on_press: app.press_start_button()
 
         Label:
             text: "Subject ID:"
             size: root.width * 0.15, root.height * 0.2
-            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
+            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
         LoggedTextInput:
             id: subject_id
@@ -69,7 +69,7 @@ root_widget = Builder.load_string('''
             text: ''
             font_size: 36
             size: root.width * 0.5, root.height * 0.2
-            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.25 - self.height * 0.5
+            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
 <FirstScreenRoom>:
     name: 'first_screen_room'

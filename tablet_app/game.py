@@ -9,7 +9,7 @@ class GameComponent(Component):
         print(self.name, 'generate selection', args)
         T = []
         if self.game_facilitator:
-            T = self.game_facilitator.generate_tangram_options()
+            T = self.game_facilitator.generate_tangram_options(args)
         self.current_param = T
         self.current_state = 'generate_selection'
 

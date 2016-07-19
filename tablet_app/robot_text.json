@@ -306,6 +306,17 @@
       "hmm, what can we learn from this turn.."
     ]
   },
+  "explain_challenge": {
+    "all": [
+      "these puzzles look very hard."
+    ],
+    "growth" :[
+      "i am sure that if you try hard, you can succeed."
+    ],
+    "neutral": [
+      "pick one of them."
+    ]
+  },
   "test": [
     "test"
   ]
