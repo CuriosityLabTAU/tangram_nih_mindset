@@ -109,7 +109,7 @@ root_widget = Builder.load_string('''
         TangramSelectionWidget:
             id: tangram_selection_widget
         BalloonsWonWidget:
-            id: balloon_won_widget
+            id: balloons_won_widget
             size: (root.size[0] * 0.7,root.size[1])
             pos: root.pos
 
@@ -120,73 +120,73 @@ root_widget = Builder.load_string('''
     Image:
         id: balloon1
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.1, root.height * 0.85
+        pos: root.width * 0.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
 
     Image:
         id: balloon2
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.2, root.height * 0.85
+        pos: root.width * 0.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
 
     Image:
         id: balloon3
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.3, root.height * 0.85
+        pos: root.width * 0.3, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
 
     Image:
         id: balloon4
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.4, root.height * 0.85
+        pos: root.width * 0.4, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
 
     Image:
         id: balloon5
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.5, root.height * 0.85
+        pos: root.width * 0.5, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
 
     Image:
         id: balloon6
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.6, root.height * 0.85
+        pos: root.width * 0.6, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
 
     Image:
         id: balloon7
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.1, root.height * 0.85
+        pos: root.width * 0.7, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
 
     Image:
         id: balloon8
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.2, root.height * 0.85
+        pos: root.width * 0.8, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
 
     Image:
         id: balloon9
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.3, root.height * 0.85
+        pos: root.width * 0.9, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
 
     Image:
         id: balloon10
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.4, root.height * 0.85
+        pos: root.width * 1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
 
     Image:
         id: balloon11
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.5, root.height * 0.85
+        pos: root.width * 1.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
 
     Image:
         id: balloon12
         size: root.width * 0.10, root.width * 0.10
-        pos: root.width * 0.6, root.height * 0.85
+        pos: root.width * 1.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
 
 <SolveTangramRoom>:
@@ -267,17 +267,15 @@ root_widget = Builder.load_string('''
 
 
 class TangramMindsetApp(App):
+    tangrams_solved = 0
     interaction = None
     sounds = None
     current_sound = None
     screen_manager = None
     current = None
-
     game = None
     selection = None
-
     text_handler = None
-
     tablet_disabled = False
 
     def build(self):
@@ -461,6 +459,7 @@ class TangramMindsetApp(App):
 
     def solved(self):
         print ("trangram_mindset_app: solved")
+        self.tangrams_solved += 1
         self.screen_manager.get_screen('solve_tangram_room').solved()
 
     def robot_solve(self, x):
