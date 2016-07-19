@@ -12,7 +12,8 @@
     "robot_play",
     "child_play_challenge",
     "robot_play",
-    "child_play"
+    "child_play",
+    "party"
   ],
   "opening": {
     "start": "tablet:zero_screen",
@@ -157,6 +158,17 @@
       "robot:child_win:robot:my_turn:1",
       "robot:child_lose:robot:my_turn:1",
       "robot:my_turn:interaction:end:1"
+    ]
+  },
+  "party": {
+    "start": "robot:start_party",
+    "internal_clock": [
+      "how_long:20"
+    ],
+    "transitions": [
+      "robot:start_party:tablet:party_screen:1:done",
+      "tablet:party_screen:robot:conclusion:1",
+      "robot:conclusion:interaction:end:1"
     ]
   }
 }

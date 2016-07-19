@@ -317,6 +317,17 @@
       "pick one of them."
     ]
   },
+  "conclusion": {
+    "all": [
+      "thanks for helping me."
+    ],
+    "growth": [
+      "we worked really hard and it was worth it. the party is going to be so great. lets party."
+    ],
+    "neutral": [
+      "we got so many balloons. the party is going to be so great. lets party."
+    ]
+  },
   "test": [
     "test"
   ]
