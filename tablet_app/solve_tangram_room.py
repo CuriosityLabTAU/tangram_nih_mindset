@@ -98,7 +98,10 @@ class SolveTangramRoom(Screen):
 
     def solved(self):
         print("solve_tangram_room: solved")
+        i = self.the_app.tangrams_solved
+        i = (i-1)%3 + 1
         self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers.gif'
+        self.ids['treasure_box'].ids['balloon'].source = './tablet_app/images/Balloon_Price'+str(i)+'.gif'
         self.ids['treasure_box'].ids['balloon'].opacity = 1
 class Rotate(LoggedButton):
 

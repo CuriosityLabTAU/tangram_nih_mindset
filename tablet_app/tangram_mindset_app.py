@@ -122,72 +122,84 @@ root_widget = Builder.load_string('''
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon2
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon3
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.3, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon4
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.4, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon5
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.5, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon6
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.6, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon7
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.7, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon8
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.8, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon9
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.9, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon10
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon11
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon12
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
 <SolveTangramRoom>:
     name: 'solve_tangram_room'
