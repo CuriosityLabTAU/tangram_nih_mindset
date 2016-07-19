@@ -46,12 +46,26 @@ class SelectionScreenRoom(Screen):
 
     def on_enter(self, *args):
         # print("on_enter selection_screen_room")
+        self.init_balloons()
         self.init_tasks()
         self.the_tablet.change_state('selection_screen')
         if self.the_app.tablet_disabled:
             self.disable_widgets()
         # self.selections_widget = SelectionsWidget()
         # self.display_tasks()
+
+    def init_balloons(self):
+        #display the number of tangrams solved (by the Robot and Child).
+        i=0
+        for balloon in self.ids['balloons_won_widget'].ids:
+            if (i < self.the_app.tangrams_solved):
+                self.ids['balloons_won_widget'].ids[balloon].opacity = 1
+                print("visible",i)
+            else:
+                self.ids['balloons_won_widget'].ids[balloon].opacity = 0
+                print("invisible",i)
+            i += 1
+
 
     def init_tasks (self):
         # print("init_tasks",self.the_app)
