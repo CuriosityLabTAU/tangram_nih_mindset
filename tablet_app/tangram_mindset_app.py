@@ -230,16 +230,17 @@ root_widget = Builder.load_string('''
     Image:
         name: 'treasure_box'
         id: box
-        size: root.width * 0.55, root.width * 0.55
-        pos: root.width * 0.2, root.height * 0.2
+        size: root.width * 0.5, root.height * 0.8
+        pos: root.width * 0.25, root.height * 0.10
+
         source: './tablet_app/images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
     Image:
         name: 'balloon'
         id: balloon
-        size: root.width * 0.25, root.width * 0.25
-        pos: root.width * 0.3, root.height * 0.6
+        size: root.width * 0.20, root.width * 0.20
+        pos: root.width * 0.3, root.height * 0.5
         source: './tablet_app/images/Balloon_Price1.gif'
         allow_stretch: True
         keep_ratio: False

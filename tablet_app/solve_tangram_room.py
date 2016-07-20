@@ -46,8 +46,8 @@ class SolveTangramRoom(Screen):
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
 
-        dX = 20
-        dY = 15
+        dX = 20 #Window.width/40.0  #20
+        dY = 13 #Window.height/40.0 #15
 
         #Treasure Box:
         self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureBoxLayers.gif'
@@ -72,8 +72,8 @@ class SolveTangramRoom(Screen):
 
         # button
         button_rotate = Rotate(tangram_game_widget)
-        button_rotate.size = [60,60] # [Window.width * 0.08, Window.height * 0.1]
-        button_rotate.pos = [Window.width * 0.58,Window.height * 0.48]
+        button_rotate.size = [Window.width * 0.07, Window.width * 0.07] #[60,60] #
+        button_rotate.pos = [Window.width * 0.58, Window.height * 0.40]
         #button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
@@ -142,8 +142,9 @@ class GameTaskLayout(LoggedButton, TaskLayout):
 
     def update_position(self, *args):
         print('GameTaskLayout update_position')
-        self.pos = [Window.width * 0.30, Window.height * 0.24]
-        self.size = [Window.width * 0.26, Window.height * 0.26]
+        #self.size = [Window.width * 0.26, Window.height * 0.26]
+        self.size = [TangramGame.SCALE * 10, TangramGame.SCALE * 10]
+        self.pos = [Window.width / 2.0 - self.size[0] / 1.5, Window.height * 0.12]
         #self.update_selection_task_pos()
 
     def _update_rect(self, instance, value):

@@ -1,8 +1,8 @@
 {
   "sequence": [
+    "child_play",
     "opening",
     "tutorial",
-    "child_play",
     "robot_play",
     "child_play_challenge",
     "party"
@@ -67,7 +67,7 @@
   "child_play": {
     "start": "child:start_play",
     "internal_clock": [
-      "how_long:20"
+      "how_long:40"
     ],
     "transitions": [
       "child:start_play:tablet:enable_tablet:1",
