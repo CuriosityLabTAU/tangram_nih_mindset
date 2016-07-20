@@ -93,7 +93,7 @@ class Component:
         Clock.schedule_once(lambda dt: self.run_function(action), 0.01)
 
     def run_function(self, action):
-        print("run_function ", action)
+        print("run_function ", self.name, action)
         try:
             if action[1] is not None:
                 if len(action) == 2:

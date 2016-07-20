@@ -5,6 +5,7 @@ from zero_screen_room import *
 from first_screen_room import *
 from selection_screen_room import *
 from solve_tangram_room import *
+from party_screen_room import *
 from game_facilitator import *
 
 from text_handling import *
@@ -122,72 +123,84 @@ root_widget = Builder.load_string('''
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon2
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon3
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.3, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon4
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.4, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon5
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.5, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon6
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.6, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon7
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.7, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon8
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.8, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon9
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 0.9, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
     Image:
         id: balloon10
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 0
 
     Image:
         id: balloon11
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1.1, root.height * 0.90
         source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 0
 
     Image:
         id: balloon12
         size: root.width * 0.10, root.width * 0.10
         pos: root.width * 1.2, root.height * 0.90
         source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 0
 
 <SolveTangramRoom>:
     name: 'solve_tangram_room'
@@ -217,16 +230,17 @@ root_widget = Builder.load_string('''
     Image:
         name: 'treasure_box'
         id: box
-        size: root.width * 0.55, root.width * 0.55
-        pos: root.width * 0.2, root.height * 0.2
+        size: root.width * 0.5, root.height * 0.8
+        pos: root.width * 0.25, root.height * 0.10
+
         source: './tablet_app/images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
     Image:
         name: 'balloon'
         id: balloon
-        size: root.width * 0.25, root.width * 0.25
-        pos: root.width * 0.3, root.height * 0.6
+        size: root.width * 0.20, root.width * 0.20
+        pos: root.width * 0.3, root.height * 0.5
         source: './tablet_app/images/Balloon_Price1.gif'
         allow_stretch: True
         keep_ratio: False
@@ -260,6 +274,20 @@ root_widget = Builder.load_string('''
 <TangramGameWidget>:
     name: 'tangram_game_widget'
 
+<PartyScreenRoom>:
+    name: 'party_screen_room'
+    Widget:
+        PartyScreenBackground:
+            size: root.size
+            pos: root.pos
+
+<PartyScreenBackground>:
+    Image:
+        size: root.size
+        pos: root.pos
+        source: './tablet_app/images/TangramGame_Open.jpg'
+        allow_stretch: True
+        keep_ratio: False
 
 ''')
 
@@ -289,7 +317,7 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 20
+        self.interaction.components['hourglass'].max_counter = 5
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -313,6 +341,7 @@ class TangramMindsetApp(App):
         self.screen_manager.add_widget(zero_screen)
         self.screen_manager.add_widget(FirstScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(SelectionScreenRoom(self.interaction.components['tablet']))
+        self.screen_manager.add_widget(PartyScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(s)
 
         #self.game = TangramGame(self)
@@ -405,6 +434,10 @@ class TangramMindsetApp(App):
 
     def first_screen(self):
         self.screen_manager.current = 'first_screen_room'
+
+
+    def party_screen(self):
+        self.screen_manager.current = 'party_screen_room'
 
     def selection_screen(self, x):
         # Rinat: x is a list of tangrams from maor

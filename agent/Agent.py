@@ -40,15 +40,17 @@ class Agent:
         self.current_move = 0
 
     def play_move(self, json_str_task):
+        # currently, only gets the task and generate a sequence of moves
+        # future: also gets the current state
         if self.seq_of_jsons is None:
             self.current_efficiency = self.efficiency_iter.next()
             if self.current_efficiency == 1:
                 self.solve_task(json_str_task)
             else:
                 self.solve_task_randomly(json_str_task)
-        move = self.seq_of_jsons[self.current_move]
         if self.current_move+1 < len(self.seq_of_jsons):
             self.current_move += 1
+        move = self.seq_of_jsons[self.current_move]
         if self.current_efficiency ==0 and np.random.rand() > self.mindset: #  if mindset is low then wait with high probabilty
             time.sleep(2)
         return move

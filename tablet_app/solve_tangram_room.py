@@ -46,8 +46,8 @@ class SolveTangramRoom(Screen):
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
 
-        dX = 20
-        dY = 15
+        dX = 20 #Window.width/40.0  #20
+        dY = 13 #Window.height/40.0 #15
 
         #Treasure Box:
         self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureBoxLayers.gif'
@@ -72,8 +72,8 @@ class SolveTangramRoom(Screen):
 
         # button
         button_rotate = Rotate(tangram_game_widget)
-        button_rotate.size = [60,60] # [Window.width * 0.08, Window.height * 0.1]
-        button_rotate.pos = [Window.width * 0.58,Window.height * 0.48]
+        button_rotate.size = [Window.width * 0.07, Window.width * 0.07] #[60,60] #
+        button_rotate.pos = [Window.width * 0.58, Window.height * 0.40]
         #button_rotate.pos = [Window.width * 0.65, Window.height * 0.55]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
@@ -98,7 +98,10 @@ class SolveTangramRoom(Screen):
 
     def solved(self):
         print("solve_tangram_room: solved")
+        i = self.the_app.tangrams_solved
+        i = (i-1)%3 + 1
         self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers.gif'
+        self.ids['treasure_box'].ids['balloon'].source = './tablet_app/images/Balloon_Price'+str(i)+'.gif'
         self.ids['treasure_box'].ids['balloon'].opacity = 1
 class Rotate(LoggedButton):
 
@@ -139,8 +142,9 @@ class GameTaskLayout(LoggedButton, TaskLayout):
 
     def update_position(self, *args):
         print('GameTaskLayout update_position')
-        self.pos = [Window.width * 0.30, Window.height * 0.24]
-        self.size = [Window.width * 0.26, Window.height * 0.26]
+        #self.size = [Window.width * 0.26, Window.height * 0.26]
+        self.size = [TangramGame.SCALE * 10, TangramGame.SCALE * 10]
+        self.pos = [Window.width / 2.0 - self.size[0] / 1.5, Window.height * 0.12]
         #self.update_selection_task_pos()
 
     def _update_rect(self, instance, value):
@@ -231,19 +235,23 @@ class TangramGameWidget(Widget):
             self.add_widget(value)
 
     def robot_change_pieces(self, pieces_target_json):
-        self.pieces_target_json = pieces_target_json
-        print ("robot_change_pieces", pieces_target_json)
-        pieces_dict = json.loads(pieces_target_json)
-        i=0
-        self.anim=False
-        for p in pieces_dict['pieces']:
-            self.robot_change_piece(p)
         if not self.anim:
-            print("not anim")
-            #self.robot_finished_change_piece(pieces_target_json)
-            self.the_app.changed_pieces(pieces_target_json)
+            self.pieces_target_json = pieces_target_json
+            print ("robot_change_pieces", pieces_target_json)
+            pieces_dict = json.loads(pieces_target_json)
+            i=0
+            self.anim=False
+            for p in pieces_dict['pieces']:
+                self.robot_change_piece(p)
+            if not self.anim:
+                print("not anim")
+                #self.robot_finished_change_piece(pieces_target_json)
+                self.the_app.changed_pieces(pieces_target_json)
+        else:
+            print("already anim")
 
     def robot_change_piece (self, piece_dict):
+
         print("robot_change_piece", piece_dict)
         name = piece_dict[0]
         rot = piece_dict[1]
@@ -268,13 +276,14 @@ class TangramGameWidget(Widget):
                                    transition='in_quad')
             animPiece.start(self.pieces[name])
             # Clock.schedule_once(lambda dt: self.robot_finished_change_piece, 1)
-            Clock.schedule_once(self.robot_finished_change_piece(), 1)
+            Clock.schedule_once(self.robot_finished_change_piece, 2)
             # animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json)) #the bind caused problems
             # self.robot_finished_change_piece(self.pieces_target_json)
             # self.the_app.changed_pieces(self.pieces_target_json)
 
-    def robot_finished_change_piece(self, *args):
+    def robot_finished_change_piece(self, dt):
         print("robot_finished_change_piece", self.pieces_target_json)
+        self.anim = False
         self.the_app.changed_pieces(self.pieces_target_json)
         return False
 

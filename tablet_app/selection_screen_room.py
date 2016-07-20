@@ -57,14 +57,16 @@ class SelectionScreenRoom(Screen):
     def init_balloons(self):
         #display the number of tangrams solved (by the Robot and Child).
         i=0
-        for balloon in self.ids['balloons_won_widget'].ids:
-            if (i < self.the_app.tangrams_solved):
-                self.ids['balloons_won_widget'].ids[balloon].opacity = 1
+        #for balloon in self.ids['balloons_won_widget'].ids:
+        while i < 12:
+            i += 1
+            if (i <= self.the_app.tangrams_solved):
+                self.ids['balloons_won_widget'].ids["balloon"+str(i)].opacity = 1
                 print("visible",i)
             else:
-                self.ids['balloons_won_widget'].ids[balloon].opacity = 0
+                self.ids['balloons_won_widget'].ids["balloon"+str(i)].opacity = 0
                 print("invisible",i)
-            i += 1
+
 
 
     def init_tasks (self):
