@@ -80,7 +80,7 @@ class RobotComponent(Component):
     #     # set the possible treasures to select from
     #     # select 1 for demo, 2 for robot
     #     # waiting for Maor's algorithm
-    #     if self.whos_playing == 'demo':
+    #     if self.whos_playing == 'demo':se
     #         self.current_param = 1
     #         self.current_state = 'idle'
     #     if self.whos_playing == 'robot':

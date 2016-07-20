@@ -234,19 +234,23 @@ class TangramGameWidget(Widget):
             self.add_widget(value)
 
     def robot_change_pieces(self, pieces_target_json):
-        self.pieces_target_json = pieces_target_json
-        print ("robot_change_pieces", pieces_target_json)
-        pieces_dict = json.loads(pieces_target_json)
-        i=0
-        self.anim=False
-        for p in pieces_dict['pieces']:
-            self.robot_change_piece(p)
         if not self.anim:
-            print("not anim")
-            #self.robot_finished_change_piece(pieces_target_json)
-            self.the_app.changed_pieces(pieces_target_json)
+            self.pieces_target_json = pieces_target_json
+            print ("robot_change_pieces", pieces_target_json)
+            pieces_dict = json.loads(pieces_target_json)
+            i=0
+            self.anim=False
+            for p in pieces_dict['pieces']:
+                self.robot_change_piece(p)
+            if not self.anim:
+                print("not anim")
+                #self.robot_finished_change_piece(pieces_target_json)
+                self.the_app.changed_pieces(pieces_target_json)
+        else:
+            print("already anim")
 
     def robot_change_piece (self, piece_dict):
+
         print("robot_change_piece", piece_dict)
         name = piece_dict[0]
         rot = piece_dict[1]
@@ -271,13 +275,14 @@ class TangramGameWidget(Widget):
                                    transition='in_quad')
             animPiece.start(self.pieces[name])
             # Clock.schedule_once(lambda dt: self.robot_finished_change_piece, 1)
-            Clock.schedule_once(self.robot_finished_change_piece(), 1)
+            Clock.schedule_once(self.robot_finished_change_piece, 2)
             # animPiece.bind(on_complete=self.robot_finished_change_piece(self.pieces_target_json)) #the bind caused problems
             # self.robot_finished_change_piece(self.pieces_target_json)
             # self.the_app.changed_pieces(self.pieces_target_json)
 
-    def robot_finished_change_piece(self, *args):
+    def robot_finished_change_piece(self, dt):
         print("robot_finished_change_piece", self.pieces_target_json)
+        self.anim = False
         self.the_app.changed_pieces(self.pieces_target_json)
         return False
 
