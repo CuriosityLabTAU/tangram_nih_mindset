@@ -230,18 +230,12 @@ root_widget = Builder.load_string('''
     Image:
         name: 'treasure_box'
         id: box
-        size: root.width * 0.5, root.height * 0.8
-        pos: root.width * 0.25, root.height * 0.10
-
         source: './tablet_app/images/TreasureBoxLayers.gif'
         allow_stretch: True
         keep_ratio: False
     Image:
         name: 'balloon'
         id: balloon
-        size: root.width * 0.20, root.width * 0.20
-        pos: root.width * 0.3, root.height * 0.5
-        source: './tablet_app/images/Balloon_Price1.gif'
         allow_stretch: True
         keep_ratio: False
         opacity: 0
@@ -278,6 +272,9 @@ root_widget = Builder.load_string('''
     name: 'party_screen_room'
     Widget:
         PartyScreenBackground:
+            size: root.size
+            pos: root.pos
+        PartyScreenBalloons:
             size: root.size
             pos: root.pos
 
@@ -443,7 +440,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a list of tangrams from maor
         # you need to present all options with the tangram pieces
         print('x=',x)
-        TangramGame.SCALE = round(Window.size[0] / 60)
+        TangramGame.SCALE = round(Window.size[0] / 75)
         self.screen_manager.get_screen('selection_screen_room').init_selection_options(x=x,the_app=self)
         self.screen_manager.current = 'selection_screen_room'
 

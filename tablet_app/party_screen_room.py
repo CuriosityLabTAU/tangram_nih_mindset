@@ -31,4 +31,6 @@ class PartyScreenRoom(Screen):
 class PartyScreenBackground(Widget):
     pass
 
+class PartyScreenBalloons(Widget):
+    pass
 

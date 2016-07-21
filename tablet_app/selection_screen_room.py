@@ -112,15 +112,16 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
             # self.rect = Rectangle()
             # self.rect.pos= self.pos
             # self.rect.size = self.size
+
             # # self.bind(size=self._update_rect, pos=self._update_rect)
             # # self.bind(size=self.update_position, pos=self.update_position)
 
     def update_position(self, *args):
         # print('update_position')
         box_width_and_gap = Window.width * 0.31
-        margin_left = Window.width * 0.073
+        margin_left = Window.width * 0.073  # TangramGame.SCALE * 5
         self.size = [Window.width * 0.28, Window.height * 0.36]
-        self.pos = [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
+        self.pos =  [margin_left + self.index * box_width_and_gap, Window.height * 0.21] # [margin_left + self.index * box_width_and_gap, Window.height * 0.21]
 
     def _update_rect(self, instance, value):
         self.rect.pos = self.pos
@@ -147,9 +148,10 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
     def update_selection_task_pos(self):
         # print ('update_selection_task_pos ', self.index)
         for p in self.pieces:
+            #p['pos'][0] += self.x + 4.5 * TangramGame.SCALE
+            #p['pos'][1] += self.y + 6.5 * TangramGame.SCALE
             p['pos'][0] += self.x + 4.5 * TangramGame.SCALE
-            p['pos'][1] += self.y + 6.5 * TangramGame.SCALE
-
+            p['pos'][1] += Window.height * 0.35
     def update_task_pieces(self, task_pieces):
         # in the selection room show also the pieces of the tangram (not only the shade)
         # print ('update_task_pieces TaskLayout')
@@ -162,7 +164,7 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
             name = p['name']
             dx = TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
             dy = TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
-            dx=0
+            dx=TangramGame.SCALE * 2
             dy=0
 
             p['pos'] = [self.x - dx  + TangramGame.SCALE * 3 * (i+1), -dy + Window.height * 0.14]
