@@ -274,7 +274,8 @@ root_widget = Builder.load_string('''
         PartyScreenBackground:
             size: root.size
             pos: root.pos
-        PartyScreenBalloons:
+        PartyScreenBalloonsWidget:
+            id: party_screen_balloons_widget
             size: root.size
             pos: root.pos
 
@@ -285,6 +286,92 @@ root_widget = Builder.load_string('''
         source: './tablet_app/images/TangramGame_Open.jpg'
         allow_stretch: True
         keep_ratio: False
+
+<PartyScreenBalloonsWidget>
+    Image:
+        id: balloon1
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.15, root.height * 0.56
+        source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 1
+
+    Image:
+        id: balloon5
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.2, root.height * 0.54
+        source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 1
+
+    Image:
+        id: balloon12
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.25, root.height * 0.53
+        source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 1
+
+    Image:
+        id: balloon7
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.30, root.height * 0.52
+        source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 1
+
+    Image:
+        id: balloon2
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.35, root.height * 0.52
+        source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 1
+
+    Image:
+        id: balloon9
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.40, root.height * 0.52
+        source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 1
+
+    Image:
+        id: balloon4
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.45, root.height * 0.52
+        source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 1
+
+    Image:
+        id: balloon11
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.50, root.height * 0.52
+        source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 1
+
+    Image:
+        id: balloon6
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.55, root.height * 0.53
+        source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 1
+
+    Image:
+        id: balloon10
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.60, root.height * 0.53
+        source: './tablet_app/images/Balloon_Price1.gif'
+        opacity: 1
+
+    Image:
+        id: balloon8
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.65, root.height * 0.54
+        source: './tablet_app/images/Balloon_Price2.gif'
+        opacity: 1
+
+    Image:
+        id: balloon3
+        size: root.width * 0.10, root.width * 0.10
+        pos: root.width * 0.7, root.height * 0.55
+        source: './tablet_app/images/Balloon_Price3.gif'
+        opacity: 1
+
 
 ''')
 
@@ -434,7 +521,9 @@ class TangramMindsetApp(App):
 
 
     def party_screen(self):
+        self.screen_manager.get_screen('party_screen_room').init_balloons(self.tangrams_solved)
         self.screen_manager.current = 'party_screen_room'
+
 
     def selection_screen(self, x):
         # Rinat: x is a list of tangrams from maor
