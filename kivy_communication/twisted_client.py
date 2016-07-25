@@ -96,6 +96,7 @@ class TwistedClient:
             for p in TwistedClient.parents:
                 try:
                     p.data_received(data)
+                    print('twisted client: parent ', p, 'received ', data)
                 except:
                     print('twisted client: parent ', p, ' has no data_received')
         print('data: ', data)
