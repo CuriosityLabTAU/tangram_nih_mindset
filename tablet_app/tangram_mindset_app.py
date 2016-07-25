@@ -447,6 +447,7 @@ class TangramMindsetApp(App):
     def init_communication(self):
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
         KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.0.101') # 127.0.0.1
+        KC.client.connect_to_server()
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
