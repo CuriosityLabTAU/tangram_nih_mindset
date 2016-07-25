@@ -3,6 +3,7 @@ from game_facilitator import *
 
 
 class GameComponent(Component):
+
     game_facilitator = None
 
     def generate_selection(self, *args):
@@ -22,14 +23,16 @@ class GameComponent(Component):
 
     def tangram_changed(self, x):
         print(self.name, 'tangram_changed', x)
+        self.current_param = x
         if self.game_facilitator.check_solution(x):
             self.win()
         else:
             self.not_yet()
 
-    def tangram_moved(self, action):
-        print(self.name, 'game.py: tangram moved', action)
-        if self.game_facilitator.check_solution(action):
+    def tangram_moved(self, x):
+        print(self.name, 'game.py: tangram moved', x)
+        self.current_param = x
+        if self.game_facilitator.check_solution(x):
             self.win()
 
 
