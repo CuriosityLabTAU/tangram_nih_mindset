@@ -7,7 +7,7 @@ import numpy as np
 class SelectionGenerator:
 
     def __init__(self):
-        self.N_dif_levels = 8
+        self.N_dif_levels = 8  # This value is overridden in load_dif_levels(),
         self.max_level = 6
         self.challenge_index = 9 # column number of the challenge level (zero based)
         self.dif_level = []
