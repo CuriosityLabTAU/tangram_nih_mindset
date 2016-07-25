@@ -9,7 +9,7 @@ class SelectionGenerator:
     def __init__(self):
         self.N_dif_levels = 8
         self.max_level = 6
-        self.challenge_index = 8
+        self.challenge_index = 9 # column number of the challenge level (zero based)
         self.dif_level = []
         self.dif_indexes = np.zeros([self.N_dif_levels], dtype=np.int)
         self.current_level = 1
