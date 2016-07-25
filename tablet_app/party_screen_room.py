@@ -28,7 +28,25 @@ class PartyScreenRoom(Screen):
         self.the_tablet.change_state('party_screen')
 
 
+    def init_balloons(self, tangrams_solved):
+        # display the number of tangrams solved (by the Robot and Child).
+        i = 0
+        # for balloon in self.ids['balloons_won_widget'].ids:
+        while i < 12:
+            i += 1
+            if (i <= tangrams_solved):
+                self.ids['party_screen_balloons_widget'].ids["balloon" + str(i)].opacity = 1
+                print("visible", i)
+            else:
+                self.ids['party_screen_balloons_widget'].ids["balloon" + str(i)].opacity = 0
+                print("invisible", i)
+
+
+
+
 class PartyScreenBackground(Widget):
     pass
 
+class PartyScreenBalloonsWidget(Widget):
+    pass
 
