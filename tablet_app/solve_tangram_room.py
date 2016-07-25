@@ -80,6 +80,8 @@ class SolveTangramRoom(Screen):
         button_rotate.pos = [TangramGame.SCALE * 30, TangramGame.SCALE * 14]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
+        button_rotate.background_disabled_normal = './tablet_app/images/Tangram_rotate_btn.gif'
+        button_rotate.background_disabled_down = './tablet_app/images/Tangram_rotate_btn.gif'
         tangram_game_widget.add_widget(button_rotate)
         self.tangram_game_widget = tangram_game_widget
 
@@ -261,6 +263,7 @@ class TangramGameWidget(Widget):
         rot = piece_dict[1]
         x = float(piece_dict[2].split()[0])
         y = float(piece_dict[2].split()[1])
+        initial_rot = self.pieces[name].rot
         self.pieces[name].rot = rot
         new_pos = self.convert_piece_pos(name,[x,y],rot)
         x = new_pos[0] + self.dX * TangramGame.SCALE
@@ -272,7 +275,7 @@ class TangramGameWidget(Widget):
         #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
         print("?", self.pieces[name].name, "pos=", self.pieces[name].pos, "target=", (x, y))
-        if ((round(self.pieces[name].pos[0]),round(self.pieces[name].pos[1])) != (x,y)):
+        if (((round(self.pieces[name].pos[0]),round(self.pieces[name].pos[1])) != (x,y)) | (initial_rot != rot)):
             print("!=",self.pieces[name].name,"pos=",self.pieces[name].pos,"target=",(x,y))
             self.anim = True
             animPiece = Animation(x=x,y=y,
