@@ -16,6 +16,7 @@ class RobotComponent(Component):
     expression = None
     agent = Agent()
     current_tangram = None
+    robot_name = 'tega'
 
     def run_function(self, action):
         print(self.name, 'run_function', action[0], action[1:])
@@ -42,7 +43,7 @@ class RobotComponent(Component):
 
         if KC.client.connection:
             data = [self.current_state, self.expression]
-            data = {'robot': data}
+            data = {self.robot_name: data}
             KC.client.send_message(str(json.dumps(data)))
 
         if self.app:
@@ -133,7 +134,8 @@ class RobotComponent(Component):
         # if data signals end of speech
         # call: self.finished_expression(action)
         print(self.name, data)
-        self.finished_expression(data)
+        the_data = json.loads(data)
+        self.finished_expression(the_data[self.robot_name][1])
 
     def child_selection(self, x):
         print(self.name, 'child selected', x)
