@@ -1,14 +1,7 @@
 {
   "sequence": [
     "opening",
-    "robot_play",
-    "child_play",
-    "robot_play",
-    "child_play",
-    "robot_play",
     "tutorial",
-    "child_play",
-    "robot_play",
     "child_play",
     "robot_play",
     "child_play_challenge",

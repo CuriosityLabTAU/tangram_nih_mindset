@@ -69,7 +69,7 @@ fullscreen = 1
 android.permissions = INTERNET,ACCESS_WIFI_STATE,CHANGE_WIFI_STATE,CHANGE_NETWORK_STATE,ACCESS_NETWORK_STATE,CAMERA,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
 # (int) Android API to use
-#android.api = 19
+android.api = 14
 
 # (int) Minimum API required
 #android.minapi = 9
