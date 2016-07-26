@@ -401,7 +401,7 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 5
+        self.interaction.components['hourglass'].max_counter = 15
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -584,6 +584,10 @@ class TangramMindsetApp(App):
     def robot_solve(self, x):
         # robot is providing a solution sequence x, and solve_tangram_room animates this solution
         print ("tangram_mindset_app: robot_solve")
+
+    def finish(self):
+        # when time is up
+        self.screen_manager.get_screen('solve_tangram_room').finish()
 
     # ~~~~~~ child-proofing ~~~~~~
 

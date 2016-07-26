@@ -77,6 +77,7 @@ class TabletComponent(Component):
     def finish(self, x):
         print(self.name, 'finish', x)
         self.current_state = 'finish'
+        self.app.finish()
 
     def disable_tablet(self):
         print(self.name, 'disable tablet')

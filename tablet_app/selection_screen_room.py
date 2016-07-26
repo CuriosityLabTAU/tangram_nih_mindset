@@ -88,7 +88,7 @@ class SelectionScreenRoom(Screen):
             i += 1
 
     def show_selection(self, treasure):
-        # print("show selection treasure=", treasure)
+        print("show selection treasure=", treasure)
         selection_task_layout = self.tasks_layout[treasure]
         selection_task_layout.set_border()
 

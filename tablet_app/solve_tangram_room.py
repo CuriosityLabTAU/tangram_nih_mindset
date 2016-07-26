@@ -19,6 +19,7 @@ from tangram_game import *
 class SolveTangramRoom(Screen):
     the_tablet = None
     tangram_game_widget = None
+    time_is_up = False
 
     def __init__(self, the_tablet):
         self.the_tablet = the_tablet
@@ -108,6 +109,12 @@ class SolveTangramRoom(Screen):
         self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers.gif'
         self.ids['treasure_box'].ids['balloon'].source = './tablet_app/images/Balloon_Price'+str(i)+'.gif'
         self.ids['treasure_box'].ids['balloon'].opacity = 1
+
+    def finish(self):
+        print("solve, finish, the time is up!")
+        self.time_is_up = True
+        self.ids['hourglass_widget'].middleSand.opacity = 0
+
 class Rotate(LoggedButton):
 
     def __init__(self, game_widget):
@@ -257,7 +264,6 @@ class TangramGameWidget(Widget):
             print("already anim")
 
     def robot_change_piece (self, piece_dict):
-
         print("robot_change_piece", piece_dict)
         name = piece_dict[0]
         rot = piece_dict[1]
@@ -290,8 +296,10 @@ class TangramGameWidget(Widget):
 
     def robot_finished_change_piece(self, dt):
         print("robot_finished_change_piece", self.pieces_target_json)
+        print ("time_is_up",self.parent.parent.time_is_up)
         self.anim = False
-        self.the_app.changed_pieces(self.pieces_target_json)
+        if (not self.parent.parent.time_is_up):
+            self.the_app.changed_pieces(self.pieces_target_json)
         return False
 
     @staticmethod
@@ -467,4 +475,5 @@ class HourGlassWidget (Widget):
         if (current_percent < 0.02):
             #self.middleSand.height = 0
             self.middleSand.opacity = 0
+            # self.time_is_up = True
 
