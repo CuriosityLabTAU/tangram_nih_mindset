@@ -1,10 +1,10 @@
 {
   "introduction": [
-    "hi, i am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
+    "hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?"
   ],
   "ask_again": [
     "do you want to play with me?",
-    "i will be very happy if you play with me, would you?"
+    "I will be very happy if you play with me, would you?"
   ],
   "lets_play": [
     "great, lets play. we need to go to the magic treasure room."
@@ -14,10 +14,10 @@
     "this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you are looking for, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try to open."
     ],
     "c-g-" : [
-      "i will choose this one."
+      "I will choose this one."
     ],
     "c-g+" : [
-      "i will choose this one, because it looks challenging!"
+      "I will choose this one, because it looks challenging!"
     ],
     "c+g-": [
       ""
@@ -31,16 +31,16 @@
       "these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area. we have two minutes to try, until the sand in the hourglass runs out."
     ],
     "c-g-": [
-      "i will move the piece to this place."
+      "I will move the piece to this place."
     ],
     "c-g+": [
-      "i will move the piece to this place."
+      "I will move the piece to this place."
     ],
     "c+g-": [
-      "i want to try something new. maybe move this piece here."
+      "I want to try something new. maybe move this piece here."
     ],
     "c+g+": [
-      "i want to try something new. maybe move this piece here."
+      "I want to try something new. maybe move this piece here."
     ]
   },
   "selection_explanation": [
@@ -51,13 +51,13 @@
       "these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area."
     ],
     "c-g-": [
-      "i will move the piece to this place."
+      "I will move the piece to this place."
     ],
     "c-g+": [
-      "i really want to succeed, i will move the piece to this place."
+      "I really want to succeed, I will move the piece to this place."
     ],
     "c+g-": [
-      "i want to try something new. maybe move this piece here."
+      "I want to try something new. maybe move this piece here."
     ],
     "c+g+": [
       ""
@@ -75,8 +75,8 @@
       "it's too hard"
     ],
     "c-g+": [
-      "it’s quite hard, so i will try even more.",
-      "it’s quite hard, so i will try even more. let's move this piece.",
+      "it’s quite hard, so I will try even more.",
+      "it’s quite hard, so I will try even more. let's move this piece.",
       "ooh this is challenging, let me try this move",
       "If I keep trying, I will succeed",
       "maybe I'll try again",
@@ -88,7 +88,7 @@
       "I'll try something I didn't do before"
     ],
     "c+g+": [
-      "i am sure i can figure it out. i will move this piece."
+      "I am sure I can figure it out. I will move this piece."
     ]
 
   },
@@ -105,17 +105,17 @@
       "I'll move this piece"
     ],
     "c-g+": [
-      "i am sure i can figure it out. i will press this button.",
+      "I am sure I can figure it out. I will press this button.",
       "it’s really hard. maybe I'll rotate this piece",
       "this is challenging, let me try to rotate it",
       "If I keep trying, I will succeed",
-      "maybe I'll try a new strategy"
     ],
     "c+g-": [
-      "let me try something new. i will press this button.",
+      "let me try something new. I will press this button.",
       "I wonder what I'll learn if I rotate this piece",
       "let’s try something new",
-      "I'll try something I didn't do before"
+      "I'll try something I didn't do before",
+      "maybe I'll try a new strategy"
     ],
     "c+g+": [
       ""
@@ -140,7 +140,7 @@
       "which one do you think you can solve?"
     ],
     "c-g+": [
-      "i am sure you can do it if you try hard",
+      "I am sure you can do it if you try hard",
       "try hard and you will succeed."
     ],
     "c+g-": [
@@ -183,7 +183,7 @@
       "I like the way you tried all kinds of strategies on that problem until you finally got it",
       "You tried different strategies",
       "If you like new challenges, you can get better and better!",
-      "You beat the challenge! You really worked out your brain on this game"
+      "You beat that challenge! You really worked out your brain on this game"
     ]
   },
   "robot_win": {
@@ -201,7 +201,7 @@
       "I seem to be on the right track"
     ],
     "c-g+": [
-      "that was hard, but i tried hard and nailed it",
+      "that was hard, but I tried hard and nailed it",
       "working hard is worth it",
       "I tried hard and made it!",
       "I'm not afraid of a challenge. I like it!"
@@ -224,14 +224,14 @@
     ],
     "c-g-": [
       "that was hard",
-      "i didn't succeed",
+      "I didn't succeed",
       "I hope to have better luck next time",
       "times up",
       "that was difficult"
     ],
     "c-g+": [
-      "next time i will put more effort.",
-      "next time i will try harder.",
+      "next time I will put more effort.",
+      "next time I will try harder.",
       "I worked hard, next time I will succeed.",
       "I tried very hard. That's what matters",
       "I'm proud of myself for trying really hard",
@@ -241,7 +241,7 @@
     ],
     "c+g-": [
       "I failed, but that's okay. we learned new things.",
-      "i learned so much, i will do better next time",
+      "I learned so much, I will do better next time",
       "That was hard, but I have learned a lot. I'll do better next time",
       "That puzzle really taught me to think differently",
       "That's an interesting strategy. Let's think about why it didn't work and whether it gives us some clues for a new path. What should we try next?",
@@ -300,19 +300,19 @@
       "I will select a box"
     ],
     "c-g+":[
-      "i will work hard to get us the next balloon.",
-      "i am sure I can do it",
+      "I will work hard to get us the next balloon.",
+      "I am sure I can do it",
       "If I try hard, I will succeed."
     ],
     "c+g-": [
-      "i learned so much",
+      "I learned so much",
       "we learned new things.",
       "if I choose a challenging puzzle, I will learn more",
       "if I'll choose a hard one, I will get more brain power",
       "I prefer the challenging one"
     ],
     "c+g+": [
-      "i learned so much, i am sure i will succeed the next one",
+      "I learned so much, I am sure I will succeed the next one",
       "we learned new things that will help me in the next puzzle.",
       "which one is the most challenging...",
       "I prefer the challenging one, I will learn more and more."
@@ -327,11 +327,11 @@
       "let's get some more balloons"
     ],
     "c-g+": [
-      "i want to try a new level",
-      "i want to nail down this level"
+      "I want to try a new level",
+      "I want to nail down this level"
     ],
     "c+g-":[
-      "i want to challenge a new level",
+      "I want to challenge a new level",
       "let's select a puzzle that we can learn some new things from",
       "I want to learn something new, lets choose a challenging box",
       "this one looks interesting, lets try it",
@@ -368,7 +368,7 @@
   },
   "comment_rotation": {
     "c-g-": [
-      "maybe this piece needs to turn.",
+      "maybe this piece needs to be turned.",
       "this looks like a good solution",
       "nice move",
       "ok",
