@@ -48,29 +48,36 @@ root_widget = Builder.load_string('''
     subject_id: subject_id
     name: 'zero_screen_room'
     Widget:
+        canvas.before:
+            Color:
+                rgba: 0.2,0.3,0.4,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
         LoggedButton:
             id: start_button
             name: 'start_button'
-            background_color: 1,0,1,1
+            background_color: 0.1,0.3,1,1
             background_normal: ''
             text: 'Start'
-            font_size: 36
-            size: root.width * 0.3, root.height * 0.2
-            pos: root.width * 0.80 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
+            font_size: 18
+            size: root.width * 0.15, root.height * 0.08
+            pos: root.width * 0.15 - self.width * 0.5, root.height * 0.4 - self.height * 0.5
             on_press: app.press_start_button()
 
         Label:
             text: "Subject ID:"
             size: root.width * 0.15, root.height * 0.2
-            pos: root.width * 0.05 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
+            pos: root.width * 0.1 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
         LoggedTextInput:
             id: subject_id
             name: 'subject_id'
             text: ''
-            font_size: 36
-            size: root.width * 0.5, root.height * 0.2
-            pos: root.width * 0.35 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
+            multiline: False
+            font_size: 18
+            size: root.width * 0.5, root.height * 0.08
+            pos: root.width * 0.40 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
 
 <FirstScreenRoom>:
     name: 'first_screen_room'
@@ -401,7 +408,7 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 5
+        self.interaction.components['hourglass'].max_counter = 15
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -585,6 +592,10 @@ class TangramMindsetApp(App):
     def robot_solve(self, x):
         # robot is providing a solution sequence x, and solve_tangram_room animates this solution
         print ("tangram_mindset_app: robot_solve")
+
+    def finish(self):
+        # when time is up
+        self.screen_manager.get_screen('solve_tangram_room').finish()
 
     # ~~~~~~ child-proofing ~~~~~~
 
