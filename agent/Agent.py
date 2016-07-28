@@ -4,14 +4,17 @@ import time
 
 
 class Agent:
-    def __init__(self):
+    condition = None
+    def __init__(self, the_app):
+        self.the_app = the_app
         self.solver = Solver()
         # self.mindset = Mindset()
         # self.curiosity = Curiosity()
         self.seq_of_jsons = None
         self.current_move = None
-        self.condition = 'Neutral' #''Mindset' # value can be 'Mindset' or 'Neutral'
-        if self.condition == 'Mindset':
+        self.condition  = self.the_app.CONDITION
+        # self.condition = 'c-g-' #''Mindset' # value can be 'Mindset' or 'Neutral'
+        if self.condition == 'c-g+':
             self.mindset = 0.9
         else:
             self.mindset = 0.1
