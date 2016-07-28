@@ -35,10 +35,10 @@ class EchoFactory(protocol.ClientFactory):
         self.client = client
 
     def clientConnectionLost(self, conn, reason):
-        self.client.send_status("connection lost")
+        self.client.send_status("connection lost:" + str(conn) + str(reason))
 
     def clientConnectionFailed(self, conn, reason):
-        self.client.send_status("connection failed")
+        self.client.send_status("connection failed:" + str(conn) + str(reason))
 
 
 class TwistedClient:
@@ -92,7 +92,8 @@ class TwistedClient:
 
     @staticmethod
     def data_received(data):
-        if TwistedClient.parents:
+        print('received data:', data, ' sending it to ', TwistedClient.parents)
+        if TwistedClient.parents is not None:
             for p in TwistedClient.parents:
                 try:
                     p.data_received(data)

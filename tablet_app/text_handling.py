@@ -27,7 +27,7 @@ class TextHandler:
             self.engine.setProperty('voice', 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_EN-US_ZIRA_11.0')
             self.engine.connect(topic='finished-utterance', cb=self.finished)
 
-    def load_text(self, filename='./tablet_app/robot_text.json'):
+    def load_text(self, filename='./tablet_app/robot_text_revised3.json'):
         with open(filename) as data_file:
             self.data = json.load(data_file)
 
@@ -41,12 +41,12 @@ class TextHandler:
             the_options = self.data[what]
             the_text = []
             if isinstance(the_options, list):
-                the_text.append(choice(the_options))
+                the_text.append(choice(the_options)[0])
             elif isinstance(the_options, dict):
                 if 'all' in the_options:
-                    the_text.append(choice(the_options['all']))
+                    the_text.append(choice(the_options['all'])[0])
                 if self.condition in the_options:
-                    the_text.append(choice(the_options[self.condition]))
+                    the_text.append(choice(the_options[self.condition])[0])
 
             print('speak: ', the_text)
             if the_tts is 'pyttsx':

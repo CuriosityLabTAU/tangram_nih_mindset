@@ -1,6 +1,6 @@
 {
   "introduction": [
-    ["hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?", "introduction_0","POSE1"]
+    ["hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?", "EXCITED"]
   ],
   "ask_again": [
     ["do you want to play with me?","ask_again_0","POSE2"],
@@ -377,8 +377,8 @@
     ],
     "c-g+": [
       ["great work","comment_rotation_c-g+_0","SILENT_AGREEMENT"],
-      ["great, keep on trying","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
-      ["great, keep up the good work","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
+      ["great, keep on trying","comment_rotation_c-g+_1","SILENT_AGREEMENT"],
+      ["great, keep up the good work","comment_rotation_c-g+_1","SILENT_AGREEMENT"],
       ["nice work","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
     ],
     "c+g-": [

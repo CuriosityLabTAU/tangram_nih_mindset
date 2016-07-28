@@ -9,6 +9,7 @@ except:
     print('no logging')
     is_logged = False
 
+#, "introduction_0","POSE1"
 
 class RobotComponent(Component):
     whos_playing = None
@@ -17,6 +18,11 @@ class RobotComponent(Component):
     agent = Agent()
     current_tangram = None
     robot_name = 'tega'
+    animation = None
+
+    def load_text(self, filename='./tablet_app/robot_text_revised3.json'):
+        with open(filename) as data_file:
+            self.animation = json.load(data_file)
 
     def run_function(self, action):
         print(self.name, 'run_function', action[0], action[1:])
@@ -37,17 +43,19 @@ class RobotComponent(Component):
 
     def express(self, action):
         self.current_state = 'express'
-        self.expression = action[0]
         if len(action) > 1:
             self.current_param = action[1:]
 
-        if KC.client.connection:
-            data = [self.current_state, self.expression]
-            data = {self.robot_name: data}
-            KC.client.send_message(str(json.dumps(data)))
+        if 'idle' not in action[0]:
+            self.expression = self.animation[action[0]][0]
 
-        if self.app:
-            self.app.robot_express(self.expression)
+            if KC.client.connection:
+                data = [action[0], self.expression]
+                data = {self.robot_name: data}
+                KC.client.send_message(str(json.dumps(data)))
+
+            if self.app:
+                self.app.robot_express(self.expression)
 
     def after_called(self):
         if self.current_param:

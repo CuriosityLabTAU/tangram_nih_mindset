@@ -32,6 +32,12 @@ from kivy.core.audio import SoundLoader
 GAME_WITH_ROBOT = True
 CONDITION = 'growth'
 
+
+# tega wav file
+# '01/sounds/confirm.wav'
+# '1-INTRO.wav'
+
+
 class MyScreenManager (ScreenManager):
     the_tablet = None
 
@@ -417,13 +423,15 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'].app = self
         if not GAME_WITH_ROBOT:
             self.interaction.components['robot'].app = self
+            self.text_handler = TextHandler(CONDITION)
+            self.text_handler.load_text()
+        else:
+            self.interaction.components['robot'].load_text()
 
         self.interaction.load(filename='./tablet_app/transitions.json')
         self.interaction.next_interaction()
 
         # self.load_sounds()
-        self.text_handler = TextHandler(CONDITION)
-        self.text_handler.load_text()
         self.init_communication()
 
         self.screen_manager = MyScreenManager()
@@ -452,9 +460,11 @@ class TangramMindsetApp(App):
         TangramGame.window_size = self.root_window.size
 
     def init_communication(self):
-        KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
-        KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.1.254') # 127.0.0.1
-        KC.client.connect_to_server()
+        # TwistedClient.parents = [self, self.interaction.components['robot']]
+        KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.1.254')  # 127.0.0.1
+        KL.start(mode=[DataMode.file, DataMode.communication, DataMode.ros], pathname=self.user_data_dir, the_ip='192.168.1.254')
+
+        # KC.client.connect_to_server()
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
