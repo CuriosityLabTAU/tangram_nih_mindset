@@ -19,6 +19,8 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import Layout
 from kivy.uix.image import Image
+from kivy.uix.dropdown import DropDown
+from kivy.uix.spinner import Spinner
 from kivy.lang import Builder
 from kivy.base import runTouchApp
 from kivy.clock import Clock
@@ -29,14 +31,7 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-GAME_WITH_ROBOT = True
-CONDITION = 'growth'
-
-
-# tega wav file
-# '01/sounds/confirm.wav'
-# '1-INTRO.wav'
-
+GAME_WITH_ROBOT = False
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -60,30 +55,42 @@ root_widget = Builder.load_string('''
             Rectangle:
                 pos: self.pos
                 size: self.size
-        LoggedButton:
-            id: start_button
-            name: 'start_button'
-            background_color: 0.1,0.3,1,1
-            background_normal: ''
-            text: 'Start'
-            font_size: 18
-            size: root.width * 0.15, root.height * 0.08
-            pos: root.width * 0.15 - self.width * 0.5, root.height * 0.4 - self.height * 0.5
-            on_press: app.press_start_button()
-
         Label:
             text: "Subject ID:"
-            size: root.width * 0.15, root.height * 0.2
-            pos: root.width * 0.1 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
+            font_size:16
+            size: root.width * 0.05, root.height * 0.07
+            pos: root.width * 0.1, root.height * 0.8 - self.height * 0.5
 
         LoggedTextInput:
             id: subject_id
             name: 'subject_id'
             text: ''
             multiline: False
-            font_size: 18
-            size: root.width * 0.5, root.height * 0.08
-            pos: root.width * 0.40 - self.width * 0.5, root.height * 0.75 - self.height * 0.5
+            font_size: 16
+            size: root.width * 0.4, root.height * 0.07
+            pos: root.width * 0.18, root.height * 0.8 - self.height * 0.5
+
+        LoggedSpinner:
+            id: condition_spinner
+            text: 'condition'
+            font_size: 16
+            background_color: 0.2,0.2,0.2,1
+            values: ('c-g-','c-g+','c+g-','c+g+')
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.62, root.height * 0.8 - self.height * 0.5
+            on_text: root.spinner_selected()
+
+        LoggedButton:
+            id: start_button
+            name: 'start_button'
+            background_color: 0.1,0.5,0.2,1
+            background_normal: ''
+            text: 'Start'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.8, root.height * 0.8 - self.height * 0.5
+            on_press: app.press_start_button()
+
 
 <FirstScreenRoom>:
     name: 'first_screen_room'
@@ -435,7 +442,7 @@ class TangramMindsetApp(App):
         self.init_communication()
 
         self.screen_manager = MyScreenManager()
-        zero_screen = ZeroScreenRoom()
+        zero_screen = ZeroScreenRoom(self)
         zero_screen.ids['subject_id'].bind(text=zero_screen.ids['subject_id'].on_text_change)
         self.screen_manager.add_widget(zero_screen)
         self.screen_manager.add_widget(FirstScreenRoom(self.interaction.components['tablet']))
@@ -615,6 +622,9 @@ class TangramMindsetApp(App):
 
     def enable_tablet(self):
         self.tablet_disabled = False
+
+    def update_condition(self, condition):
+        self.interaction.components['robot'].agent.update_condition(condition)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()
