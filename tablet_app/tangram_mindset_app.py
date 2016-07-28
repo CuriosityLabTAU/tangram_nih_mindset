@@ -460,11 +460,12 @@ class TangramMindsetApp(App):
         TangramGame.window_size = self.root_window.size
 
     def init_communication(self):
-        # TwistedClient.parents = [self, self.interaction.components['robot']]
         KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.1.254')  # 127.0.0.1
         KL.start(mode=[DataMode.file, DataMode.communication, DataMode.ros], pathname=self.user_data_dir, the_ip='192.168.1.254')
 
-        # KC.client.connect_to_server()
+    def on_connection(self):
+        KL.log.insert(action=LogAction.data, obj='TangramMindsetApp', comment='start')
+
 
     def load_sounds(self):
         # load all the wav files into a dictionary whose keys are the expressions from the transition.json
