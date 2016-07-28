@@ -31,7 +31,7 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-GAME_WITH_ROBOT = False
+GAME_WITH_ROBOT = True
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -430,8 +430,6 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'].app = self
         if not GAME_WITH_ROBOT:
             self.interaction.components['robot'].app = self
-            self.text_handler = TextHandler(CONDITION)
-            self.text_handler.load_text()
         else:
             self.interaction.components['robot'].load_text()
 
@@ -616,6 +614,8 @@ class TangramMindsetApp(App):
         self.tablet_disabled = False
 
     def update_condition(self, condition):
+        self.text_handler = TextHandler(condition)
+        self.text_handler.load_text()
         self.interaction.components['robot'].agent.update_condition(condition)
 
 if __name__ == "__main__":

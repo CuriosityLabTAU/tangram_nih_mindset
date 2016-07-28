@@ -46,16 +46,18 @@ class RobotComponent(Component):
         if len(action) > 1:
             self.current_param = action[1:]
 
-        if 'idle' not in action[0]:
+        if self.animation is None:
+            self.expression = action[0]
+        elif 'idle' not in action[0]:
             self.expression = self.animation[action[0]][0]
 
-            if KC.client.connection:
-                data = [action[0], self.expression]
-                data = {self.robot_name: data}
-                KC.client.send_message(str(json.dumps(data)))
+        if KC.client.connection:
+            data = [action[0], self.expression]
+            data = {self.robot_name: data}
+            KC.client.send_message(str(json.dumps(data)))
 
-            if self.app:
-                self.app.robot_express(self.expression)
+        if self.app:
+            self.app.robot_express(self.expression)
 
     def after_called(self):
         if self.current_param:
