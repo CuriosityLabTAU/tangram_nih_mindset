@@ -26,5 +26,5 @@ class ZeroScreenRoom(Screen):
     def spinner_selected(self):
         print("spinner_selected")
         condition = self.ids['condition_spinner'].text
-        self.the_app.CONDITION = condition
+        self.the_app.update_condition(condition)
         print(condition)

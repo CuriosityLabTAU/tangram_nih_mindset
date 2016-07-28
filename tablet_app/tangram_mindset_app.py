@@ -409,7 +409,6 @@ class TangramMindsetApp(App):
     selection = None
     text_handler = None
     tablet_disabled = False
-    CONDITION = None
 
     def build(self):
         self.interaction = Interaction(
@@ -618,6 +617,9 @@ class TangramMindsetApp(App):
 
     def enable_tablet(self):
         self.tablet_disabled = False
+
+    def update_condition(self, condition):
+        self.interaction.components['robot'].agent.update_condition(condition)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()
