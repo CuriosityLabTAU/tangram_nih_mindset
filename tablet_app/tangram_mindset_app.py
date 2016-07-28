@@ -450,14 +450,6 @@ class TangramMindsetApp(App):
         self.screen_manager.add_widget(PartyScreenRoom(self.interaction.components['tablet']))
         self.screen_manager.add_widget(s)
 
-        #self.game = TangramGame(self)
-        #self.selection = TangramSelection(self)
-
-        #self.selection = TangramSelection(self)
-        #self.agent = Agent(parent_app=self)
-        #screen = Screen(name='selection')
-        #self.screen_manager.get_screen('selection_screen_room').add_widget(self.selection.the_widget)
-
 
         return self.screen_manager
 
