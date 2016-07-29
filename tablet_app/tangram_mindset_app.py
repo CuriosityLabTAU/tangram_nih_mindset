@@ -31,7 +31,7 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-GAME_WITH_ROBOT = True
+GAME_WITH_ROBOT = False
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -90,6 +90,16 @@ root_widget = Builder.load_string('''
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.8, root.height * 0.8 - self.height * 0.5
             on_press: app.press_start_button()
+
+        LoggedSpinner:
+            id: difficulty_spinner
+            text: 'difficulty'
+            font_size: 16
+            background_color: 0.2,0.2,0.2,1
+            values: ('dif1','dif2','dif3')
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.62, root.height * 0.7 - self.height * 0.5
+            on_text: app.difficulty_selected()
 
 
 <FirstScreenRoom>:
@@ -430,7 +440,6 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        # self.interaction.components['hourglass'].general_param['max_counter'] = 120
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 
@@ -632,7 +641,9 @@ class TangramMindsetApp(App):
         self.interaction.components['hourglass'].stop()
         self.interaction.end_interaction()
 
-
+    def difficulty_selected(self):
+        difficulty = self.screen_manager.get_screen('zero_screen_room').ids['difficulty_spinner'].text
+        self.interaction.components['game'].game_facilitator.selection_gen.load_dif_levels(difficulty)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()

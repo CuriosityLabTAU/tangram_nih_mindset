@@ -16,7 +16,7 @@ class SelectionGenerator:
         for n in range(self.N_dif_levels):
             self.dif_level.append([])
 
-    def load_dif_levels(self):
+    def load_dif_levels(self, filename='dif1'):
         # read tangrams for each difficulty from tangram_levels.txt
         # file format is:
         #  dif 0
@@ -28,7 +28,7 @@ class SelectionGenerator:
         #
         dif_i = -1
         self.dif_level = []
-        with open('./game_facilitator/tangram_levels.txt','r') as fp:
+        with open('./game_facilitator/tangram_levels_' + filename + '.txt','r') as fp:
             for line in fp:
                 if 'dif' in line:
                     dif_i += 1
