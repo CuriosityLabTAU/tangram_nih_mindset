@@ -34,6 +34,7 @@ class SolveTangramRoom(Screen):
         # self.play_sound("TangramOpen_myFriend")
 
     def init_task(self,x,the_app):
+        self.time_is_up = False
         self.task_json = x
         self.shade_task_json = x[0]
         self.pieces_task_json = x[1]
