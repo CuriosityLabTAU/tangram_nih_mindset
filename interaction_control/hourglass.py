@@ -5,14 +5,14 @@ class HourglassComponent(Component):
 
     the_clock = None
 
-
-
     def end_run(self):
         Clock.unschedule(self.event)
         Clock.unschedule(self.the_clock)
 
     def start(self):
         print(self.name, 'start')
+        if not self.general_param:
+            self.general_param = {'update_interval': 0.25, 'max_counter': 120}
         if 'update_interval' not in self.general_param:
             self.general_param['update_interval'] = 0.25
         else:

@@ -115,6 +115,7 @@ class SolveTangramRoom(Screen):
         self.time_is_up = True
         self.ids['hourglass_widget'].middleSand.opacity = 0
 
+
 class Rotate(LoggedButton):
 
     def __init__(self, game_widget):

@@ -50,13 +50,20 @@ class RobotComponent(Component):
 
         if self.animation is None:
             self.expression = action[0]
+            if KC.client.connection:
+                data = [action[0], self.expression]
+                data = {self.robot_name: data}
+                KC.client.send_message(str(json.dumps(data)))
+
+            if self.app:
+                self.app.robot_express(self.expression)
+
         elif 'idle' not in action[0]:
             # select the animation
             the_options = self.animation[action[0]]
             the_expressions = []
             if isinstance(the_options, list):
                 the_expressions = self.add_expression(the_expressions, choice(the_options))
-
             elif isinstance(the_options, dict):
                 if 'all' in the_options:
                     the_expressions = self.add_expression(the_expressions, choice(the_options['all']))

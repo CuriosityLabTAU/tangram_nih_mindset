@@ -18,7 +18,7 @@ except:
 
 class TextHandler:
 
-    def __init__(self, condition='growth'):
+    def __init__(self, condition='c-g-'):
         self.data = None
         self.condition = condition
         self.what = None
