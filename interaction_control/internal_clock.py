@@ -3,6 +3,7 @@ from kivy.clock import Clock
 
 
 class ClockComponent(Component):
+    general_param = {'how_long': 20}
 
     def run_function(self, action):
         print(self.name, action)

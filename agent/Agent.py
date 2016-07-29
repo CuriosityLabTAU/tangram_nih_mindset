@@ -4,22 +4,26 @@ import time
 
 
 class Agent:
+    condition = 'c-g-'
     def __init__(self):
         self.solver = Solver()
         # self.mindset = Mindset()
         # self.curiosity = Curiosity()
         self.seq_of_jsons = None
         self.current_move = None
-        self.condition = 'Neutral' #''Mindset' # value can be 'Mindset' or 'Neutral'
-        if self.condition == 'Mindset':
-            self.mindset = 0.9
-        else:
-            self.mindset = 0.1
         self.efficiency_iter = iter([1,0,1,0,0,1,0]) # determines whether the robot will try to solve or act randomly for each round
         self.current_efficiency = None # efficiency of current round
         self.current_round = 0
         self.child_selected_index = None # indicates the selection of the child. possible values are 0/1/2
         self.child_result = None  # indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
+
+    def update_condition(self, condition):
+        self.condition  = condition
+        # self.condition = 'c-g-' #''Mindset' # value can be 'Mindset' or 'Neutral'
+        if self.condition == 'c-g+':
+            self.mindset = 0.9
+        else:
+            self.mindset = 0.1
 
     def solve_task(self, json_str_task):
         task = Task()

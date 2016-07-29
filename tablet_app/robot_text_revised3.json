@@ -1,46 +1,46 @@
 {
   "introduction": [
-    ["hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?", "introduction_0","POSE1"]
+    ["hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?", "introduction_0","EXCITED"]
   ],
   "ask_again": [
-    ["do you want to play with me?","ask_again_0","POSE2"],
-    ["I will be very happy if you play with me, would you?","ask_again_1","POSE2"]
+    ["do you want to play with me?","ask_again_0"],
+    ["I will be very happy if you play with me, would you?","ask_again_1"]
   ],
   "lets_play": [
     ["great, lets play. we need to go to the magic treasure room.","let_play_0","EXCITED"]
   ],
   "selection_tutorial": {
    "all" : [
-    ["this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you are looking for, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try to open.","selection_tutorial_all_0",""]
+    ["this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you are looking for, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try to open.","selection_tutorial_all_0"]
     ],
     "c-g-" : [
-      ["I will choose this one.","selection_tutorial_c-g-_0","IDLESTILL"]
+      ["I will choose this one.","selection_tutorial_c-g-_0"]
     ],
     "c-g+" : [
-      ["I will choose this one, because it looks challenging!","selection_tutorial_c-g+_0","IDLESTILL"]
+      ["I will choose this one, because it looks challenging!","selection_tutorial_c-g+_0"]
     ],
     "c+g-": [
-      ["I will choose this one, because I can learn a lot from it","selection_tutorial_c+g-_0","IDLESTILL"]
+      ["I will choose this one, because I can learn a lot from it","selection_tutorial_c+g-_0"]
     ],
     "c+g+": [
-      ["I will choose this one, because it's challenging and I can learn a lot from it","selection_tutorial_c+g+_0","IDLESTILL"]
+      ["I will choose this one, because it's challenging and I can learn a lot from it","selection_tutorial_c+g+_0"]
     ]
   },
   "tangram_tutorial": {
     "all" : [
-      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area. we have two minutes to try, until the sand in the hourglass runs out.","tangram_tutorial_all_0",""]
+      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area. we have two minutes to try, until the sand in the hourglass runs out.","tangram_tutorial_all_0"]
     ],
     "c-g-": [
-      ["I will move the piece to this place.","tangram_tutorial_c-g-_0",""]
+      ["I will move the piece to this place.","tangram_tutorial_c-g-_0"]
     ],
     "c-g+": [
-      ["I will move the piece to this place.","tangram_tutorial_c-g+_0",""]
+      ["I will move the piece to this place.","tangram_tutorial_c-g+_0"]
     ],
     "c+g-": [
-      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g-_0",""]
+      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g-_0"]
     ],
     "c+g+": [
-      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g+_0",""]
+      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g+_0"]
     ]
   },
   "selection_explanation": [
@@ -48,7 +48,7 @@
   ],
   "tangram_explanation": {
     "all" : [
-      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area.","tangram_explanation_all_0",""]
+      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area.","tangram_explanation_all_0"]
     ],
     "c-g-": [
       ["I will move the piece to this place.","tangram_explanation_c-g-_0","SILENT_CONFIRM"]
@@ -63,9 +63,9 @@
       ["I want to try something new, maybe move this piece here","tangram_explanation_c+g+_0","SILENT_CONFIRM"]
     ]
   },
-  "move_explanation": {
+  "explain_move": {
     "all": [
-      ["","",""]
+      [""]
     ],
     "c-g-": [
       ["it's hard","move_explanation_c-g-_0","SILENT_CONFIRM"],
@@ -92,43 +92,43 @@
     ]
 
   },
-  "rotation_explanation": {
+  "explain_turn": {
     "all": [
-      ["","",""]
+      [""]
     ],
     "c-g-": [
-      ["let me try this move","rotation_explanation_c-g-_0",""],
-      ["let me try to rotate it","rotation_explanation_c-g-_1",""],
-      ["let me try this rotation","rotation_explanation_c-g-_2",""],
-      ["I'll move it here","rotation_explanation_c-g-_3",""],
-      ["let’s try this move","rotation_explanation_c-g-_4",""],
-      ["I'll move this piece","rotation_explanation_c-g-_5",""]
+      ["let me try this move","rotation_explanation_c-g-_0"],
+      ["let me try to rotate it","rotation_explanation_c-g-_1"],
+      ["let me try this rotation","rotation_explanation_c-g-_2"],
+      ["I'll move it here","rotation_explanation_c-g-_3"],
+      ["let’s try this move","rotation_explanation_c-g-_4"],
+      ["I'll move this piece","rotation_explanation_c-g-_5"]
     ],
     "c-g+": [
-      ["I am sure I can figure it out. I will press this button.","rotation_explanation_c-g+_0",""],
-      ["it’s really hard. maybe I'll rotate this piece","rotation_explanation_c-g+_1",""],
-      ["this is challenging, let me try to rotate it","rotation_explanation_c-g+_2",""],
-      ["If I keep trying, I will succeed","rotation_explanation_c-g+_3",""]
+      ["I am sure I can figure it out. I will press this button.","rotation_explanation_c-g+_0"],
+      ["it’s really hard. maybe I'll rotate this piece","rotation_explanation_c-g+_1"],
+      ["this is challenging, let me try to rotate it","rotation_explanation_c-g+_2"],
+      ["If I keep trying, I will succeed","rotation_explanation_c-g+_3"]
     ],
     "c+g-": [
-      ["let me try something new. I will press this button.","rotation_explanation_c+g-_0",""],
-      ["I wonder what I'll learn if I rotate this piece","rotation_explanation_c+g-_1",""],
-      ["let’s try something new","rotation_explanation_c+g-_2",""],
-      ["I'll try something I didn't do before","rotation_explanation_c+g-_3",""],
-      ["maybe I'll try a new strategy","rotation_explanation_c+g-_4",""]
+      ["let me try something new. I will press this button.","rotation_explanation_c+g-_0"],
+      ["I wonder what I'll learn if I rotate this piece","rotation_explanation_c+g-_1"],
+      ["let’s try something new","rotation_explanation_c+g-_2"],
+      ["I'll try something I didn't do before","rotation_explanation_c+g-_3"],
+      ["maybe I'll try a new strategy","rotation_explanation_c+g-_4"]
     ],
     "c+g+": [
-      ["","",""]
+      [""]
     ]
   },
   "your_turn": {
     "all": [
-      ["its your turn now.","your_turn_all_0",""],
-      ["you try to open a box now.","your_turn_all_1",""],
-      ["now you get us a new balloon.","your_turn_all_2",""],
-      ["you are next","your_turn_all_3",""],
-      ["ok, now you","your_turn_all_4",""],
-      ["so, it is your turn now","your_turn_all_5",""]
+      ["its your turn now.","your_turn_all_0"],
+      ["you try to open a box now.","your_turn_all_1"],
+      ["now you get us a new balloon.","your_turn_all_2"],
+      ["you are next","your_turn_all_3"],
+      ["ok, now you","your_turn_all_4"],
+      ["so, it is your turn now","your_turn_all_5"]
     ],
     "c-g-": [
       ["start by selecting a box.","your_turn_c-g-_0","SILENT_INTERESTED"],
@@ -154,7 +154,7 @@
   },
   "child_win": {
     "all":[
-      ["","",""]
+      [""]
     ],
     "c-g-": [
       ["good job","child_win_c-g-_0","SILENT_YES"],
@@ -188,16 +188,16 @@
   },
   "robot_win": {
     "all":[
-      ["","",""]
+      [""]
     ],
     "c-g-": [
       ["yay","robot_win_c-g-_0","DANCE"],
-      ["woohoo","robot_win_c-g-_1",""],
-      ["I beat the challenge! I really used my skills on that game","robot_win_c-g-_2",""],
-      ["great, I got us another balloon for the party","robot_win_c-g-_3",""],
+      ["woohoo","robot_win_c-g-_1"],
+      ["I beat the challenge! I really used my skills on that game","robot_win_c-g-_2"],
+      ["great, I got us another balloon for the party","robot_win_c-g-_3"],
       ["I did it!","robot_win_c-g-_4","DANCE"],
-      ["I solved the puzzle","robot_win_c-g-_5",""],
-      ["yes! I'm good at solving puzzles","robot_win_c-g-_6",""],
+      ["I solved the puzzle","robot_win_c-g-_5"],
+      ["yes! I'm good at solving puzzles","robot_win_c-g-_6"],
       ["I seem to be on the right track","robot_win_c-g-_7","DANCE"]
     ],
     "c-g+": [
@@ -207,8 +207,8 @@
       ["I'm not afraid of a challenge. I like it!","robot_win_c-g+_3","DANCE"]
     ],
     "c+g-": [
-      ["I tried something new and different - I know I haven't done this before","robot_win_c+g-_0",""],
-      ["I tried a different strategy","robot_win_c+g-_",""]
+      ["I tried something new and different - I know I haven't done this before","robot_win_c+g-_0"],
+      ["I tried a different strategy","robot_win_c+g-_"]
     ],
     "c+g+": [
       ["i worked out my brain and did it","robot_win_c+g+_0","PROUD"],
@@ -220,7 +220,7 @@
   },
   "robot_lose": {
     "all":[
-      ["","",""]
+      [""]
     ],
     "c-g-": [
       ["that was hard","robot_lose_c-g-_0","SAD"],
@@ -258,7 +258,7 @@
     "c-g-": [
       ["next time, friend.","child_lose_c-g-_0","BREATHING"],
       ["that was really hard","child_lose_c-g-_1","BREATHING"],
-      ["You didn’t beat that challenge, but you can use your skills to try again on the next game!","child_lose_c-g-_2",""],
+      ["You didn’t beat that challenge, but you can use your skills to try again on the next game!","child_lose_c-g-_2"],
       ["better luck next time","child_lose_c-g-_3","BREATHING"],
       ["maybe it will be easier next time","child_lose_c-g-_4","BREATHING"],
       ["that was difficult","child_lose_c-g-_5","BREATHING"]
@@ -297,7 +297,7 @@
       ["so, it is my turn now","my_turn_all_4","CIRCLING"]
     ],
     "c-g-": [
-      ["I will select a box","my_turn_c-g-_0",""]
+      ["I will select a box","my_turn_c-g-_0"]
     ],
     "c-g+":[
       ["I will work hard to get us the next balloon.","my_turn_c-g+_0","SILENT_YES"],
@@ -320,34 +320,34 @@
   },
   "comment_selection": {
     "c-g-": [
-      ["let's select one.","comment_selection_c-g-_0",""],
-      ["what do you think, which should we choose?","comment_selection_c-g-_1",""],
-      ["let's select one of the treasures","comment_selection_c-g-_2",""],
-      ["let's get some more balloons","comment_selection_c-g-_3",""]
+      ["let's select one.","comment_selection_c-g-_0"],
+      ["what do you think, which should we choose?","comment_selection_c-g-_1"],
+      ["let's select one of the treasures","comment_selection_c-g-_2"],
+      ["let's get some more balloons","comment_selection_c-g-_3"]
     ],
     "c-g+": [
-      ["I want to try a new level","comment_selection_c-g+_0",""],
-      ["I want to nail down this level","comment_selection_c-g+_1",""]
+      ["I want to try a new level","comment_selection_c-g+_0"],
+      ["I want to nail down this level","comment_selection_c-g+_1"]
     ],
     "c+g-":[
-      ["I want to challenge a new level","comment_selection_c+g-_0",""],
-      ["let's select a puzzle that we can learn some new things from","comment_selection_c+g-_1",""],
-      ["I want to learn something new, lets choose a challenging box","comment_selection_c+g-_2",""],
-      ["this one looks interesting, lets try it","comment_selection_c+g-_3",""],
-      ["lets try something new","comment_selection_c+g-_4",""]
+      ["I want to challenge a new level","comment_selection_c+g-_0"],
+      ["let's select a puzzle that we can learn some new things from","comment_selection_c+g-_1"],
+      ["I want to learn something new, lets choose a challenging box","comment_selection_c+g-_2"],
+      ["this one looks interesting, lets try it","comment_selection_c+g-_3"],
+      ["lets try something new","comment_selection_c+g-_4"]
     ],
     "c+g+": [
-      ["I want to work out my brain, lets choose the challenging puzzle","comment_selection_c+g+_0",""]
+      ["I want to work out my brain, lets choose the challenging puzzle","comment_selection_c+g+_0"]
     ]
   },
   "comment_move": {
     "c-g-": [
-      ["mhmm","comment_move_c-g-_0",""],
-      ["nice","comment_move_c-g-_1",""],
-      ["nice move","comment_move_c-g-_2",""],
-      ["ok","comment_move_c-g-_3",""],
-      ["good","comment_move_c-g-_4",""],
-      ["great","comment_move_c-g-_5",""]
+      ["mhmm","comment_move_c-g-_0"],
+      ["nice","comment_move_c-g-_1"],
+      ["nice move","comment_move_c-g-_2"],
+      ["ok","comment_move_c-g-_3"],
+      ["good","comment_move_c-g-_4"],
+      ["great","comment_move_c-g-_5"]
     ],
     "c-g+": [
       ["we are working hard to solve this puzzle","comment_move_c-g+_0","SILENT_INTERESTED"],
@@ -368,17 +368,17 @@
   },
   "comment_rotation": {
     "c-g-": [
-      ["nice turning","comment_rotation_c-g-_0",""],
-      ["this looks like a good move","comment_rotation_c-g-_1",""],
-      ["nice move","comment_rotation_c-g-_2",""],
-      ["ok","comment_rotation_c-g-_3",""],
-      ["good","comment_rotation_c-g-_4",""],
-      ["great","comment_rotation_c-g-_5",""]
+      ["nice turning","comment_rotation_c-g-_0"],
+      ["this looks like a good move","comment_rotation_c-g-_1"],
+      ["nice move","comment_rotation_c-g-_2"],
+      ["ok","comment_rotation_c-g-_3"],
+      ["good","comment_rotation_c-g-_4"],
+      ["great","comment_rotation_c-g-_5"]
     ],
     "c-g+": [
       ["great work","comment_rotation_c-g+_0","SILENT_AGREEMENT"],
-      ["great, keep on trying","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
-      ["great, keep up the good work","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
+      ["great, keep on trying","comment_rotation_c-g+_1","SILENT_AGREEMENT"],
+      ["great, keep up the good work","comment_rotation_c-g+_1","SILENT_AGREEMENT"],
       ["nice work","comment_rotation_c-g+_1","SILENT_AGREEMENT"]
     ],
     "c+g-": [
@@ -395,6 +395,6 @@
     ]
   },
   "test": [
-    ["test","test_0",""]
+    ["test","test_0"]
   ]
 }

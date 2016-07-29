@@ -2,6 +2,9 @@ from component import *
 import time
 from agent import *
 import json
+from random import choice
+
+
 is_logged = True
 try:
     from kivy_communication import *
@@ -17,6 +20,11 @@ class RobotComponent(Component):
     agent = Agent()
     current_tangram = None
     robot_name = 'tega'
+    animation = None
+
+    def load_text(self, filename='./tablet_app/robot_text_revised3.json'):
+        with open(filename) as data_file:
+            self.animation = json.load(data_file)
 
     def run_function(self, action):
         print(self.name, 'run_function', action[0], action[1:])
@@ -37,17 +45,42 @@ class RobotComponent(Component):
 
     def express(self, action):
         self.current_state = 'express'
-        self.expression = action[0]
         if len(action) > 1:
             self.current_param = action[1:]
 
-        if KC.client.connection:
-            data = [self.current_state, self.expression]
-            data = {self.robot_name: data}
-            KC.client.send_message(str(json.dumps(data)))
+        if self.animation is None:
+            self.expression = action[0]
+        elif 'idle' not in action[0]:
+            # select the animation
+            the_options = self.animation[action[0]]
+            the_expressions = []
+            if isinstance(the_options, list):
+                the_expressions = self.add_expression(the_expressions, choice(the_options))
 
-        if self.app:
-            self.app.robot_express(self.expression)
+            elif isinstance(the_options, dict):
+                if 'all' in the_options:
+                    the_expressions = self.add_expression(the_expressions, choice(the_options['all']))
+                if self.agent.condition in the_options:
+                    the_expressions = self.add_expression(the_expressions, choice(the_options[self.agent.condition]))
+
+            self.expression = the_expressions
+
+            if KC.client.connection:
+                data = [action[0], self.expression]
+                data = {self.robot_name: data}
+                KC.client.send_message(str(json.dumps(data)))
+
+            if self.app:
+                self.app.robot_express(self.expression)
+
+    def add_expression(self, base, add):
+        if len(base) == 0:
+            base = add
+        else:
+            base[0] += add[0]
+            for b in add[1:]:
+                base.append(b)
+        return base
 
     def after_called(self):
         if self.current_param:
