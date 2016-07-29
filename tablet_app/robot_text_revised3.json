@@ -3,8 +3,8 @@
     ["hi, I am tega. my friend is having a birthday party. everything is set, but the balloons. will you help me find some balloons?", "introduction_0","EXCITED"]
   ],
   "ask_again": [
-    ["do you want to play with me?","ask_again_0","IDLESTILL"],
-    ["I will be very happy if you play with me, would you?","ask_again_1","IDLESTILL"]
+    ["do you want to play with me?","ask_again_0"],
+    ["I will be very happy if you play with me, would you?","ask_again_1"]
   ],
   "lets_play": [
     ["great, lets play. we need to go to the magic treasure room.","let_play_0","EXCITED"]
@@ -14,33 +14,33 @@
     ["this is the magic treasure room. it is filled with magical treasure boxes. in each treasure box, you will find exactly what you are looking for, if you can open it. the lock to each magic box is a puzzle. first we need to choose which box to try to open.","selection_tutorial_all_0"]
     ],
     "c-g-" : [
-      ["I will choose this one.","selection_tutorial_c-g-_0","IDLESTILL"]
+      ["I will choose this one.","selection_tutorial_c-g-_0"]
     ],
     "c-g+" : [
-      ["I will choose this one, because it looks challenging!","selection_tutorial_c-g+_0","IDLESTILL"]
+      ["I will choose this one, because it looks challenging!","selection_tutorial_c-g+_0"]
     ],
     "c+g-": [
-      ["I will choose this one, because I can learn a lot from it","selection_tutorial_c+g-_0","IDLESTILL"]
+      ["I will choose this one, because I can learn a lot from it","selection_tutorial_c+g-_0"]
     ],
     "c+g+": [
-      ["I will choose this one, because it's challenging and I can learn a lot from it","selection_tutorial_c+g+_0","IDLESTILL"]
+      ["I will choose this one, because it's challenging and I can learn a lot from it","selection_tutorial_c+g+_0"]
     ]
   },
   "tangram_tutorial": {
     "all" : [
-      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area. we have two minutes to try, until the sand in the hourglass runs out.","tangram_tutorial_all_0","IDLESTILL"]
+      ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area. we have two minutes to try, until the sand in the hourglass runs out.","tangram_tutorial_all_0"]
     ],
     "c-g-": [
-      ["I will move the piece to this place.","tangram_tutorial_c-g-_0","IDLESTILL"]
+      ["I will move the piece to this place.","tangram_tutorial_c-g-_0"]
     ],
     "c-g+": [
-      ["I will move the piece to this place.","tangram_tutorial_c-g+_0","IDLESTILL"]
+      ["I will move the piece to this place.","tangram_tutorial_c-g+_0"]
     ],
     "c+g-": [
-      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g-_0","IDLESTILL"]
+      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g-_0"]
     ],
     "c+g+": [
-      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g+_0","IDLESTILL"]
+      ["I want to try something new. maybe move this piece here.","tangram_tutorial_c+g+_0"]
     ]
   },
   "selection_explanation": [
