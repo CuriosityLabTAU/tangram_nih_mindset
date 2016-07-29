@@ -421,7 +421,7 @@ class TangramMindsetApp(App):
         self.interaction.components['tablet'] = TabletComponent(self.interaction, 'tablet')
         self.interaction.components['game'] = GameComponent(self.interaction, 'game')
         self.interaction.components['game'].game_facilitator = GameFacilitator()
-        self.interaction.components['hourglass'].max_counter = 15
+        self.interaction.components['hourglass'].max_counter = 120
 
         s = SolveTangramRoom(self.interaction.components['tablet'])
 

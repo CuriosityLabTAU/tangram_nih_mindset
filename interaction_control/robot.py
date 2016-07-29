@@ -2,6 +2,9 @@ from component import *
 import time
 from agent import *
 import json
+from random import choice
+
+
 is_logged = True
 try:
     from kivy_communication import *
@@ -9,7 +12,6 @@ except:
     print('no logging')
     is_logged = False
 
-#, "introduction_0","POSE1"
 
 class RobotComponent(Component):
     whos_playing = None
@@ -49,15 +51,36 @@ class RobotComponent(Component):
         if self.animation is None:
             self.expression = action[0]
         elif 'idle' not in action[0]:
-            self.expression = self.animation[action[0]][0]
+            # select the animation
+            the_options = self.animation[action[0]]
+            the_expressions = []
+            if isinstance(the_options, list):
+                the_expressions = self.add_expression(the_expressions, choice(the_options))
 
-        if KC.client.connection:
-            data = [action[0], self.expression]
-            data = {self.robot_name: data}
-            KC.client.send_message(str(json.dumps(data)))
+            elif isinstance(the_options, dict):
+                if 'all' in the_options:
+                    the_expressions = self.add_expression(the_expressions, choice(the_options['all']))
+                if self.agent.condition in the_options:
+                    the_expressions = self.add_expression(the_expressions, choice(the_options[self.agent.condition]))
 
-        if self.app:
-            self.app.robot_express(self.expression)
+            self.expression = the_expressions
+
+            if KC.client.connection:
+                data = [action[0], self.expression]
+                data = {self.robot_name: data}
+                KC.client.send_message(str(json.dumps(data)))
+
+            if self.app:
+                self.app.robot_express(self.expression)
+
+    def add_expression(self, base, add):
+        if len(base) == 0:
+            base = add
+        else:
+            base[0] += add[0]
+            for b in add[1:]:
+                base.append(b)
+        return base
 
     def after_called(self):
         if self.current_param:

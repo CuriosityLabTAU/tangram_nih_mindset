@@ -1,7 +1,7 @@
 {
   "sequence": [
-    "opening",
     "tutorial",
+    "opening",
     "child_play_challenge",
     "robot_play",
     "party"
@@ -15,7 +15,7 @@
       "tablet:zero_screen:child:zero_screen:1",
       "child:press_start_button:tablet:first_screen:1",
       "child:press_start_button:child:idle:1",
-      "tablet:first_screen:robot:introduction:1",
+      "tablet:first_screen:robot:introduction:1:done",
       "robot:introduction:tablet:yes:1",
       "robot:introduction:robot:idle:1",
       "tablet:yes:child:yes:1",
@@ -132,7 +132,6 @@
       "child:start_play:tablet:enable_tablet:1",
       "tablet:enable_tablet:game:generate_selection:1:mark",
       "game:generate_selection:tablet:selection_screen:1:x",
-      "tablet:selection_screen:robot:explain_challenge:1:done",
       "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",
       "game:tangram_selected:tablet:tangram_screen:1:x",

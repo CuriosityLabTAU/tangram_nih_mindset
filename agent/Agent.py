@@ -4,7 +4,7 @@ import time
 
 
 class Agent:
-    condition = None
+    condition = 'c+g+'
     def __init__(self):
         self.solver = Solver()
         # self.mindset = Mindset()
