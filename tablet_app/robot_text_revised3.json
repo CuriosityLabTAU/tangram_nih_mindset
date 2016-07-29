@@ -441,6 +441,9 @@
       ["nice work, interesting strategy","comment_rotation_c+g+_3","SILENT_INTERESTED"]
     ]
   },
+  "conclusion": [
+    ["conclusion", "emotional_ending_01", "emotional_ending_02", "emotional_ending_03", "emotional_ending_04", "emotional_ending_05"]
+  ],
   "test": [
     ["test","test_0"]
   ]

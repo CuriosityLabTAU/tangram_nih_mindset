@@ -31,7 +31,7 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-GAME_WITH_ROBOT = False
+GAME_WITH_ROBOT = True
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -236,6 +236,15 @@ root_widget = Builder.load_string('''
             id: hourglass_widget
         TangramGameWidget:
             id: tangram_game_widget
+        LoggedButton:
+            id: stop_button
+            name: 'stop_button'
+            background_normal:  './tablet_app/images/52240.png'
+            background_down:  './tablet_app/images/52240.png'
+            borders: 2, 'solid', (1,1,0,1)
+            size: root.width * 0.15, root.height * 0.15
+            pos: root.width * 0.9 - self.width * 0.5, root.height * 0.9 - self.height * 0.5
+            on_press: app.press_stop_button()
 
 
 <Background>:
@@ -284,7 +293,6 @@ root_widget = Builder.load_string('''
         keep_ratio: False
         pos: self.pos
         size: self.size
-        on_touch_up: app.hourglass_touched()
 
 <TangramGameWidget>:
     name: 'tangram_game_widget'
@@ -620,7 +628,8 @@ class TangramMindsetApp(App):
         self.interaction.components['robot'].agent.update_condition(condition)
 
 
-    def hourglass_touched(self):
+    def press_stop_button(self):
+        self.interaction.components['hourglass'].stop()
         self.interaction.end_interaction()
 
 

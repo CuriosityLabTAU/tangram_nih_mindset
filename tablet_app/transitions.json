@@ -8,9 +8,9 @@
     "robot_play",
     "child_play",
     "robot_play",
-    "child_play",
-    "robot_play",
     "child_play_challenge",
+    "robot_play",
+    "child_play_grit",
     "robot_play",
     "child_play",
     "party"
@@ -131,9 +131,7 @@
   },
   "child_play_challenge": {
     "start": "child:start_play",
-    "internal_clock": [
-      "how_long:20"
-    ],
+    "hourglass": ["max_counter:60"],
     "transitions": [
       "child:start_play:tablet:enable_tablet:1",
       "tablet:enable_tablet:game:generate_selection:1:mark",
