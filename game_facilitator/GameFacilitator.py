@@ -46,11 +46,11 @@ class GameFacilitator():
 
     def update_game_result(self, game_result):
         # game_result can be 'S' (Success) or 'F' (Failure)
-        if self.game_counter != 9: #
-            self.selection_gen.update_game_result(self.current_player, self.selected_task_index, game_result)
+        #if self.game_counter != 9: #
+        self.selection_gen.update_game_result(self.current_player, self.selected_task_index, game_result)
         self.game_counter +=1
         if self.current_player == 'Robot':
             self.current_player = 'Child'
         elif self.current_player == 'Child':
             self.current_player = 'Robot'
-        print ('GameFacilitator:updated game result ', self.game_counter, self.current_player)
+        print ('GameFacilitator:updated game result ','#',self.game_counter, 'is:',game_result,'next player is:' ,self.current_player)
