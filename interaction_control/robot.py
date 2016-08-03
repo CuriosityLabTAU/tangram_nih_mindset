@@ -135,15 +135,15 @@ class RobotComponent(Component):
         else:
             self.run_function(['robot_win', None])
 
-    def child_win(self):
-        print(self.name, self.whos_playing, 'child_win')
+    def after_child_win(self):
+        print(self.name, self.whos_playing, 'after_child_win')
         self.agent.record_child_result('S')
-        self.current_state = 'child_win'
+        self.current_state = 'after_child_win'
 
-    def child_lose(self):
-        print(self.name, self.whos_playing, 'child_lose')
+    def after_child_lose(self):
+        print(self.name, self.whos_playing, 'after_child_lose')
         self.agent.record_child_result('F')
-        self.current_state = 'child_lose'
+        self.current_state = 'after_child_lose'
 
     def play_game(self, action):
         print(self.whos_playing, 'playing the game', action)

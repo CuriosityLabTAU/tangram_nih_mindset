@@ -4,7 +4,7 @@ import time
 the_tts = None
 try:
     from plyer import tts
-    tts.speak('hello')
+    tts.speak('')
     the_tts = 'plyer'
 except:
     pass
