@@ -96,6 +96,10 @@ class SelectionScreenRoom(Screen):
         for c in self.ids["tangram_selection_widget"].children:
             c.disabled = True
 
+    def enable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = False
+
 
 class SelectionTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py

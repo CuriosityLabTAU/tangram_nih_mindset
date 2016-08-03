@@ -28,3 +28,11 @@ class ZeroScreenRoom(Screen):
         condition = self.ids['condition_spinner'].text
         self.the_app.update_condition(condition)
         print(condition)
+
+    def disable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = True
+
+    def enable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = False

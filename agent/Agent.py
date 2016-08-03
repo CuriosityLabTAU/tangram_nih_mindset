@@ -16,6 +16,8 @@ class Agent:
         self.current_round = 0
         self.child_selected_index = None # indicates the selection of the child. possible values are 0/1/2
         self.child_result = None  # indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
+        self.mindset = 0.9
+        self.curiosity = 0.9
 
     def update_condition(self, condition):
         self.condition  = condition

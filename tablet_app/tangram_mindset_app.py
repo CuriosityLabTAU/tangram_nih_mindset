@@ -637,9 +637,11 @@ class TangramMindsetApp(App):
 
     def disable_tablet(self):
         self.tablet_disabled = True
+        self.screen_manager.current_screen.disable_widgets()
 
     def enable_tablet(self):
         self.tablet_disabled = False
+        self.screen_manager.current_screen.enable_widgets()
 
     def update_condition(self, condition):
         self.text_handler = TextHandler(condition)

@@ -35,7 +35,17 @@ class FirstScreenRoom(Screen):
         #self.load_sounds()
         #self.play_sound("TangramOpen_myFriend")
 
-    #def load_sounds(self):
+    def disable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = True
+
+    def enable_widgets(self):
+        for c in self.ids["tangram_selection_widget"].children:
+            c.disabled = False
+
+
+
+                #def load_sounds(self):
     #    self.sounds = {}
     #    self.sounds[0] = SoundLoader.load("sounds\TangramOpen_myFriend.m4a")
     #    self.sounds[1] = SoundLoader.load("sounds\TangramOpen_click.m4a")

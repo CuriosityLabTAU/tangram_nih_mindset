@@ -103,6 +103,15 @@ class SolveTangramRoom(Screen):
             else:
                 c.disabled = True
 
+    def enable(self):
+        for c in self.ids['tangram_game_widget'].children:
+            if isinstance(c, TangramPiece):
+                c.do_rotation = False
+                c.do_translation = True
+                c.do_scale = False
+            else:
+                c.disabled = False
+
     def solved(self):
         print("solve_tangram_room: solved")
         i = self.the_app.tangrams_solved

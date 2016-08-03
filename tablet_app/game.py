@@ -22,23 +22,26 @@ class GameComponent(Component):
         self.current_state = 'tangram_selected'
 
     def tangram_changed(self, x):
-        print(self.name, 'tangram_changed', x)
-        self.current_param = x
-        if self.game_facilitator.check_solution(x):
-            self.win()
-        else:
-            self.not_yet()
+        if self.current_state != 'finish':
+            print(self.name, 'tangram_changed', x)
+            self.current_param = x
+            if self.game_facilitator.check_solution(x):
+                self.win()
+            else:
+                self.not_yet()
 
     def tangram_moved(self, x):
-        print(self.name, 'game.py: tangram moved', x)
-        self.current_param = x
-        if self.game_facilitator.check_solution(x):
-            self.win()
+        if self.current_state != 'finish':
+            print(self.name, 'game.py: tangram moved', x)
+            self.current_param = x
+            if self.game_facilitator.check_solution(x):
+                self.win()
 
     def tangram_turned(self, action):
-        print(self.name, 'game.py: tangram turned', action)
-        if self.game_facilitator.check_solution(action):
-            self.win()
+        if self.current_state != 'finish':
+            print(self.name, 'game.py: tangram turned', action)
+            if self.game_facilitator.check_solution(action):
+                self.win()
 
     def win(self):
         print(self.name, 'game.py: win')

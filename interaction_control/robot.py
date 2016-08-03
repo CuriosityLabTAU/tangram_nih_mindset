@@ -32,14 +32,15 @@ class RobotComponent(Component):
             print('weird')
             return False
         try:
-            if action[1]:
+            if action[1] is not None:
                 getattr(self, action[0])(action[1])
             else:
                 getattr(self, action[0])()
             return True
         except:
-            if not isinstance(sys.exc_info()[1], AttributeError):
-                print ("unexpected error:",sys.exc_info())
+            # if not isinstance(sys.exc_info()[1], AttributeError):
+            print ("unexpected error:",sys.exc_info())
+
             self.express(action)
         return False
 
