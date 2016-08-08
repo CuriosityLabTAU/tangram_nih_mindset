@@ -1,6 +1,7 @@
 {
   "sequence": [
     "opening",
+    "child_play",
     "tutorial",
     "child_play",
     "robot_play",
@@ -72,12 +73,13 @@
   },
   "child_play": {
     "start": "child:start_play",
-    "hourglass": ["max_counter:15"],
+    "hourglass": ["max_counter:120"],
     "transitions": [
       "child:start_play:game:generate_selection:1",
       "game:generate_selection:tablet:selection_screen:1:x",
       "tablet:selection_screen:tablet:disable_tablet:1",
-      "game:generate_selection:robot:your_turn:1",
+      "tablet:selection_screen:robot:your_turn:1",
+      "#game:generate_selection:robot:your_turn:1",
       "robot:your_turn:tablet:enable_tablet:1:done",
       "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",
@@ -140,7 +142,8 @@
       "child:start_play:game:generate_selection:1:mark",
       "game:generate_selection:tablet:selection_screen:1:x",
       "tablet:selection_screen:tablet:disable_tablet:1",
-      "game:generate_selection:robot:your_turn:1",
+      "tablet:selection_screen:robot:your_turn:1",
+      "#game:generate_selection:robot:your_turn:1",
       "robot:your_turn:tablet:enable_tablet:1:done",
       "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",

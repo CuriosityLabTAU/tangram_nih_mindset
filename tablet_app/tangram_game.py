@@ -91,13 +91,16 @@ class TangramPiece(Scatter, WidgetLogger):
         print ("tangram_game, on_touch_down", self.name)
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
-        super(TangramPiece, self).on_touch_down(touch)
-        print ("is collide point", self.name, touch.pos[0], touch.pos[1])
+        #print ("is collide point", self.name, touch.pos[0], touch.pos[1])
         if self.collide_point(touch.pos[0], touch.pos[1]):
             print ("down collide point", self,touch.pos[0],touch.pos[1])
-            if not self.the_app.is_selected():
-                self.the_app.current = self
+            #if not self.parent.is_selected(): #rinat implemented the line below to try and make it more efficient
+            if not self.parent.current_down:  #check if currently there is no other piece down
+                super(TangramPiece, self).on_touch_down(touch)
+                self.parent.current = self
+                self.parent.current_down = True
                 self.selected = True
+
 
     def on_touch_up(self, touch):
         print ("tangram_game, on_touch_up", self.name,touch.pos[0], touch.pos[1])
@@ -106,9 +109,10 @@ class TangramPiece(Scatter, WidgetLogger):
             if self.collide_point(touch.pos[0], touch.pos[1]):
                 print ("self.collide_point",self.name, self.collide_point(touch.pos[0], touch.pos[1]))
                 self.selected = False
-                if self.name == self.the_app.current.name:
+                if self.name == self.parent.current.name:
+                    self.parent.current_down = False
                     self.pos = (round(self.pos[0] / TangramGame.SCALE) * TangramGame.SCALE, round(self.pos[1]/TangramGame.SCALE) * TangramGame.SCALE)
-                    self.the_app.check_solution()
+                    self.parent.check_solution()
             self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                          TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
         except:
@@ -273,7 +277,9 @@ class Rotate(LoggedButton):
     def __init__(self, the_app):
         super(Rotate,self).__init__()
         self.name = 'rotate'
-        self.the_app = the_app
+        #self.the_app = the_app
+        #self.parent is TangramGameWidget which is the same value as the_app
+
         self.background_normal = 'buttons/arrow_rotate.png'
         self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)
 
@@ -391,7 +397,7 @@ class TaskLayout(FloatLayout):
 
 class TangramGame:
 
-    SCALE = 30
+    SCALE = None
     window_size = []
 
     def __init__(self, parent_app):

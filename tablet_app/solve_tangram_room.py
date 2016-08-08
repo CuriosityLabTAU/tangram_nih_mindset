@@ -210,6 +210,7 @@ class TangramGameWidget(Widget):
     task_json = None
     the_app = None
     current = None  #current selected piece
+    current_down = False
     current_game_task_layout = None
     pieces = {}
     dX = None
@@ -229,6 +230,8 @@ class TangramGameWidget(Widget):
 
     def update_task_pieces(self, pieces_task_json):
         # updated the pieces that the child can play with (not the shade)
+        self.current_down = False
+        self.current = None
         print("update_task_pieces",pieces_task_json)
         self.pieces = {}
         pieces_dict = json.loads(pieces_task_json)

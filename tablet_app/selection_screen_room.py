@@ -65,7 +65,6 @@ class SelectionScreenRoom(Screen):
                 print("visible",i)
             else:
                 self.ids['balloons_won_widget'].ids["balloon"+str(i)].opacity = 0
-                print("invisible",i)
 
 
 

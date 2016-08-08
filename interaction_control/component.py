@@ -93,7 +93,8 @@ class Component:
         Clock.schedule_once(lambda dt: self.run_function(action), 0.01)
 
     def run_function(self, action):
-        print("run_function ", self.name, action)
+        if(action[0] != 'hourglass_update'):
+            print("run_function ", self.name, action)
         try:
             if action[1] is not None:
                 if len(action) == 2:
