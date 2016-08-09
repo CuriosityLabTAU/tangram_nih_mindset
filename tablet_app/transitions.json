@@ -1,7 +1,6 @@
 {
   "sequence": [
     "opening",
-    "child_play",
     "tutorial",
     "child_play",
     "robot_play",

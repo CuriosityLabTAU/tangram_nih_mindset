@@ -146,11 +146,11 @@ root_widget = Builder.load_string('''
         LoggedButton:
             id: stop_button
             name: 'stop_button'
-            background_normal:  './tablet_app/images/52240.png'
-            background_down:  './tablet_app/images/52240.png'
-            borders: 2, 'solid', (1,1,0,1)
-            size: root.width * 0.1, root.height * 0.1
-            pos: root.width * 0.975 - self.width * 0.5, root.height * 0.9 - self.height * 0.5
+            background_normal:  './tablet_app/images/reset_button.jpg'
+            background_down:  './tablet_app/images/reset_button_down.jpg'
+            border: (0,0,0,0)
+            size: root.width * 0.03, root.width * 0.03
+            pos: root.width * 0.98 - self.width * 0.5, root.height * 0.975 - self.height * 0.5
             on_press: app.press_stop_button()
 
 
@@ -259,11 +259,11 @@ root_widget = Builder.load_string('''
         LoggedButton:
             id: stop_button
             name: 'stop_button'
-            background_normal:  './tablet_app/images/52240.png'
-            background_down:  './tablet_app/images/52240.png'
-            borders: 2, 'solid', (1,1,0,1)
-            size: root.width * 0.1, root.height * 0.1
-            pos: root.width * 0.9 - self.width * 0.5, root.height * 0.9 - self.height * 0.5
+            background_normal:  './tablet_app/images/reset_button.jpg'
+            background_down:  './tablet_app/images/reset_button_down.jpg'
+            border: (0,0,0,0)
+            size: root.width * 0.04, root.width * 0.04
+            pos: root.width * 0.975 - self.width * 0.5, root.height * 0.970 - self.height * 0.5
             on_press: app.press_stop_button()
 
 
@@ -588,7 +588,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a single tangram from maor
         # you need to present it and allow game
         print("tangram_screen",x)
-        TangramGame.SCALE = round(Window.size[0] / 50)
+        TangramGame.SCALE = round(Window.size[0] / 40)
         self.screen_manager.get_screen('solve_tangram_room').init_task(x, the_app=self)
         self.screen_manager.current = 'solve_tangram_room'
 
