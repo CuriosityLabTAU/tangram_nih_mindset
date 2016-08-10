@@ -291,7 +291,7 @@
       ["", "POSE_FORWARD"]
     ],
     "c-g+": [
-      ["you are working hard to solve this puzzle","IDLESTILL", "comment_move_c-g+_0","POSE_FORWARD"],
+      ["you are working hard to solve this puzzle","IDLESTILL", "comment_move_c-g+_2","POSE_FORWARD"],
       ["keep on trying","comment_move_c-g+_1","SILENT_INTERESTED","POSE_FORWARD"],
       ["", "POSE_FORWARD"],
       ["", "POSE_FORWARD"]
