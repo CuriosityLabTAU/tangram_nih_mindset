@@ -10,6 +10,7 @@ class SelectionGenerator:
         self.N_dif_levels = 8  # This value is overridden in load_dif_levels(),
         self.max_level = 6
         self.challenge_index = 9 # column number of the challenge level (zero based)
+        self.challenge_counter = 0 # counts the challenges
         self.dif_level = []
         self.dif_indexes = np.zeros([self.N_dif_levels], dtype=np.int)
         self.current_level = 1
@@ -77,12 +78,14 @@ class SelectionGenerator:
     def get_challenge_selection(self):
         # return three json_strings of special challenge level. The challenge tangrams are on the last column
         temp_task = Task()
-        T1 = self.dif_level[self.challenge_index][0]
+        T1 = self.dif_level[self.challenge_index-1][self.challenge_counter]
         T1_init_pos = temp_task.transfer_json_to_json_initial_pos(T1)
-        T2 = self.dif_level[self.challenge_index][1]
+        T2 = self.dif_level[self.challenge_index][self.challenge_counter]
         T2_init_pos = temp_task.transfer_json_to_json_initial_pos(T2)
-        T3 = self.dif_level[self.challenge_index][2]
+        T3 = self.dif_level[self.challenge_index+1][self.challenge_counter]
         T3_init_pos = temp_task.transfer_json_to_json_initial_pos(T3)
+
+        self.challenge_counter += 1
         return [[T1, T1_init_pos], [T2, T2_init_pos], [T3, T3_init_pos]]
 
     # def display(self):
@@ -114,10 +117,10 @@ class SelectionGenerator:
     #     task.create_from_json(self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]])
     #     plt.imshow(np.sin(task.x), interpolation='none')
     #     plt.axis('off')
-    #             # T1 = self.dif_level[self.current_level - 1][self.dif_indexes[self.current_level - 1]]
-    #             # T2 = self.dif_level[self.current_level][self.dif_indexes[self.current_level]]
-    #             # T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
-    #
+                # T1 = self.dif_level[self.current_level - 1][self.dif_indexes[self.current_level - 1]]
+                # T2 = self.dif_level[self.current_level][self.dif_indexes[self.current_level]]
+                # T3 = self.dif_level[self.current_level + 1][self.dif_indexes[self.current_level + 1]]
+
 
 
 # task_dic =  {'size': '5 5', 'pieces': [('square', '90', '1 1'), ('small triangle2', '180', '0 1')]}
