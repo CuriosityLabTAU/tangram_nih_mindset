@@ -161,11 +161,11 @@
       ["I'm not afraid of a challenge. I like it!","robot_lose_c-g+_7","AGREEMENT"]
     ],
     "c+g-": [
-      ["I failed, but that's okay. we learned new things.","robot_lose_c+g-_0","AGREEMENT"],
+      ["I failed, but that's okay. I learned new things.","robot_lose_c+g-_0","AGREEMENT"],
       ["I learned so much, I will do better next time","robot_lose_c+g-_1","AGREEMENT"],
       ["That was hard, but I have learned a lot. I'll do better next time","robot_lose_c+g-_2","AGREEMENT"],
       ["That puzzle really taught me to think differently","robot_lose_c+g-_3","AGREEMENT"],
-      ["That's an interesting strategy. Let's think about why it didn't work and whether it gives us some clues for a new path. What should we try next?","robot_lose_c+g-_4","SILENT_INTERESTED"],
+      ["Let me think about why it didn't work. May be it will give me clues for a new method","robot_lose_c+g-_4","SILENT_INTERESTED"],
       ["Mistakes help me improve","robot_lose_c+g-_5","AGREEMENT"],
       ["I tried something new and different - I know I haven't done this before","robot_lose_c+g-_6","AGREEMENT"]
     ],
@@ -196,14 +196,14 @@
       ["You are not afraid of a challenge. I like that!","child_lose_c-g+_5","AGREEMENT"]
     ],
     "c+g-": [
-      ["we learned so much","child_lose_c+g-_0","SILENT_YES"],
+      ["you must have learned new things","child_lose_c+g-_0","SILENT_YES"],
       ["That was hard, but you must have learned a lot.","child_lose_c+g-_1","AGREEMENT"],
       ["That puzzle really taught you to think differently, didn't it?","child_lose_c+g-_2"],
-      ["That's an interesting strategy. Let's think about why it didn't work and whether it gives us some clues for a new path. What should we try next?","child_lose_c+g-_3","PUZZLED"],
+      ["That's an interesting strategy. Let's think about why it didn't work. It could give us some clues for a new method.","child_lose_c+g-_3","PUZZLED"],
       ["Good job trying something new and different - I know you haven't done this before","child_lose_c+g-_4","SILENT_YES"]
     ],
     "c+g+": [
-      ["we learned so much, you will do better next time","child_lose_c+g+_0","SILENT_YES"],
+      ["you probably learned something new, you will do better next time","child_lose_c+g+_0","SILENT_YES"],
       ["That was hard, but you must have learned a lot. You'll do better next time","child_lose_c+g+_1","AGREEMENT"],
       ["Ah, you didn't make it in time, but you can try different methods. You should try again","child_lose_c+g+_2","SILENT_YES"],
       ["Mistakes help you improve","child_lose_c+g+_3","AGREEMENT"],
@@ -261,14 +261,14 @@
     ],
     "c+g-": [
       ["I learned so much watching you","IDLESTILL", "my_turn_c+g-_0","POSE_FORWARD"],
-      ["we learned new things.","my_turn_c+g-_1","SILENT_YES", "POSE_FORWARD"],
+      ["I was able to learn new things from your moves","my_turn_c+g-_1","SILENT_YES", "POSE_FORWARD"],
       ["if I choose a challenging puzzle, I will learn more","my_turn_c+g-_2","SILENT_YES", "POSE_FORWARD"],
       ["if I'll choose a hard one, I will get more brain power","my_turn_c+g-_3", "POSE_FORWARD"],
       ["I prefer the challenging one","my_turn_c+g-_4", "POSE_FORWARD"]
     ],
     "c+g+": [
       ["I learned so much, I am sure I will succeed the next one","my_turn_c+g+_0","SILENT_YES", "POSE_FORWARD"],
-      ["we learned new things that will help me in the next puzzle.","IDLESTILL", "my_turn_c+g+_1","POSE_FORWARD"],
+      ["I learned new things that will help me in the next puzzle.","IDLESTILL", "my_turn_c+g+_1","POSE_FORWARD"],
       ["which one is the most challenging...","my_turn_c+g+_2","INTERESTED", "POSE_FORWARD"],
       ["I prefer the challenging one, I will learn more and more.","my_turn_c+g+_3", "POSE_FORWARD"]
     ]
@@ -291,7 +291,7 @@
       ["", "POSE_FORWARD"]
     ],
     "c-g+": [
-      ["we are working hard to solve this puzzle","IDLESTILL", "comment_move_c-g+_0","POSE_FORWARD"],
+      ["you are working hard to solve this puzzle","IDLESTILL", "comment_move_c-g+_0","POSE_FORWARD"],
       ["keep on trying","comment_move_c-g+_1","SILENT_INTERESTED","POSE_FORWARD"],
       ["", "POSE_FORWARD"],
       ["", "POSE_FORWARD"]
@@ -317,30 +317,28 @@
       ["", "POSE_FORWARD"]
     ]
   },
-  "conclusion": {
+"conclusion": {
     "all": [
-      ["we brought so many balloons. EXCITED", "emotional_ending_01"]
+      ["we found so many balloons", "EXCITED", "conclusion_all_0"]
     ],
     "c-g-": [
-      ["we had a great game togehter", "emotional_ending_02"]
+      ["we had a great game togehter", "conclusion_c-g-_0"]
     ],
     "c-g+": [
-      ["we worked hard and succeeded, YES", "emotional_ending_03"]
+      ["we worked hard and succeeded", "YES", "conclusion_c-g+_0"]
     ],
     "c+g-": [
-      ["we learned so much together, AGREEMENT", "emotional_ending_04"]
+      ["we learned so much together", "AGREEMENT", "conclusion_c+g-_0"]
     ],
     "c+g+": [
-      ["we worked hard and learned a lot, HAPPY_DANCE", "emotional_ending_05"]
+      ["we worked hard and learned a lot", "HAPPY_DANCE", "conclusion_c+g+_0"]
     ]
   },
-  "party" : [
-    ["this is the best party ever. DANCE, HAPPY_DANCE. YAWN. i'm tired now. emotional_ending_01. emotional_ending_02. YAWN. eomtional_ending_03. POSE_SLEEPING"]
-  ],
-
-
-
-  "tangram_explanation": {
+"party" : {
+    ["this is the best party ever.", "DANCE", "HAPPY_DANCE", "YAWN", "party_all_0"],
+    ["i'm tired now", "YAWN", "party_all_1", "POSE_SLEEPING"]   
+},
+"tangram_explanation": {
     "all" : [
       ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area.","tangram_explanation_all_0"]
     ],
@@ -357,7 +355,7 @@
       ["I want to try something new, maybe move this piece here","tangram_explanation_c+g+_0"]
     ]
   },
-  "explain_turn": {
+"explain_turn": {
     "c-g-": [
       ["let me try this move","rotation_explanation_c-g-_0"],
       ["let me try to rotate it","rotation_explanation_c-g-_1"],
