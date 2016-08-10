@@ -106,13 +106,13 @@ class Solver:
                         seq.append(self.networks[n].nodes[i])
         # return seq
         # convert seq to json of list of board pieces jsons
-        seq_dict = {}
-        (I, J) = self.networks[0].nodes[0].x.shape
-        seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
-        pieces_vec = []
-        for p in seq:
-            pieces_vec.append((p.name[0], p.name[1], p.name[2]))
-        seq_dict['pieces'] = pieces_vec
+        # seq_dict = {}
+        # (I, J) = self.networks[0].nodes[0].x.shape
+        # seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
+        # pieces_vec = []
+        # for p in seq:
+        #     pieces_vec.append((p.name[0], p.name[1], p.name[2]))
+        # seq_dict['pieces'] = pieces_vec
 
         seq_jsons = []
         temp_json = self.available_pieces.export_to_json()
@@ -125,10 +125,20 @@ class Solver:
         for p in seq:
             for n in range(len(pieces_vec)):
                 if p.name[0] == pieces_vec[n][0]:
-                    pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
-            task_dict['pieces'] = pieces_vec
-            seq_jsons.append(json.dumps(task_dict))
-
+                    if p.name[1] == pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]:  # check if rotation and position are the same as in previous configuration
+                        pass
+                    elif (p.name[1] != pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]) \
+                            or (p.name[1] == pieces_vec[n][1] and p.name[2] != pieces_vec[n][2]):  # only rotation or only position has changed
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                    else:  # both rotation and position have changed. split the move to position change and rotation change
+                        pieces_vec[n] = (p.name[0], pieces_vec[n][1], p.name[2])   # change position
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])  # change rotation
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
         return seq_jsons
         #  return json.dumps(seq_dict)
 
@@ -162,10 +172,20 @@ class Solver:
         for p in seq:
             for n in range(len(pieces_vec)):
                 if p.name[0] == pieces_vec[n][0]:
-                    pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
-            task_dict['pieces'] = pieces_vec
-            seq_jsons.append(json.dumps(task_dict))
-
+                    if p.name[1] == pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]:  # check if rotation and position are the same as in previous configuration
+                        pass
+                    elif (p.name[1] != pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]) \
+                            or (p.name[1] == pieces_vec[n][1] and p.name[2] != pieces_vec[n][2]):  # only rotation or only position has changed
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                    else:  # both rotation and position have changed. split the move to position change and rotation change
+                        pieces_vec[n] = (p.name[0], pieces_vec[n][1], p.name[2])   # change position
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])  # change rotation
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
         return seq_jsons
         #  return json.dumps(seq_dict)
 
