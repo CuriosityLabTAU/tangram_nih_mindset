@@ -7,7 +7,7 @@ import json
 
 class Solver:
 
-    n_networks = 3
+    n_networks = 2
     efficiency = 1.0
 
     def __init__(self):
@@ -106,13 +106,13 @@ class Solver:
                         seq.append(self.networks[n].nodes[i])
         # return seq
         # convert seq to json of list of board pieces jsons
-        seq_dict = {}
-        (I, J) = self.networks[0].nodes[0].x.shape
-        seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
-        pieces_vec = []
-        for p in seq:
-            pieces_vec.append((p.name[0], p.name[1], p.name[2]))
-        seq_dict['pieces'] = pieces_vec
+        # seq_dict = {}
+        # (I, J) = self.networks[0].nodes[0].x.shape
+        # seq_dict['size'] = str((I - 1) / Piece.JUMP + 1) + ' ' + str((J - 1) / Piece.JUMP + 1)
+        # pieces_vec = []
+        # for p in seq:
+        #     pieces_vec.append((p.name[0], p.name[1], p.name[2]))
+        # seq_dict['pieces'] = pieces_vec
 
         seq_jsons = []
         temp_json = self.available_pieces.export_to_json()
@@ -125,21 +125,32 @@ class Solver:
         for p in seq:
             for n in range(len(pieces_vec)):
                 if p.name[0] == pieces_vec[n][0]:
-                    pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
-            task_dict['pieces'] = pieces_vec
-            seq_jsons.append(json.dumps(task_dict))
-
+                    if p.name[1] == pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]:  # check if rotation and position are the same as in previous configuration
+                        pass
+                    elif (p.name[1] != pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]) \
+                            or (p.name[1] == pieces_vec[n][1] and p.name[2] != pieces_vec[n][2]):  # only rotation or only position has changed
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                    else:  # both rotation and position have changed. split the move to position change and rotation change
+                        pieces_vec[n] = (p.name[0], pieces_vec[n][1], p.name[2])   # change position
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])  # change rotation
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
         return seq_jsons
         #  return json.dumps(seq_dict)
 
-    def get_seq_of_random_moves(self, seq_len):
-        # return a list, such that each element in the list is a json string of the board pieces chosen randomly
+    def get_seq_of_random_moves(self, task, seq_len):
+        # return a list, such that each element in the list is a json string of the board pieces chosen randomly but with intersection with task's shadow.
         # should be called after run_task()
         seq = []
         n = 0  # choose the first network
         rnd_perm = np.random.permutation(self.networks[n].n)
         for i in rnd_perm[0:seq_len]:
-            seq.append(self.networks[n].nodes[i])
+            if self.networks[n].nodes[i].overlap(task):
+                seq.append(self.networks[n].nodes[i])
         # return seq
         # convert seq to json of list of board pieces jsons
         seq_dict = {}
@@ -161,10 +172,20 @@ class Solver:
         for p in seq:
             for n in range(len(pieces_vec)):
                 if p.name[0] == pieces_vec[n][0]:
-                    pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
-            task_dict['pieces'] = pieces_vec
-            seq_jsons.append(json.dumps(task_dict))
-
+                    if p.name[1] == pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]:  # check if rotation and position are the same as in previous configuration
+                        pass
+                    elif (p.name[1] != pieces_vec[n][1] and p.name[2] == pieces_vec[n][2]) \
+                            or (p.name[1] == pieces_vec[n][1] and p.name[2] != pieces_vec[n][2]):  # only rotation or only position has changed
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                    else:  # both rotation and position have changed. split the move to position change and rotation change
+                        pieces_vec[n] = (p.name[0], pieces_vec[n][1], p.name[2])   # change position
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
+                        pieces_vec[n] = (p.name[0], p.name[1], p.name[2])  # change rotation
+                        task_dict['pieces'] = pieces_vec
+                        seq_jsons.append(json.dumps(task_dict))
         return seq_jsons
         #  return json.dumps(seq_dict)
 

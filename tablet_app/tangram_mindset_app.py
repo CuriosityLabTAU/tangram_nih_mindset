@@ -78,7 +78,7 @@ root_widget = Builder.load_string('''
             values: ('c-g-','c-g+','c+g-','c+g+')
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.62, root.height * 0.8 - self.height * 0.5
-            on_text: root.spinner_selected()
+            on_text: app.condition_selected()
 
         LoggedButton:
             id: start_button
@@ -656,6 +656,15 @@ class TangramMindsetApp(App):
     def difficulty_selected(self):
         difficulty = self.screen_manager.get_screen('zero_screen_room').ids['difficulty_spinner'].text
         self.interaction.components['game'].game_facilitator.selection_gen.load_dif_levels(difficulty)
+
+
+    def condition_selected(self):
+        #NOW MOVED TO ADD AND NAMED condition_selection
+        print("spinner_selected")
+        condition = self.screen_manager.get_screen('zero_screen_room').ids['condition_spinner'].text
+        #self.the_app.update_condition(condition)
+        self.update_condition(condition)
+        print(condition)
 
 if __name__ == "__main__":
     TangramMindsetApp().run()
