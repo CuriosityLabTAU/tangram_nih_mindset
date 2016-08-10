@@ -334,10 +334,14 @@
       ["we worked hard and learned a lot", "HAPPY_DANCE", "conclusion_c+g+_0"]
     ]
   },
+
 "party" : {
-    ["this is the best party ever.", "DANCE", "HAPPY_DANCE", "YAWN", "party_all_0"],
-    ["i'm tired now", "YAWN", "party_all_1", "POSE_SLEEPING"]   
-},
+    "all": [
+      ["this is the best party ever.", "DANCE", "HAPPY_DANCE", "YAWN", "party_all_0"],
+      ["i'm tired now", "YAWN", "party_all_1", "POSE_SLEEPING"]
+    ]
+  },
+
 "tangram_explanation": {
     "all" : [
       ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area.","tangram_explanation_all_0"]
