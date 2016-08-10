@@ -132,14 +132,15 @@ class Solver:
         return seq_jsons
         #  return json.dumps(seq_dict)
 
-    def get_seq_of_random_moves(self, seq_len):
-        # return a list, such that each element in the list is a json string of the board pieces chosen randomly
+    def get_seq_of_random_moves(self, task, seq_len):
+        # return a list, such that each element in the list is a json string of the board pieces chosen randomly but with intersection with task's shadow.
         # should be called after run_task()
         seq = []
         n = 0  # choose the first network
         rnd_perm = np.random.permutation(self.networks[n].n)
         for i in rnd_perm[0:seq_len]:
-            seq.append(self.networks[n].nodes[i])
+            if self.networks[n].nodes[i].overlap(task):
+                seq.append(self.networks[n].nodes[i])
         # return seq
         # convert seq to json of list of board pieces jsons
         seq_dict = {}
