@@ -119,6 +119,8 @@ class TangramPiece(Scatter, WidgetLogger):
         except:
             print("failed on_touch_up")
 
+
+
     def set_shape(self):#rinat
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
                      TangramPiece.piece_size[self.name][1] * TangramGame.SCALE]
