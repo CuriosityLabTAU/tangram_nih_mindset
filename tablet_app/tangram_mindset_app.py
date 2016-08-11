@@ -548,7 +548,7 @@ class TangramMindsetApp(App):
     def tangram_turn (self, x):
         # child turned a tangram piece (json of all the pieces)
         print(self.name, 'tangram_mindset_app: tangram_turn', x)
-        self.interaction.components['child'].on_action(['tangram_chnage', x])
+        self.interaction.components['child'].on_action(['tangram_change', x])
 
     def check_solution(self, solution_json):
         # this function should not really be here

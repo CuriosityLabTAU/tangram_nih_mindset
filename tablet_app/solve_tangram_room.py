@@ -143,9 +143,7 @@ class Rotate(LoggedButton):
             if self.tangram_game_widget.current.rot == '360':
                 self.tangram_game_widget.current.rot = '0'
             self.tangram_game_widget.current.set_shape()
-
         self.tangram_game_widget.tangram_turn()
-
 
 class GameTaskLayout(LoggedButton, TaskLayout):
     # inherits from TaskLayout which is in tangram_game.py
