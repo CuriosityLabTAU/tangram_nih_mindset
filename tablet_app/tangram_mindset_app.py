@@ -132,6 +132,7 @@ root_widget = Builder.load_string('''
     name: 'selection_screen_room'
     Widget:
         Image:
+            id: background_image
             size: root.size
             pos: root.pos
             source: './tablet_app/images/TangramGame_Selection.jpg'
@@ -533,9 +534,7 @@ class TangramMindsetApp(App):
         # child pressed the yes button
         self.interaction.components['child'].on_action(["press_yes_button"])
 
-
-
-    def press_treasure(self, treasure):
+    def press_treasure(self, treasure, dt=0):
         # child selected treasure (1/2/3)
         # print("press_treasure", treasure)
         #self.screen_manager.current_screen.show_selection(treasure)
@@ -582,7 +581,7 @@ class TangramMindsetApp(App):
         print ("select_treasure",treasure)
         print()
         self.screen_manager.current_screen.show_selection(treasure)
-        self.press_treasure(treasure)
+        Clock.schedule_once(lambda dt: self.press_treasure(treasure),1)
 
     def tangram_screen(self, x):
         # Rinat: x is a single tangram from maor

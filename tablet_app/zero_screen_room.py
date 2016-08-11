@@ -22,13 +22,13 @@ class ZeroScreenRoom(Screen):
         #print("press_yes_button")
         #app.sm.enter_solve_tangram_room()
         #App.action('press_yes_button')
-
-    def spinner_selected(self):
-        #NOW MOVED TO ADD AND NAMED condition_selection
-        print("spinner_selected")
-        condition = self.ids['condition_spinner'].text
-        self.the_app.update_condition(condition)
-        print(condition)
+    #
+    # def spinner_selected(self):
+    #     #NOW MOVED TO ADD AND NAMED condition_selection
+    #     print("spinner_selected")
+    #     condition = self.ids['condition_spinner'].text
+    #     self.the_app.update_condition(condition)
+    #     print(condition)
 
     def disable_widgets(self):
         for c in self.ids["tangram_selection_widget"].children:

@@ -1,5 +1,6 @@
 import kivy
 kivy.require('1.8.0')  # replace with your current kivy_tests version !
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.graphics import *
 
 from interaction_control import *
@@ -43,9 +44,11 @@ class SelectionScreenRoom(Screen):
         # print ('init_selection_options', x)
         self.tasks_json = x
         self.the_app=the_app
+        self.ids["background_image"].source = './tablet_app/images/TangramGame_Selection.jpg'
 
     def on_enter(self, *args):
         # print("on_enter selection_screen_room")
+        self.ids["background_image"].source = './tablet_app/images/TangramGame_Selection.jpg'
         self.init_balloons()
         self.init_tasks()
         self.the_tablet.change_state('selection_screen')
@@ -65,7 +68,6 @@ class SelectionScreenRoom(Screen):
                 print("visible",i)
             else:
                 self.ids['balloons_won_widget'].ids["balloon"+str(i)].opacity = 0
-
 
 
     def init_tasks (self):
@@ -88,8 +90,10 @@ class SelectionScreenRoom(Screen):
 
     def show_selection(self, treasure):
         print("show selection treasure=", treasure)
-        selection_task_layout = self.tasks_layout[treasure]
-        selection_task_layout.set_border()
+        #selection_task_layout = self.tasks_layout[treasure]
+        #selection_task_layout.set_border()
+        #selection_task_layout.canvas.ask_update()
+        self.ids["background_image"].source = './tablet_app/images/TangramGame_Selection_selected'+str(treasure)+'.jpg'
 
     def disable_widgets(self):
         for c in self.ids["tangram_selection_widget"].children:
@@ -134,11 +138,12 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
     def on_press(self, *args):
         super(Button, self).on_press()
         # print("Selection Task Layout: on_press" , self.index)
-        self.set_border()
-        self.parent.the_app.press_treasure(self.index)  #I'm sending index+1 because index=0 will cause problems in game.py > tangram_selected
+        #self.set_border()
+        self.parent.parent.parent.show_selection(self.index) #parent.parent.parent = the screen
+        self.parent.the_app.press_treasure(self.index)
 
     def set_border (self):
-        # print ('set_border')
+        print ('set_border')
         g = InstructionGroup()
         g.add(Color(1, 0, 0, 1))
         L = Line(points=[self.x, self.y, self.x+self.width, self.y, self.x+self.width, self.y+self.height, self.x, self.y+self.height],
@@ -147,6 +152,9 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
         g.add(L)
         self.canvas.add(g)
         self.canvas.ask_update()
+        #super(Button, self).on_press()
+        #self.parent.
+        print('finish set_border')
 
     def update_selection_task_pos(self):
         # print ('update_selection_task_pos ', self.index)
@@ -187,19 +195,29 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
 
 
 class TangramSelectionWidget(Widget):
+    show_frame1 = 1
     task_json = None
     the_app = None
     current = None  #current selected piece
     current_game_task_layout = None
 
     def __init__(self, **kwargs):
-        # print("TangramSelectionWidget __init__")
+        print("TangramSelectionWidget __init__")
         super(TangramSelectionWidget, self).__init__(**kwargs)
-        self.canvas.clear()
-        self.clear_widgets()
+        #self.canvas.clear()
+        #self.clear_widgets()
 
     def init_app(self,the_app):
+        print("TangramSelectionWidget init_app")
         self.the_app =  the_app
+
+    # def on_touch_down(self,touch):
+    #     print("on touch down")
+    #     self.show_frame1 = 1
+    #
+    # def on_touch_up(self,touch):
+    #     print("on touch up")
+    #     self.show_frame1 = 0
 
 class BalloonsWonWidget (Widget):
     pass
