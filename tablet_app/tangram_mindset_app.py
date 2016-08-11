@@ -439,6 +439,7 @@ class TangramMindsetApp(App):
     selection = None
     text_handler = None
     tablet_disabled = False
+    yes_clicked_flag = False
 
     def build(self):
         self.interaction = Interaction(
@@ -532,7 +533,9 @@ class TangramMindsetApp(App):
 
     def press_yes_button(self):
         # child pressed the yes button
-        self.interaction.components['child'].on_action(["press_yes_button"])
+        if not self.yes_clicked_flag:
+            self.interaction.components['child'].on_action(["press_yes_button"])
+            self.yes_clicked_flag = True
 
     def press_treasure(self, treasure, dt=0):
         # child selected treasure (1/2/3)
