@@ -173,12 +173,14 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
         i = 0
         for p in self.pieces:
             name = p['name']
+
             dx = TangramPiece.piece_size[name][0] * TangramGame.SCALE / 2
             dy = TangramPiece.piece_size[name][1] * TangramGame.SCALE / 2
             dx=TangramGame.SCALE * 2
             dy=0
 
             p['pos'] = [self.x - dx  + TangramGame.SCALE * 3 * (i+1), -dy + Window.height * 0.14]
+            p['rot'] = '0'
             self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
             self.canvas.add(self.groups[-1])
             i += 1
