@@ -17,6 +17,7 @@ from tangram_game import *
 
 
 class SolveTangramRoom(Screen):
+
     the_tablet = None
     tangram_game_widget = None
     time_is_up = False
@@ -32,6 +33,7 @@ class SolveTangramRoom(Screen):
             self.disable_widgets()
         # self.load_sounds()
         # self.play_sound("TangramOpen_myFriend")
+
 
     def init_task(self,x,the_app):
         self.time_is_up = False
@@ -433,6 +435,7 @@ class TangramGameWidget(Widget):
 
 
 class HourGlassWidget (Widget):
+    time_over_sound = None
     def __init__(self, **kwargs):
         super(HourGlassWidget, self).__init__(**kwargs)
         self.delta=0
@@ -441,6 +444,7 @@ class HourGlassWidget (Widget):
 
     def after_init(self, *args):
         print ('HourGlassWidget: after init')
+        self.time_over_sound = SoundLoader.load('./tablet_app/sounds/time_over.mp3')
         self.hourglass = self.ids['hourglass']
         self.topSand = self.ids['topSand']
         self.middleSand = self.ids['middleSand']
@@ -479,7 +483,6 @@ class HourGlassWidget (Widget):
         print("time is up")
 
     def update_hourglass (self, percent):
-        # Rinat: change to percentage
         current_time = float(percent[0])
         total_time = float(percent[1])
         current_percent = current_time / total_time
@@ -488,5 +491,6 @@ class HourGlassWidget (Widget):
         if (current_percent < 0.02):
             #self.middleSand.height = 0
             self.middleSand.opacity = 0
+            self.time_over_sound.play()
             # self.time_is_up = True
 

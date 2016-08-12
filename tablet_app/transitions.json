@@ -66,8 +66,8 @@
       "tablet:solved:robot:robot_win:1",
       "game:finish:tablet:finish:1:x",
       "tablet:finish:robot:robot_lose:1",
-      "robot:robot_win:interaction:end:1",
-      "robot:robot_lose:interaction:end:1"
+      "robot:robot_win:interaction:end:1:done",
+      "robot:robot_lose:interaction:end:1:done"
     ]
   },
   "child_play": {
@@ -95,12 +95,12 @@
       "game:solved:tablet:solved:1:x",
       "game:solved:hourglass:stop:1",
       "tablet:solved:robot:child_win:1",
-      "robot:child_win:robot:after_child_win:1",
+      "robot:child_win:robot:after_child_win:1:done",
       "game:finish:tablet:finish:1:x",
       "tablet:finish:robot:child_lose:1",
-      "robot:child_lose:robot:after_child_lose:1",
-      "robot:after_child_win:interaction:end:1",
-      "robot:after_child_lose:interaction:end:1"
+      "robot:child_lose:robot:after_child_lose:1:done",
+      "robot:after_child_win:interaction:end:1:done",
+      "robot:after_child_lose:interaction:end:1:done"
     ]
   },
   "robot_play": {
@@ -130,8 +130,8 @@
       "tablet:solved:robot:robot_win:1",
       "game:finish:tablet:finish:1:x",
       "tablet:finish:robot:robot_lose:1",
-      "robot:robot_win:interaction:end:1",
-      "robot:robot_lose:interaction:end:1"
+      "robot:robot_win:interaction:end:1:done",
+      "robot:robot_lose:interaction:end:1:done"
     ]
   },
   "child_play_challenge": {
@@ -161,10 +161,10 @@
       "tablet:solved:robot:child_win:1",
       "game:finish:tablet:finish:1:x",
       "tablet:finish:robot:child_lose:1",
-      "robot:child_win:robot:after_child_win:1",
-      "robot:child_lose:robot:after_child_lose:1",
-      "robot:after_child_lose:interaction:end:1",
-      "robot:after_child_win:interaction:end:1"
+      "robot:child_win:robot:after_child_win:1:done",
+      "robot:child_lose:robot:after_child_lose:1:done",
+      "robot:after_child_lose:interaction:end:1:done",
+      "robot:after_child_win:interaction:end:1:done"
     ]
   },
   "child_play_grit": {
@@ -176,7 +176,8 @@
       "child:start_play:game:generate_selection:1:mark",
       "game:generate_selection:tablet:selection_screen:1:x",
       "tablet:selection_screen:tablet:disable_tablet:1",
-      "game:generate_selection:robot:your_turn:1",
+      "tablet:selection_screen:robot:your_turn:1",
+      "#game:generate_selection:robot:your_turn:1",
       "robot:your_turn:tablet:enable_tablet:1:done",
       "child:press_treasure:robot:child_selection:1:x",
       "child:press_treasure:game:tangram_selected:1:x",
@@ -194,10 +195,10 @@
       "tablet:solved:robot:child_win:1",
       "game:finish:tablet:finish:1:x",
       "tablet:finish:robot:child_lose:1",
-      "robot:child_win:robot:after_child_win:1",
-      "robot:child_lose:robot:after_child_lose:1",
-      "robot:after_child_lose:interaction:end:1",
-      "robot:after_child_win:interaction:end:1"
+      "robot:child_win:robot:after_child_win:1:done",
+      "robot:child_lose:robot:after_child_lose:1:done",
+      "robot:after_child_lose:interaction:end:1:done",
+      "robot:after_child_win:interaction:end:1:done"
     ]
   },
   "party": {
@@ -208,7 +209,9 @@
     "transitions": [
       "robot:start_party:tablet:party_screen:1:done",
       "tablet:party_screen:robot:conclusion:1",
-      "robot:conclusion:interaction:end:1"
+      "robot:conclusion:robot:party:1",
+      "robot:party:robot:end_party:1",
+      "robot:end_party:interaction:end:1"
     ]
   }
 }
