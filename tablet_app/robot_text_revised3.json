@@ -319,31 +319,28 @@
   },
 "conclusion": {
     "all": [
-      ["we found so many balloons", "EXCITED", "conclusion_all_0"]
-    ],
-    "c-g-": [
-      ["we had a great game together", "conclusion_c-g-_0"]
-    ],
-    "c-g+": [
-      ["we worked hard and succeeded", "YES", "conclusion_c-g+_0"]
-    ],
-    "c+g-": [
-      ["we learned so much together", "AGREEMENT", "conclusion_c+g-_0"]
-    ],
-    "c+g+": [
-      ["we worked hard and learned a lot", "HAPPY_DANCE", "conclusion_c+g+_0"]
+      ["we found so many balloons. this is the best party ever.", "conclusion_all_0", "LEFTRIGHTLOOKING", "party_all_0", "DANCE", "HAPPY_DANCE"]
     ]
   },
 
 "party" : {
-    "all": [
-      ["this is the best party ever.", "DANCE", "HAPPY_DANCE", "YAWN", "party_all_0"]
+    "c-g-": [
+      ["we had a great game together", "conclusion_c-g-_0"]
+    ],
+    "c-g+": [
+      ["we worked hard and succeeded", "conclusion_c-g+_0"]
+    ],
+    "c+g-": [
+      ["we learned so much together", "conclusion_c+g-_0"]
+    ],
+    "c+g+": [
+      ["we worked hard and learned a lot", "conclusion_c+g+_0"]
     ]
   },
 
 "end_party" : {
     "all": [
-      ["i'm tired now", "YAWN", "party_all_1", "POSE_SLEEPING"]
+      ["i'm tired now, let's play again next time. bye.", "party_all_1", "YAWN", "party_all_2", "POSE_SLEEPING"]
     ]
   },
 "tangram_explanation": {
