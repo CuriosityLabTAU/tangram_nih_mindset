@@ -131,16 +131,19 @@ class SolveTangramRoom(Screen):
 
 class Rotate(LoggedButton):
 
+    press_rotate_sound = None
     def __init__(self, game_widget):
         super(Rotate,self).__init__()
         self.tangram_game_widget = game_widget
         self.name = "rotate_btn"
         self.background_normal = 'buttons/arrow_rotate.png'
         self.size = (TangramGame.SCALE * 4, TangramGame.SCALE * 4)
+        self.press_rotate_sound = SoundLoader.load('./tablet_app/sounds/tongue-click.m4a')
 
     def on_press(self):
     # press the rotate button
         if self.tangram_game_widget.current is not None:
+            self.press_rotate_sound.play()
             self.tangram_game_widget.current.rot = str(int(self.tangram_game_widget.current.rot) + 90)
             if self.tangram_game_widget.current.rot == '360':
                 self.tangram_game_widget.current.rot = '0'
@@ -218,12 +221,14 @@ class TangramGameWidget(Widget):
     dY = None
     anim = False
     pieces_target_json = None
+    robot_press_rotate_sound = None
 
     def __init__(self, **kwargs):
         print("TangramGameWidget __init__")
         super(TangramGameWidget, self).__init__(**kwargs)
         self.canvas.clear()
         self.clear_widgets()
+        self.robot_press_rotate_sound = SoundLoader.load('./tablet_app/sounds/tongue-click.m4a')
 
     def reset(self, the_app):
         self.the_app = the_app
@@ -296,6 +301,10 @@ class TangramGameWidget(Widget):
         #self.pieces[name].pos = [x,y]
         self.pieces[name].set_shape()
         print("?", self.pieces[name].name, "pos=", self.pieces[name].pos, "target=", (x, y))
+
+        if (initial_rot != rot):
+            self.robot_press_rotate_sound.play()
+
         if (((round(self.pieces[name].pos[0]),round(self.pieces[name].pos[1])) != (x,y)) | (initial_rot != rot)):
             print("!=",self.pieces[name].name,"pos=",self.pieces[name].pos,"target=",(x,y))
             self.anim = True
