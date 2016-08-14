@@ -444,7 +444,7 @@ class HourGlassWidget (Widget):
 
     def after_init(self, *args):
         print ('HourGlassWidget: after init')
-        self.time_over_sound = SoundLoader.load('./tablet_app/sounds/time_over.mp3')
+        self.time_over_sound = SoundLoader.load('./tablet_app/sounds/time_over.m4a')
         self.hourglass = self.ids['hourglass']
         self.topSand = self.ids['topSand']
         self.middleSand = self.ids['middleSand']
