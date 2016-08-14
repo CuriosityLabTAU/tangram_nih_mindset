@@ -38,8 +38,8 @@ class RobotComponent(Component):
                 getattr(self, action[0])()
             return True
         except:
-            # if not isinstance(sys.exc_info()[1], AttributeError):
-            print ("unexpected error:",sys.exc_info())
+            if not isinstance(sys.exc_info()[1], AttributeError):
+                print ("unexpected error:",sys.exc_info())
 
             self.express(action)
         return False
