@@ -50,16 +50,16 @@ class SolveTangramRoom(Screen):
         tangram_game_widget = self.ids['tangram_game_widget']
         tangram_game_widget.reset(the_app=the_app)  # clear the pieces from previous run
 
-        dX = 15 #Window.width/40.0  #20
+        dX = 12 #Window.width/40.0  #20
         dY = 13 #Window.height/40.0 #15
 
         #Treasure Box:
-        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureBoxLayers.gif'
-        self.ids['treasure_box'].ids['box'].size = (TangramGame.SCALE * 27, TangramGame.SCALE * 25)
-        self.ids['treasure_box'].ids['box'].pos = [TangramGame.SCALE * 8, TangramGame.SCALE * 5.4]
+        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureBoxLayers_B.gif'
+        self.ids['treasure_box'].ids['box'].size = (TangramGame.SCALE * 27, TangramGame.SCALE * 20)
+        self.ids['treasure_box'].ids['box'].pos = [TangramGame.SCALE * 5, TangramGame.SCALE * 5.4]
         self.ids['treasure_box'].ids['balloon'].opacity = 0
-        self.ids['treasure_box'].ids['balloon'].size = [TangramGame.SCALE * 9, TangramGame.SCALE * 9]
-        self.ids['treasure_box'].ids['balloon'].pos = [TangramGame.SCALE * 18, TangramGame.SCALE * 20]
+        self.ids['treasure_box'].ids['balloon'].size = [TangramGame.SCALE * 7, TangramGame.SCALE * 7]
+        self.ids['treasure_box'].ids['balloon'].pos = [TangramGame.SCALE * 18, TangramGame.SCALE * 17]
 
         #shade:
         game_task_layout = GameTaskLayout()
@@ -82,7 +82,7 @@ class SolveTangramRoom(Screen):
         button_rotate = Rotate(tangram_game_widget)
         button_rotate.border = (0,0,0,0)
         button_rotate.size =  [Window.width * 0.07, Window.width * 0.07] #[60,60] #
-        button_rotate.pos = [TangramGame.SCALE * 27, TangramGame.SCALE * 15]
+        button_rotate.pos = [TangramGame.SCALE * 24, TangramGame.SCALE * 15]
         button_rotate.background_normal = './tablet_app/images/Tangram_rotate_btn.gif'
         button_rotate.background_down =  './tablet_app/images/Tangram_rotate_btn_down.gif'
         button_rotate.background_disabled_normal = './tablet_app/images/Tangram_rotate_btn.gif'
@@ -119,7 +119,7 @@ class SolveTangramRoom(Screen):
         print("solve_tangram_room: solved")
         i = self.the_app.tangrams_solved
         i = (i-1)%3 + 1
-        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers.gif'
+        self.ids['treasure_box'].ids['box'].source = './tablet_app/images/TreasureOpenBoxLayers_B.gif'
         self.ids['treasure_box'].ids['balloon'].source = './tablet_app/images/Balloon_Price'+str(i)+'.gif'
         self.ids['treasure_box'].ids['balloon'].opacity = 1
 
@@ -171,7 +171,7 @@ class GameTaskLayout(LoggedButton, TaskLayout):
         print('GameTaskLayout update_position')
         #self.size = [Window.width * 0.26, Window.height * 0.26]
         self.size = [TangramGame.SCALE * 10, TangramGame.SCALE * 10]
-        self.pos = [TangramGame.SCALE * 14, TangramGame.SCALE * 6]
+        self.pos = [TangramGame.SCALE * 11, TangramGame.SCALE * 6]
         print("Window.width",Window.width,"Window.height", Window.height)
         #self.update_selection_task_pos()
 
@@ -468,7 +468,7 @@ class HourGlassWidget (Widget):
         print (self)
         #if (not self.init):
         self.size = Window.width * 0.08, Window.height * 0.2
-        self.pos = [TangramGame.SCALE * 35, TangramGame.SCALE * 7]
+        self.pos = [TangramGame.SCALE * 32, TangramGame.SCALE * 7]
         sandWidth = self.width
         sandHeight = self.height * 0.25
         self.sandHeight = sandHeight

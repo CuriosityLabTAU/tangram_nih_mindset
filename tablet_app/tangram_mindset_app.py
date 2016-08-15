@@ -280,7 +280,7 @@ root_widget = Builder.load_string('''
     Image:
         name: 'treasure_box'
         id: box
-        source: './tablet_app/images/TreasureBoxLayers.gif'
+        source: './tablet_app/images/TreasureBoxLayers_B.gif'
         allow_stretch: True
         keep_ratio: False
     Image:
@@ -590,7 +590,7 @@ class TangramMindsetApp(App):
         # Rinat: x is a single tangram from maor
         # you need to present it and allow game
         print("tangram_screen",x)
-        TangramGame.SCALE = round(Window.size[0] / 40)
+        TangramGame.SCALE = round(Window.size[0] / 35)
         self.screen_manager.get_screen('solve_tangram_room').init_task(x, the_app=self)
         self.screen_manager.current = 'solve_tangram_room'
 
