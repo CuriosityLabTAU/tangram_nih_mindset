@@ -91,19 +91,16 @@ class Solver:
         seq = []
         if self.solved_network_index is not None:
             n = self.solved_network_index
-            print len(self.solutions[n])
-            for k in range(len(self.solutions[n])):
-                for i in range(len(self.solutions[n][k])):
-                    if self.solutions[n][k][i] > 0:
-                        seq.append(self.networks[n].nodes[i])
+            print 'Solver: puzzle solved'
         else:
-            seq = []
             n = 0 # none of the networks solved so just choose the first network
-            print len(self.solutions[n])
-            for k in range(len(self.solutions[n])):
-                for i in range(len(self.solutions[n][k])):
-                    if self.solutions[n][k][i] > 0:
-                        seq.append(self.networks[n].nodes[i])
+            print 'Solver: puzzle not solved'
+        print len(self.solutions[n])
+        for k in range(len(self.solutions[n])-2, len(self.solutions[n])):
+            for i in range(len(self.solutions[n][k])):
+                if self.solutions[n][k][i] > 0:
+                    seq.append(self.networks[n].nodes[i])
+
         # return seq
         # convert seq to json of list of board pieces jsons
         # seq_dict = {}
