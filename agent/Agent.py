@@ -11,7 +11,7 @@ class Agent:
         # self.curiosity = Curiosity()
         self.seq_of_jsons = None
         self.current_move = None
-        self.efficiency_iter = iter([1,0,1,0,0,1,0]) # determines whether the robot will try to solve or act randomly for each round
+        self.efficiency_iter = iter([1,1,1,1,1,1,1]) # determines whether the robot will try to solve or act randomly for each round
         self.current_efficiency = None # efficiency of current round
         self.current_round = 0
         self.child_selected_index = None # indicates the selection of the child. possible values are 0/1/2
