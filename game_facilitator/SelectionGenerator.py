@@ -1,7 +1,7 @@
 from tangrams import *
 import json
 import numpy as np
-# import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 class SelectionGenerator:
@@ -13,7 +13,7 @@ class SelectionGenerator:
         self.challenge_counter = 0 # counts the challenges
         self.dif_level = []
         self.dif_indexes = np.zeros([self.N_dif_levels], dtype=np.int)
-        self.current_level = 1
+        self.current_level = 2
         for n in range(self.N_dif_levels):
             self.dif_level.append([])
 
