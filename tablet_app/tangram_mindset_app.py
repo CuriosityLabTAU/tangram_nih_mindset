@@ -40,7 +40,7 @@ class MyScreenManager (ScreenManager):
 #    ZeroScreenRoom:
 #    FirstScreenRoom:
 #    SelectionScreenRoom:
-#    SolveTangramRoom:
+#    SolveTangramRoom:r
 
 root_widget = Builder.load_string('''
 
