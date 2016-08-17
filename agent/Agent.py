@@ -1,6 +1,7 @@
 from tangrams import *
 import json
 import time
+import pickle
 
 
 class Agent:
@@ -18,6 +19,8 @@ class Agent:
         self.child_result = None  # indicates the child result. possible values are 'S' (Success) or 'F' (Fail)
         self.mindset = 0.9
         self.curiosity = 0.9
+        with open('agent/' + 'solve_cache' + '.pkl', 'rb') as f:
+            self.solve_cache = pickle.load(f)
 
     def update_condition(self, condition):
         self.condition  = condition
@@ -28,13 +31,15 @@ class Agent:
             self.mindset = 0.1
 
     def solve_task(self, json_str_task):
-        task = Task()
-        task.create_from_json(json_str_task)
-        self.solver.set_available_pieces(task)
-        self.solver.run_task(task, duration=50, stop=True)
-        seq = self.solver.get_seq_of_moves()
-        self.seq_of_jsons = seq
+        self.seq_of_jsons = self.solve_cache[json_str_task]
         self.current_move = 0
+        # task = Task()
+        # task.create_from_json(json_str_task)
+        # self.solver.set_available_pieces(task)
+        # self.solver.run_task(task, duration=50, stop=True)
+        # seq = self.solver.get_seq_of_moves()
+        # self.seq_of_jsons = seq
+        # self.current_move = 0
 
     def solve_task_randomly(self, json_str_task):
         task = Task()
