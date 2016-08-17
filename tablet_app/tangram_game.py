@@ -105,7 +105,7 @@ class TangramPiece(Scatter, WidgetLogger):
     def on_touch_up(self, touch):
         print ("tangram_game, on_touch_up", self.name,touch.pos[0], touch.pos[1])
         super(TangramPiece, self).on_touch_up(touch)
-        self.parent.current_down = False #rinat: I moved it here because sometimes on up the mourse is not on the piece that was pressed. We still want it to be false otherwise other pieces will not be able to move.
+        self.parent.current_down = False #rinat: I moved it here because sometimes on up the mouse is not on the piece that was pressed. We still want it to be false otherwise other pieces will not be able to move.
         try:
             if self.collide_point(touch.pos[0], touch.pos[1]):
                 print ("self.collide_point",self.name, self.collide_point(touch.pos[0], touch.pos[1]))
@@ -119,7 +119,7 @@ class TangramPiece(Scatter, WidgetLogger):
         except:
             print("failed on_touch_up")
 
-
+#rinat
 
     def set_shape(self):#rinat
         self.size = [TangramPiece.piece_size[self.name][0] * TangramGame.SCALE,
