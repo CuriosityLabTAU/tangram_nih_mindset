@@ -77,7 +77,7 @@ class Agent:
         self.child_result = result
 
     def set_selection(self):
-        if self.condition == 'Mindset':
+        if self.condition == 'c-g+':
             if self.child_result == None:
                 select = 1  # First round, select demo task
             elif self.child_result == 'S':
