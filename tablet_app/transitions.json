@@ -125,7 +125,7 @@
       "robot:explain_move:tablet:change_pieces:1:x:done",
       "child:tangram_change:game:tangram_changed:1:x",
       "game:not_solved:tablet:not_solved:1:x",
-      "tablet:not_solved:robot:select_move:1:x",
+      "tablet:not_solved:robot:select_move:1:x:done",
       "game:solved:tablet:solved:1:x",
       "game:solved:hourglass:stop:1",
       "tablet:solved:robot:robot_win:1",

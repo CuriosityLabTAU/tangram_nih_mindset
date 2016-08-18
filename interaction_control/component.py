@@ -65,6 +65,13 @@ class Component:
                     selected_function = funs.keys()[selected_action]
                     selected_param = funs.values()[selected_action][1]
                     self.current_action[target] = [selected_function, selected_param]
+
+                # BIG CHANGE!!!
+                for target,action in self.current_action.items():
+                    if self.is_done(action):
+                        self.current_state = 'idle'
+                # ========
+
                 for target,action in self.current_action.items():
                     if target != self.name:     # run own functions last
                         if action[1]:
@@ -107,6 +114,16 @@ class Component:
         except:
             print ("unexpected error:", action,sys.exc_info())
             print('No function: ', self.name, action)
+        return False
+
+    def is_done(self, action):
+        if isinstance(action[1], list):
+            for k in range(0, len(action[1])):
+                if action[1][k] == 'done':
+                    return True
+        else:
+            if action[1] == 'done':
+                return True
         return False
 
     def select_action(self, Q):
