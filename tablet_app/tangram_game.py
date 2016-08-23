@@ -20,13 +20,20 @@ class TangramPiece(Scatter, WidgetLogger):
                     'square', 'parrallelogram'
                     ]
     piece_color = {
-        'small triangle1':  Color(0.5, 0.0, 0.0, 0.9),
-        'small triangle2':  Color(0.0, 0.5, 0.0, 0.9),
-        'medium triangle':  Color(0.5, 0.5, 0.0, 0.9),
-        'large triangle1':  Color(0.0, 0.0, 0.5, 0.9),
-        'large triangle2':  Color(0.5, 0.0, 0.5, 0.9),
-        'square':           Color(0.0, 0.5, 0.5, 0.9),
-        'parrallelogram':   Color(0.5, 0.5, 0.0, 0.9)
+        #'small triangle1':  Color(0.5, 0.0, 0.0, 0.9),
+        #'small triangle2':  Color(0.0, 0.5, 0.0, 0.9),
+        #'medium triangle':  Color(0.5, 0.5, 0.0, 0.9),
+        #'large triangle1':  Color(0.0, 0.0, 0.5, 0.9),
+        #'large triangle2':  Color(0.5, 0.0, 0.5, 0.9),
+        #'square':           Color(0.0, 0.5, 0.5, 0.9),
+        #'parrallelogram':   Color(0.5, 0.5, 0.0, 0.9)
+        'small triangle1': Color(1.0, 0.0, 0.0, 0.9),
+        'small triangle2': Color(0.0, 1.0, 0.0, 0.9),
+        'medium triangle': Color(0, 0, 1.0, 0.9),
+        'large triangle1': Color(1.0, 1.0, 0, 0.9),
+        'large triangle2': Color(0.8, 0.18, 1, 0.9),
+        'square': Color(1.0, 0.5, 0.0, 0.9),
+        'parrallelogram': Color(1.0, 0.0, 1.0, 0.9)
     }
     piece_initial_pos = {
         'small triangle1':  [5, 5],

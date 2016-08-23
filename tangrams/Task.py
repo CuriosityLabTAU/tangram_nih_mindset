@@ -214,7 +214,11 @@ class Task:
             rot = '0' # task_dict['pieces'][n][1]
             pos = task_dict['pieces'][n][2]
             #init_pos = str(5)+' '+str(3*n-4)
-            init_pos = str(5) + ' ' + str(2 * n - 4) #rinat
+            init_pos = str(-5) + ' ' + str(2 * n - 4) #rinat
+            #if n < 4:  # first 4 pieces on the right
+            #    init_pos = str(2 * (n)-0.5) + ' ' + str(+5 + (n%2))
+            #else:  # rest of pieces on the left
+            #    init_pos = str(2 * (n-4)-0.5) + ' ' + str(-3 + (n%2))
             piece_init_vec.append((name,rot,init_pos))
             init_dict['pieces'] = piece_init_vec
         init_json = json.dumps(init_dict)
