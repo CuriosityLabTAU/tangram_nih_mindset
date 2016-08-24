@@ -35,7 +35,7 @@
       ["there","move_explanation_c-g-_1"],
       ["I'll move this piece","move_explanation_c-g-_2"],
       ["there are pieces left","move_explanation_c-g-_3"],
-      ["it's too hard","IDLESTILL", "move_explanation_c-g-_4","FRUSTRATED","POSE_FORWARD"],
+      ["it's too hard","IDLESTILL", "move_explanation_c-g-_4"],
       [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"]
@@ -45,7 +45,7 @@
       ["it’s quite hard, so I will try even more.","move_explanation_c-g+_0"],
       ["it’s quite hard, so I will try even more. let's move this piece.","move_explanation_c-g+_1"],
       ["ooh this is challenging, let me try this move","move_explanation_c-g+_2"],
-      ["If I keep trying, I will succeed","IDLESTILL", "move_explanation_c-g+_3", "YES","POSE_FORWARD"],
+      ["If I keep trying, I will succeed", "move_explanation_c-g+_3"],
       ["maybe I'll try again","move_explanation_c-g+_4"],
       ["I'll try again","move_explanation_c-g+_5"],
       [" ", "POSE_FORWARD"],
@@ -121,7 +121,7 @@
       ["that was hard, but I tried hard and nailed it","robot_win_c-g+_0","PROUD"],
       ["working hard is worth it","robot_win_c-g+_1","PROUD"],
       ["I tried hard and made it!","robot_win_c-g+_2","PROUD"],
-      ["I'm not afraid of a challenge. I like it!","robot_win_c-g+_3"]
+      ["I'm not afraid of a challenge. I like it!","robot_win_c-g+_3","PROUD"]
     ],
     "c+g-": [
       ["I tried something new and different - I know I haven't done this before","robot_win_c+g-_0", "YES"],
@@ -141,10 +141,10 @@
     ],
     "c-g-": [
       ["that was hard","robot_lose_c-g-_0","SAD"],
-      ["I didn't succeed","robot_lose_c-g-_1","SAD"],
+      ["I didn't succeed","robot_lose_c-g-_1","FRUSTRATED"],
       ["I hope to have better luck next time","robot_lose_c-g-_2","SAD"],
-      ["times up","robot_lose_c-g-_3","SAD"],
-      ["that was difficult","robot_lose_c-g-_4","SAD"]
+      ["times up","robot_lose_c-g-_3","FRUSTRATED"],
+      ["that was difficult","robot_lose_c-g-_4","FRUSTRATED"]
     ],
     "c-g+": [
       ["next time I will put more effort.","robot_lose_c-g+_0","AGREEMENT"],
