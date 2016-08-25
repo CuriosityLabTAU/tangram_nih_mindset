@@ -181,19 +181,19 @@ class SelectionTaskLayout(LoggedButton, TaskLayout):
 
             p['pos'] = [self.x - dx  + TangramGame.SCALE * 3 * (i+1), -dy + Window.height * 0.14]
             p['rot'] = '0'
-            self.groups.append(TangramPiece.get_shape(p, self.get_color(i)))
+            self.groups.append(TangramPiece.get_shape(p,TangramPiece.piece_color[name]))
             self.canvas.add(self.groups[-1])
             i += 1
 
-    def get_color(self, index):
-        modulo = index % 3
-        if (modulo == 0):
-            my_color = Color(1,0,0,1)
-        elif (modulo == 1):
-            my_color = Color(0,1,0,1)
-        elif (modulo == 2):
-            my_color = Color(0,0,1,1)
-        return my_color
+# def get_color(self, index):
+#     modulo = index % 3
+#     if (modulo == 0):
+#         my_color = Color(1,0,0,1)
+#     elif (modulo == 1):
+#         my_color = Color(0,1,0,1)
+#     elif (modulo == 2):
+#         my_color = Color(0,0,1,1)
+#     return my_color
 
 
 class TangramSelectionWidget(Widget):
