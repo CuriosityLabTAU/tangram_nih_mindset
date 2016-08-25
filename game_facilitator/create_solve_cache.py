@@ -13,7 +13,7 @@ solver = Solver()
 solver_cache = {}
 line_num = 1
 
-with open('./game_facilitator/tangram_levels_' + 'dif1' + '.txt','r') as fp:
+with open('./game_facilitator/tangram_levels_' + 'all' + '.txt','r') as fp:
     for line in fp:
         print line_num
         line_num += 1
@@ -24,7 +24,7 @@ with open('./game_facilitator/tangram_levels_' + 'dif1' + '.txt','r') as fp:
             task = Task()
             task.create_from_json(json_str_task)
             solver.set_available_pieces(task)
-            solver.run_task(task, duration=200, stop=True)
+            solver.run_task(task, duration=300, stop=True)
             seq = solver.get_seq_of_moves()
             solver_cache[json_str_task]= seq
 
