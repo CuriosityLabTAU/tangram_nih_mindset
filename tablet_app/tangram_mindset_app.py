@@ -33,7 +33,7 @@ from kivy.core.audio import SoundLoader
 
 from random import choice
 
-GAME_WITH_ROBOT = True
+GAME_WITH_ROBOT = False
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -610,11 +610,13 @@ class TangramMindsetApp(App):
         games_played = int(stage.replace('game',''))-1
 
         # increase challenge_counter
-        if games_played > 8:
+        if games_played > 6:
             self.interaction.components['game'].game_facilitator.selection_gen.challenge_counter += 1
+            self.interaction.components['game'].game_facilitator.selection_gen.challenge_index += 1
 
         for i in range(games_played):
             self.interaction.components['game'].game_facilitator.update_game_result('S')
+            print(self.interaction.components['game'].game_facilitator.selection_gen.current_level)
             self.tangrams_solved += choice([1,0])
 
         if games_played < 4:
