@@ -31,7 +31,9 @@ from kivy_communication import *
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 
-GAME_WITH_ROBOT = False
+from random import choice
+
+GAME_WITH_ROBOT = True
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -75,7 +77,7 @@ root_widget = Builder.load_string('''
             text: 'condition'
             font_size: 16
             background_color: 0.2,0.2,0.2,1
-            values: ('c-g-','c-g+','c+g-','c+g+')
+            values: ('c-g-','c-g+')
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.62, root.height * 0.8 - self.height * 0.5
             on_text: app.condition_selected()
@@ -100,6 +102,72 @@ root_widget = Builder.load_string('''
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.62, root.height * 0.7 - self.height * 0.5
             on_text: app.difficulty_selected()
+
+        LoggedButton:
+            id: tega_sleep_button
+            name: 'tega_sleep_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: '- -'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.08, root.height * 0.5 - self.height * 0.5
+            on_press: app.press_tega_sleep()
+
+        LoggedButton:
+            id: goto_game2_button
+            name: 'goto_game2_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'game2'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.08, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game2')
+
+        LoggedButton:
+            id: goto_game4_button
+            name: 'goto_game4_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'game4'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.25, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game4')
+
+        LoggedButton:
+            id: goto_game6_button
+            name: 'goto_game6_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'game6'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.42, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game6')
+
+        LoggedButton:
+            id: goto_game8_button
+            name: 'goto_game8_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'game8'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.59, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game8')
+
+        LoggedButton:
+            id: goto_game10_button
+            name: 'goto_game10_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'game10'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.76, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game10')
 
 
 <FirstScreenRoom>:
@@ -530,6 +598,33 @@ class TangramMindsetApp(App):
     def press_start_button (self):
         # child pressed the start button
         self.interaction.components['child'].on_action(["press_start_button"])
+
+    def press_tega_sleep (self):
+        # put tega to sleep
+        action_script = ["tega_init"]
+        self.interaction.components['robot'].express(action_script)
+
+    def press_load_transition(self, stage):
+        print("loading new transition file")
+
+        games_played = int(stage.replace('game',''))-1
+
+        # increase challenge_counter
+        if games_played > 8:
+            self.interaction.components['game'].game_facilitator.selection_gen.challenge_counter += 1
+
+        for i in range(games_played):
+            self.interaction.components['game'].game_facilitator.update_game_result('S')
+            self.tangrams_solved += choice([1,0])
+
+        if games_played < 4:
+            games_played += 1
+
+        self.tangrams_solved = max(games_played/2, self.tangrams_solved)
+
+        filename = './tablet_app/transitions_'+stage+'.json'
+        self.interaction.load(filename)
+        self.interaction.next_interaction()
 
     def press_yes_button(self):
         # child pressed the yes button
