@@ -33,7 +33,7 @@ from kivy.core.audio import SoundLoader
 
 from random import choice
 
-GAME_WITH_ROBOT = False
+GAME_WITH_ROBOT = True
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -113,6 +113,17 @@ root_widget = Builder.load_string('''
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.08, root.height * 0.5 - self.height * 0.5
             on_press: app.press_tega_sleep()
+
+        LoggedButton:
+            id: tega_wakeup_button
+            name: 'tega_wakeup_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: '^ ^'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.25, root.height * 0.5 - self.height * 0.5
+            on_press: app.press_tega_wakeup()
 
         LoggedButton:
             id: goto_game2_button
@@ -556,7 +567,9 @@ class TangramMindsetApp(App):
 
     def init_communication(self):
         KC.start(the_parents=[self, self.interaction.components['robot']], the_ip='192.168.1.254')  # 127.0.0.1
-        KL.start(mode=[DataMode.file, DataMode.communication, DataMode.ros], pathname=self.user_data_dir, the_ip='192.168.1.254')
+
+        KL.start(mode=[DataMode.communication, DataMode.ros], pathname=self.user_data_dir, the_ip='192.168.1.254')
+        #KL.start(mode=[DataMode.file, DataMode.communication, DataMode.ros], pathname=self.user_data_dir,the_ip='192.168.1.254')
 
     def on_connection(self):
         KL.log.insert(action=LogAction.data, obj='TangramMindsetApp', comment='start')
@@ -601,7 +614,12 @@ class TangramMindsetApp(App):
 
     def press_tega_sleep (self):
         # put tega to sleep
-        action_script = ["tega_init"]
+        action_script = ["tega_init_sleep"]
+        self.interaction.components['robot'].express(action_script)
+
+    def press_tega_wakeup(self):
+        # put tega to sleep
+        action_script = ["tega_init_wakeup"]
         self.interaction.components['robot'].express(action_script)
 
     def press_load_transition(self, stage):
@@ -612,11 +630,16 @@ class TangramMindsetApp(App):
         # increase challenge_counter
         if games_played > 6:
             self.interaction.components['game'].game_facilitator.selection_gen.challenge_counter += 1
-            self.interaction.components['game'].game_facilitator.selection_gen.challenge_index += 1
+            #self.interaction.components['game'].game_facilitator.selection_gen.challenge_index += 1
 
         for i in range(games_played):
-            self.interaction.components['game'].game_facilitator.update_game_result('S')
-            print(self.interaction.components['game'].game_facilitator.selection_gen.current_level)
+            if i < 6:
+                self.interaction.components['game'].game_facilitator.update_game_result('S')
+            elif i < 8:
+                self.interaction.components['game'].game_facilitator.update_game_result('F')
+            else:
+                self.interaction.components['game'].game_facilitator.update_game_result('S')
+            #print(self.interaction.components['game'].game_facilitator.selection_gen.current_level)
             self.tangrams_solved += choice([1,0])
 
         if games_played < 4:

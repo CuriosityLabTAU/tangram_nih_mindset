@@ -279,9 +279,9 @@
       ["mhmm","comment_move_c-g-_0"],
       ["nice","comment_move_c-g-_1"],
       ["nice move","comment_move_c-g-_2"],
-      ["ok","comment_move_c-g-_3"],
       ["good","comment_move_c-g-_4"],
       ["great","comment_move_c-g-_5"],
+      [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"],
@@ -290,7 +290,12 @@
     ],
     "c-g+": [
       ["you are working hard to solve this puzzle","IDLESTILL", "comment_move_c-g+_0","POSE_FORWARD"],
-      ["keep on trying","comment_move_c-g+_1","SILENT_INTERESTED","POSE_FORWARD"],
+      ["keep on trying","comment_move_c-g+_1","IDLESTILL","POSE_FORWARD"],
+      ["mhmm","comment_move_c-g-_0"],
+      ["nice move","comment_move_c-g-_2"],
+      [" ", "POSE_FORWARD"],
+      [" ", "POSE_FORWARD"],
+      [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"],
       [" ", "POSE_FORWARD"]
     ],
@@ -341,7 +346,7 @@
       ["i'm tired now, let's play again next time. bye.", "party_all_1", "YAWN", "party_all_2", "POSE_SLEEPING"]
     ]
   },
-  "tangram_explanation": {
+"tangram_explanation": {
     "all" : [
       ["these puzzles are made of pieces of different shapes. we need to find where to put them to fill in the grey area.","tangram_explanation_all_0"]
     ],
@@ -358,7 +363,7 @@
       ["I want to try something new, maybe move this piece here","tangram_explanation_c+g+_0"]
     ]
   },
-  "explain_turn": {
+"explain_turn": {
     "c-g-": [
       ["let me try this move","rotation_explanation_c-g-_0"],
       ["let me try to rotate it","rotation_explanation_c-g-_1"],
@@ -444,8 +449,9 @@
     ]
   },  "test": [
     ["test","test_0"]
-  ],
-  "tega_init": [
-    ["I'm sleepy.", "POSE_SLEEPING"]
+  ], "tega_init_sleep": [
+    ["I'm sleepy", "POSE_SLEEPING"]
+  ], "tega_init_wakeup": [
+    ["I'm awake", "PERKUP"]
   ]
 }

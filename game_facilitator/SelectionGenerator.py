@@ -85,7 +85,14 @@ class SelectionGenerator:
         T3 = self.dif_level[self.challenge_index+1][self.challenge_counter]
         T3_init_pos = temp_task.transfer_json_to_json_initial_pos(T3)
 
+        print("dif_level: "+str(self.challenge_index))
+        print(self.dif_level[self.challenge_index-1][self.challenge_counter])
+        print(self.dif_level[self.challenge_index][self.challenge_counter])
+        print(self.dif_level[self.challenge_index+1][self.challenge_counter])
+
         self.challenge_counter += 1
+        print("dif_level: " + str(self.challenge_index))
+
         return [[T1, T1_init_pos], [T2, T2_init_pos], [T3, T3_init_pos]]
 
     # def display(self):
