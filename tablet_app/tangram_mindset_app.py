@@ -33,7 +33,7 @@ from kivy.core.audio import SoundLoader
 
 from random import choice
 
-GAME_WITH_ROBOT = True
+GAME_WITH_ROBOT = False
 
 class MyScreenManager (ScreenManager):
     the_tablet = None
@@ -832,7 +832,7 @@ class TangramMindsetApp(App):
 
     def press_stop_button_selection_scene(self):
         print('stop button pressed')
-        self.interaction.run(self.interaction.start)
+        self.interaction.rerun(self.interaction.start)
 
     def difficulty_selected(self):
         difficulty = self.screen_manager.get_screen('zero_screen_room').ids['difficulty_spinner'].text

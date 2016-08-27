@@ -6,6 +6,7 @@ class Interaction:
     data = None
     components = {}
     current_interaction = None
+    start = None
 
     def __init__(self):
         pass
@@ -27,6 +28,12 @@ class Interaction:
         for c in self.components.values():
             c.run()
         self.components[start[0]].current_state = start[1]
+
+    def rerun(self, start):
+        print("attempting rerun")
+        self.current_interaction -= 1
+        self.end_interaction()
+
 
     def end_interaction(self):
         for c in self.components.values():
@@ -77,11 +84,12 @@ class Interaction:
             if target not in self.components.keys():
                 self.components[target] = Component(self, target)
             self.components[source].add_transition(state, target, fun, value, param)
-        start = the_data['start'].split(':')
-        start = [str(x) for x in start]
-        print("starting", the_interaction)
+        self.start = the_data['start'].split(':')
+        self.start = [str(x) for x in self.start]
+
+        print(self.components.values())
 
         for c_key, c_val in self.components.items():
             c_val.current_state = 'idle'
 
-        self.run(start)
+        self.run(self.start)
