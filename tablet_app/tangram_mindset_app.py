@@ -126,58 +126,113 @@ root_widget = Builder.load_string('''
             on_press: app.press_tega_wakeup()
 
         LoggedButton:
+            id: goto_game1_button
+            name: 'goto_game1_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'r1'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.08, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game1')
+
+        LoggedButton:
             id: goto_game2_button
             name: 'goto_game2_button'
             background_color: 0.5,0.5,0.5,1
             background_normal: ''
-            text: 'game2'
+            text: 'c1'
             font_size: 16
             size: root.width * 0.15, root.height * 0.07
-            pos: root.width * 0.08, root.height * 0.4 - self.height * 0.5
+            pos: root.width * 0.08, root.height * 0.3 - self.height * 0.5
             on_press: app.press_load_transition('game2')
+
+        LoggedButton:
+            id: goto_game3_button
+            name: 'goto_game3_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'r2'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.25, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game3')
 
         LoggedButton:
             id: goto_game4_button
             name: 'goto_game4_button'
             background_color: 0.5,0.5,0.5,1
             background_normal: ''
-            text: 'game4'
+            text: 'c2'
             font_size: 16
             size: root.width * 0.15, root.height * 0.07
-            pos: root.width * 0.25, root.height * 0.4 - self.height * 0.5
+            pos: root.width * 0.25, root.height * 0.3 - self.height * 0.5
             on_press: app.press_load_transition('game4')
+
+        LoggedButton:
+            id: goto_game5_button
+            name: 'goto_game5_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'r3'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.42, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game5')
 
         LoggedButton:
             id: goto_game6_button
             name: 'goto_game6_button'
             background_color: 0.5,0.5,0.5,1
             background_normal: ''
-            text: 'game6'
+            text: 'c3'
             font_size: 16
             size: root.width * 0.15, root.height * 0.07
-            pos: root.width * 0.42, root.height * 0.4 - self.height * 0.5
+            pos: root.width * 0.42, root.height * 0.3 - self.height * 0.5
             on_press: app.press_load_transition('game6')
+
+        LoggedButton:
+            id: goto_game7_button
+            name: 'goto_game7_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'r4'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.59, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game7')
 
         LoggedButton:
             id: goto_game8_button
             name: 'goto_game8_button'
             background_color: 0.5,0.5,0.5,1
             background_normal: ''
-            text: 'game8'
+            text: 'c4'
             font_size: 16
             size: root.width * 0.15, root.height * 0.07
-            pos: root.width * 0.59, root.height * 0.4 - self.height * 0.5
+            pos: root.width * 0.59, root.height * 0.3 - self.height * 0.5
             on_press: app.press_load_transition('game8')
+
+        LoggedButton:
+            id: goto_game9_button
+            name: 'goto_game9_button'
+            background_color: 0.5,0.5,0.5,1
+            background_normal: ''
+            text: 'r5'
+            font_size: 16
+            size: root.width * 0.15, root.height * 0.07
+            pos: root.width * 0.76, root.height * 0.4 - self.height * 0.5
+            on_press: app.press_load_transition('game9')
 
         LoggedButton:
             id: goto_game10_button
             name: 'goto_game10_button'
             background_color: 0.5,0.5,0.5,1
             background_normal: ''
-            text: 'game10'
+            text: 'c5'
             font_size: 16
             size: root.width * 0.15, root.height * 0.07
-            pos: root.width * 0.76, root.height * 0.4 - self.height * 0.5
+            pos: root.width * 0.76, root.height * 0.3 - self.height * 0.5
             on_press: app.press_load_transition('game10')
 
 
@@ -231,7 +286,7 @@ root_widget = Builder.load_string('''
             border: (0,0,0,0)
             size: root.width * 0.03, root.width * 0.03
             pos: root.width * 0.98 - self.width * 0.5, root.height * 0.975 - self.height * 0.5
-            on_press: app.press_stop_button()
+            on_press: app.press_stop_button_selection_scene()
 
 
 <TangramSelectionWidget>
@@ -344,7 +399,7 @@ root_widget = Builder.load_string('''
             border: (0,0,0,0)
             size: root.width * 0.04, root.width * 0.04
             pos: root.width * 0.975 - self.width * 0.5, root.height * 0.970 - self.height * 0.5
-            on_press: app.press_stop_button()
+            on_press: app.press_stop_button_game_scene()
 
 
 <Background>:
@@ -640,7 +695,7 @@ class TangramMindsetApp(App):
             else:
                 self.interaction.components['game'].game_facilitator.update_game_result('S')
             #print(self.interaction.components['game'].game_facilitator.selection_gen.current_level)
-            self.tangrams_solved += choice([1,0])
+            self.tangrams_solved += choice([1,0,1])
 
         if games_played < 4:
             games_played += 1
@@ -770,10 +825,14 @@ class TangramMindsetApp(App):
         self.text_handler.load_text()
         self.interaction.components['robot'].agent.update_condition(condition)
 
-    def press_stop_button(self):
+    def press_stop_button_game_scene(self):
         print('stop button pressed')
         self.interaction.components['hourglass'].stop()
         self.interaction.end_interaction()
+
+    def press_stop_button_selection_scene(self):
+        print('stop button pressed')
+        self.interaction.run(self.interaction.start)
 
     def difficulty_selected(self):
         difficulty = self.screen_manager.get_screen('zero_screen_room').ids['difficulty_spinner'].text
