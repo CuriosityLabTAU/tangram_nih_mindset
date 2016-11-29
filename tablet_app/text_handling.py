@@ -22,6 +22,7 @@ class TextHandler:
         self.data = None
         self.condition = condition
         self.what = None
+        self.question_index =0
         if the_tts is 'pyttsx':
             self.engine = pyttsx.init()
             self.engine.setProperty('voice', 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_EN-US_ZIRA_11.0')
@@ -43,10 +44,16 @@ class TextHandler:
             if isinstance(the_options, list):
                 the_text.append(choice(the_options)[0])
             elif isinstance(the_options, dict):
-                if 'all' in the_options:
-                    the_text.append(choice(the_options['all'])[0])
-                if self.condition in the_options:
-                    the_text.append(choice(the_options[self.condition])[0])
+                if what == "ask_question_robot_play":
+                    self.question_index += 1
+                    if self.condition=='c+g-' or self.condition == 'c+g+':
+                        the_text.append(the_options['question'+str(self.question_index)][0])
+                        print("the_text="+ the_options['question'+str(self.question_index)][0] + str(self.question_index))
+                else:
+                    if 'all' in the_options:
+                        the_text.append(choice(the_options['all'])[0])
+                    if self.condition in the_options:
+                        the_text.append(choice(the_options[self.condition])[0])
 
             print('speak: ', the_text)
             if the_tts is 'pyttsx':
