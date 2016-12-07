@@ -473,7 +473,7 @@
     "question7": ["I wonder if this tangram solvable", "question_robot_play_7","POSE_FORWARD"]
   },
 
-  "ask_question_extra":[
+  "ask_question_party":[
     ["I wonder what this robot feels", "Q7","POSE_FORWARD"]
   ]
 

@@ -42,7 +42,11 @@ class TextHandler:
             the_options = self.data[what]
             the_text = []
             if isinstance(the_options, list):
-                the_text.append(choice(the_options)[0])
+                if what=="ask_question_party":
+                    if self.condition=='c+g-' or self.condition == 'c+g+':
+                        the_text.append(the_options[0][0])
+                else:
+                    the_text.append(choice(the_options)[0])
             elif isinstance(the_options, dict):
                 if what == "ask_question_robot_play":
                     self.question_index += 1
