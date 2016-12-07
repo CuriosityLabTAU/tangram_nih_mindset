@@ -77,7 +77,7 @@ root_widget = Builder.load_string('''
             text: 'condition'
             font_size: 16
             background_color: 0.2,0.2,0.2,1
-            values: ('c-g-','c-g+','c+g-','c+g+')
+            values: ('c-g-','c+g-')
             size: root.width * 0.15, root.height * 0.07
             pos: root.width * 0.62, root.height * 0.8 - self.height * 0.5
             on_text: app.condition_selected()
