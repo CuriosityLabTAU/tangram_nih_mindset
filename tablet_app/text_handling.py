@@ -30,7 +30,9 @@ class TextHandler:
 
     def load_text(self, filename='./tablet_app/robot_text_revised3.json'):
         with open(filename) as data_file:
+            print("rinat1",filename)
             self.data = json.load(data_file)
+            print("rinat2")
 
     def finished(self):
         print('finished', self.what)
